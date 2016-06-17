@@ -134,7 +134,7 @@ For the reasons presented above the proposed solution will be a smart camera sys
 
 ### Video analysis
 
-Video analysis can be made with a lot of different methods. Usually the interesting part of a scene is not the background but the objects in the foreground. These objects of interest could be any object, e.g. humans, cars, animals etc. *Foreground detection* is a method where objects of interest are separated from the background in a video stream. This method can also be called *background subtraction*. Further in this thesis both terms will be used. Background subtraction works by thresholding the error between the current image and the estimate of the image without the objects of interest. (Xu, et al. 2016; Chan, Mahadevan, Vasconcelos 2010; Stauffer & Grimson 1999) Faster computers have enabled researchers to propose robust models that are more complex than the previous methods. Backrounding methods can be categorized into pixel-based, region-based and hybrid methods. Every method has its own strength and weakness. (Xu, et al. 2016; Vacavant & Sobral 2013; Stauffer & Grimson 1999) In this thesis we can not cover every available algorithm but we will discuss the most significant. Basic terminology of the methods will be discussed next.
+Video analysis can be made with a lot of different methods. Usually the interesting part of a scene is not the background but the objects in the foreground. These objects of interest could be any object, e.g. humans, cars, animals etc. *Foreground detection* is a method where objects of interest are separated from the background in a video stream. This method can also be called *background subtraction*. Further in this thesis both terms will be used. Background subtraction works by thresholding the error between the current image and the estimate of the image without the objects of interest. (Xu, et al. 2016; Chan, Mahadevan, Vasconcelos 2010; Stauffer & Grimson 1999) Faster computers have enabled researchers to propose robust models that are more complex than the previous methods. Backrounding methods can be categorized into pixel-based, region-based and hybrid methods. Every method has its own strength and weakness. (Xu, et al. 2016; Vacavant & Sobral 2014; Stauffer & Grimson 1999) In this thesis we can not cover every available algorithm but we will discuss the most significant. Basic terminology of the methods will be discussed next.
 
 #### Terminology
 
@@ -148,7 +148,7 @@ HSV, HSL etc..
 
 #### Non-adaptive backgrounding
 
-If the background of a scene remains unchanged the detection of foreground objects would be easy (Vacavant & Sobral 2013; Langanière 2011, 266-277). Let us assume that each frame is converted to a grayscale image before it is processed. Basically a frame (I), at the time (t), when there is no foreground objects in the scene (empty room, road without cars) is declared as the *background model* and then each pixel value (P) is compared to the pixel value at the same coordinate (x, y), in the frame, at a specific time. Each pixel that is different from the background model would be declared as foreground (F). In Fig. 1 let us assume the first frame (t=0) has no foreground objects.
+If the background of a scene remains unchanged the detection of foreground objects would be easy (Vacavant & Sobral 2014; Langanière 2011, 266-277). Let us assume that each frame is converted to a grayscale image before it is processed. Basically a frame (I), at the time (t), when there is no foreground objects in the scene (empty room, road without cars) is declared as the *background model* and then each pixel value (P) is compared to the pixel value at the same coordinate (x, y), in the frame, at a specific time. Each pixel that is different from the background model would be declared as foreground (F). In Fig. 1 let us assume the first frame (t=0) has no foreground objects.
 
 > P[F(x,y,t)] = P[I(x,y,t)] - P[I(x,y,0)]
 
@@ -171,7 +171,7 @@ Fig. 4 - Closet opened
 ![Closet threshold](img/closet_thresh.png)
 Fig. 5 - Closet threshold
 
-Non-adaptive backgrounding has other challenges too, it needs re-initialization (updating of the entire background model) or otherwise changes in the background is detected as foreground. These problems make non-adaptive backgrounding only useful in highly-supervised tracking applications. (Stauffer & Grimson 1999) The re-initialization could be avoided by using the previous frame as the background model (Fig. 6), but this fails if the foreground object suddenly stops (Vacavant & Sobral 2013).
+Non-adaptive backgrounding has other challenges too, it needs re-initialization (updating of the entire background model) or otherwise changes in the background is detected as foreground. These problems make non-adaptive backgrounding only useful in highly-supervised tracking applications. (Stauffer & Grimson 1999) The re-initialization could be avoided by using the previous frame as the background model (Fig. 6), but this fails if the foreground object suddenly stops (Vacavant & Sobral 2014).
 
 > P[F(x,y,t)] = P[I(x,y,t)] - P[I(x,y,t-1)]
 
@@ -187,13 +187,13 @@ Modern background subtraction solutions are expected to be robust. Robust soluti
 
 Fig. 7 - Adaptive backgrounding (without threshold)
 
-Generally all the modern algorithms share the same pattern (Vacavant & Sobral 2013): 
+Generally all the modern algorithms share the same pattern (Vacavant & Sobral 2014): 
 
 1. *Background initialization*: Creating the background model from a fixed number of frames
 2. *Foreground detection*: Comparing the background model to the current frame or frames
 3. *Background maintenance*: Teaching / updating the background model. Return to step 2.
 
-Successful early work in the field on human tracking was made by Wren et al. (1997) who proposed *PFinder* ("person finder"). In this method the background model is a single Gaussian per pixel and the tracked object have a multi-class statistical model (Wren et al. 1997) This has been proved to be a good background subtraction method (Vacavant & Sobral 2013; Stauffer & Grimson 1999).
+Successful early work in the field on human tracking was made by Wren et al. (1997) who proposed *PFinder* ("person finder"). In this method the background model is a single Gaussian per pixel and the tracked object have a multi-class statistical model (Wren et al. 1997) This has been proved to be a good background subtraction method (Vacavant & Sobral 2014; Stauffer & Grimson 1999).
 
 
 **brainstorming**
@@ -314,6 +314,8 @@ Langanière R. 2011. OpenCV 2 Computer Vision Application Programming Cookbook. 
 [Stengård M. 2011. Muistisairaiden kotihoito ja sen kehittäminen. Satakunta University of Applied Sciences.](http://urn.fi/URN:NBN:fi:amk-201105117456)
 
 [Thome B., Dykes A-K., & Hallberg I. 2003. Home Care with Regard to Definition, Care Recipients, Content and Outcome: Systematic Literature Review. Journal of Clinical Nursing. Vol 12. pp 860-872.](http://onlinelibrary.wiley.com/doi/10.1046/j.1365-2702.2003.00803.x/abstract)
+
+[Vacavant A., Sobral A. 2014. A comprehensive review of background subtraction algorithms evaluated with synthetic and real videos. Computer Vision and Image Understanding 122 (2014). pp. 4–21](http://dx.doi.org/10.1016/j.cviu.2013.12.005)
 
 [Wren C., Azarbayejani A., Darrell T., Pentland A. 1997. Pfinder: real-time tracking of the human body. IEEE Transactions on Pattern Analysis and Machine Intelligence 19 (7). pp. 780–785.](http://dx.doi.org/10.1109/34.598236)
 
