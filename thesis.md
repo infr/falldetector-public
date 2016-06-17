@@ -42,6 +42,7 @@ This is Kim Salmi's thesis for Haaga-Helia UAS. The thesis proposes an automatic
 * 6 References
 	* 6.1 Publications
 	* 6.2 Websites
+	* 6.3 Others
 * 7 Appendix
 	* 7.1 Timetable for the thesis
 	* 7.2 Interview
@@ -148,7 +149,7 @@ HSV, HSL etc..
 
 #### Non-adaptive backgrounding
 
-If the background of a scene remains unchanged the detection of foreground objects would be easy (Vacavant & Sobral 2014; Langanière 2011, 266-277). Let us assume that each frame is converted to a grayscale image before it is processed. Basically a frame (I), at the time (t), when there is no foreground objects in the scene (empty room, road without cars) is declared as the *background model* and then each pixel value (P) is compared to the pixel value at the same coordinate (x, y), in the frame, at a specific time. Each pixel that is different from the background model would be declared as foreground (F). In Fig. 1 let us assume the first frame (t=0) has no foreground objects.
+If the background of a scene remains unchanged the detection of foreground objects would be easy (Vacavant & Sobral 2014; Langanière 2011, 266-277). Let us assume that each frame is converted to a grayscale image before it is processed. Basically a frame (I), at the time (t), when there is no foreground objects in the scene (empty room, road without cars) is declared as the *background model* and then each pixel value (P) is compared to the pixel value at the same coordinate (x, y), in the frame, at a specific time. Each pixel that is different from the background model would be declared as foreground (F).  (Tamersoy 2009) In Fig. 1 let us assume the first frame (t=0) has no foreground objects.
 
 > P[F(x,y,t)] = P[I(x,y,t)] - P[I(x,y,0)]
 
@@ -156,11 +157,11 @@ Fig. 1 - Static Frame Difference
 
 In a real life scenario pixel values in the background would not be exactly the same in each frame because of changes in illumination, dynamic background, shadows and video noise (Xu et al. 2016; Stauffer & Grimson 1999; Langanière 2011, 266-277). An attempt to fix this could be thresholding. If the absolute difference between pixels is greater than the threshold, it is declared as foreground. (Fig. 2)
 
-> P[F(x,y,t)] = |P[I(x,y,t)] - P[B(x,y,0)]| > Threshold
+> P[F(x,y,t)] = |P[I(x,y,t)] - P[I(x,y,0)]| > Threshold
 
-Fig. 2 - Static Frame Difference with threshold
+Fig. 2 - Static Frame Difference with threshold (Tamersoy 2009)
 
-Here is an example of *traditional backgrounding* or *non-adaptive backgrounding*. We have Fig. 3 as a background model and we calculate pixel value the difference from Fig. 4. (do not mind the green boxes) with a threshold. The result is shown in Fig. 5 and then the green boxes in Fig. 4 are drawn. In this example we see a problem with the reflection from the window, it is declared as foreground (Fig. 4). If the threshold is too low it will create *false negative* outputs and if it is too high it will create *false positive* outputs.
+Here is an example of *traditional backgrounding* or *non-adaptive backgrounding*. We have Fig. 3 as a background model and we calculate the pixel value difference from Fig. 4. (do not mind the green boxes) with a threshold. The result is shown in Fig. 5 and then the green boxes in Fig. 4 are drawn. In this example we see a problem with the reflection from the window, it is declared as foreground (Fig. 4). If the threshold is too low it will create *false negative* outputs and if it is too high it will create *false positive* outputs.
 
 ![Empty room](img/empty.png)
 Fig. 3 - Empty room
@@ -330,6 +331,11 @@ European Comission. What is Horizon 2020? <http://ec.europa.eu/programmes/horizo
 Grove J. 2011. 'Triple miracle' sees huge rise in EU funds for frontier research. Times Higher Education. <https://www.timeshighereducation.com/news/triple-miracle-sees-huge-rise-in-eu-funds-for-frontier-research/416952.article?storycode=416952> Accessed: 17.6.2016
 
 Roser M., 2016 – Life Expectancy. OurWorldInData.org. Data taken from the Human Mortality Database. University of California, Berkeley (USA), and Max Planck Institute for Demographic Research (Germany) <https://ourworldindata.org/life-expectancy/> Accessed: 7.6.2016
+
+
+### Others
+
+[Tamersoy B. 2009. Lecture Slides: Background Subtraction. CS 378. Computer Vision The University of Texas at Austin. Accessed: 17.6.2016](http://www.cs.utexas.edu/~grauman/courses/fall2009/slides/lecture9_background.pdf)
 
 - - -
 

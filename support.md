@@ -18,6 +18,11 @@
 * [Setting up the enviroment](http://www.pyimagesearch.com/2015/06/15/install-opencv-3-0-and-python-2-7-on-osx/)
 * [OpenCv + raspi speed trap](https://gregtinkers.wordpress.com/2016/03/25/car-speed-detector/)
 * [Video, Image, and Sound Analysis Lab (VISAL) City University of Hong Kong](http://visal.cs.cityu.edu.hk)
+* [MIT Computer Vision](http://groups.csail.mit.edu/vision/welcome/)
+
+* [Grauman, University of Texas at Austin](http://www.cs.utexas.edu/~grauman/)
+* [Computer Vision Reading Group, University of Texas at Austin](http://vision.cs.utexas.edu/readinggroup/)
+* [Tamersoy, University of Texas at Austin](http://www.cs.utexas.edu/~grauman/courses/fall2009/slides/lecture9_background.pdf)
 
 ## Tiedonhaku
 
@@ -29,8 +34,11 @@
 * [Juuli](http://www.juuli.fi)
 * [Kehittämisprojekti-ohje HAMK](http://elearningcentre.hamk.fi/tko/menetelmat/kehittamisprojekti.html)
 
+## Stuff i want
 
 * Doyle M. & Timonen V. 2007. Home Care for Ageing Population, A Comparative Analysis of Domiciliary Care in Denmark, United States and Germany. Cheltenham, UK: Edward Elgar Publishing. (978-1847204943)
+
+* [Background Modeling and Foreground Detection for Video Surveillance](https://www.crcpress.com/Background-Modeling-and-Foreground-Detection-for-Video-Surveillance/Bouwmans-Porikli-Hoferlin-Vacavant/p/book/9781482205374)
 
 # Brainstorming
 
