@@ -1,8 +1,10 @@
-# Thesis
+# Thesis - Fall detection - Work in progress
+
+This is Kim Salmi's thesis for Haaga-Helia UAS. The thesis proposes an automatic monitoring system for formal and informal home care patients and care centers. It will provide security and a feeling of safety by detecting when a resident fall. After the detection the system will be able to alert professional personnel or family. The system should be affordable and should not be significantly less accurate than other available options.
 
 * Working title: Improving safety for home care with a low cost computer vision embedded solution thus letting the aging generation live longer at home
 * Name: Kim Salmi
-* E-Mail: <kim.salmi[at]iki.fi>
+* E-Mail: kim.salmi[at]iki.fi
 * Student number: a1204035
 * Supervisor: Tero Karvinen
 * Haaga-Helia University of Applied Sciences, Finland
@@ -88,12 +90,9 @@ Research questions are:
 		- How to detect humans and track them
 		- How to detect falling or collapsing
 		- Can it be done with just one camera or is more needed?
-
 	- What are the current systems on the market?
-
 	- How to keep the system unit cost low (< 200€)
 		- How to save computational resources
-
 	- How to handle the privacy?
 
 - - -
@@ -342,24 +341,19 @@ The thesis will contain one core project and the theoretical frame around that s
 	- Building a Prototype (BUS4TN007 Haaga-Helia course)
 		- First prototype of the product
 	- Reviewing the Literature
-
 * Week 11
 	- Writing the thesis plan
-
 * Week 12
 	- Python programming (SWD8TF808 Haaga-Helia course)
 		- Supporting the product development
-
 * Week 13-21
 	- Studying to the entrance examination for The University of Helsinki, Faculty of Law
 	- Linux project (ICT4TN018 Haaga-Helia course)
 		- Enhance the original prototype
-
 * Week 22-26
 	- Writing the theoretical frame
 		- Video analysis
 			- Detection algorithms
-
 * Week 27-30
 	- Product development
 		- Motion detection algorithms
