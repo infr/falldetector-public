@@ -23,6 +23,47 @@
 * [Grauman, University of Texas at Austin](http://www.cs.utexas.edu/~grauman/)
 * [Computer Vision Reading Group, University of Texas at Austin](http://vision.cs.utexas.edu/readinggroup/)
 * [Tamersoy, University of Texas at Austin](http://www.cs.utexas.edu/~grauman/courses/fall2009/slides/lecture9_background.pdf)
+* [Center for Machine Vision Research, University of Oulu](http://www.cse.oulu.fi/CMV)
+* [CVOnline](http://www.dai.ed.ac.uk/CVonline/)
+* <http://iris.usc.edu/Information/Iris-Conferences.html>
+* <http://iris.usc.edu/Vision-Notes/bibliography/contents.html>
+* [Vision Club of Finland](http://www.automaatioseura.com/jaostot/konenaekoe/esittely)
+
+* **old or broken**
+* [Suomen Hahmontunnistustutkimuksen Seura ry](http://www.cis.hut.fi/hatutus/)
+* <http://www.cs.cmu.edu/~cil/vision.html>
+
+
+## Journals
+
+* IEEE Transactions on Pattern Analysis and Machine Intelligence (IEEE)
+* Computer Vision and Image Understanding (Academic Press)
+* International Journal of Computer Vision (Kluwer)
+* Pattern Recognition (Pergamon Press)
+* Pattern Recognition Letters (North-Holland)
+* Pattern Analysis and Applications (Springer)
+* IEEE Transactions on Image Processing (IEEE )
+* Image and Vision Computing (Elsevier)
+* IEE Proceedings: Vision, Image and Signal Processing (IEE)
+* MachineVision and Applications (Springer International)
+* Journal of the Optical Society of America A (OSA)
+* Journal of Electronic Imaging (SPIE ja IS&T)
+
+Source: <http://www.cse.oulu.fi/CMV/AboutCMV?action=AttachFile&do=get&target=konenako.pdf>
+
+## Conferences
+
+* International Conference on Computer Vision (IEEE Computer Society)
+* International Conference on Pattern Recognition (IAPR - International Association for Pattern Recognition)
+* Computer Vision and Pattern Recognition (IEEE Computer Society)
+* European Conference on Computer Vision
+* International Conference on Image Processing (IEEE Signal Processing Society)
+* &
+* SPIE (The International Society for Optical Engineering)
+* IEEE
+* IAPR
+
+Source: <http://www.cse.oulu.fi/CMV/AboutCMV?action=AttachFile&do=get&target=konenako.pdf>
 
 ## Tiedonhaku
 

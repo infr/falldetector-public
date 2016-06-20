@@ -182,9 +182,9 @@ Fig. 6 - Frame Difference (without threshold)
 
 Modern background subtraction solutions are expected to be robust. Robust solutions should handle objects overlapping, shadows, lightning changes, moving background elements, objects of interest entering or leaving the scene, even when they are slow-moving. Traditional approaches usually fail in these conditions. (Chan et al. 2010; Stauffer & Grimson 1999)
 
-*Adaptive backgrounding* is a method where the background model is created using averaging images over time. (Fig. 7) This method is effective where objects move continuously and the background is visible a significant portion of the time. This is not a robust solution because slowly moving objects are adapted to the background model and thus lost from the foreground. This solution also recovers slowly, can not handle bimodal backgrounds and has just one predetermined threshold for the whole image. (Stauffer & Grimson 1999)
+*Adaptive backgrounding* is a method where the background model is created using averaging images over time (1...n). (Fig. 7) The method can be memory consuming. (Tamersoy 2009) This method is effective where objects move continuously and the background is visible a significant portion of the time. This is not a robust solution because slowly moving objects are adapted to the background model and thus lost from the foreground. This solution also recovers slowly, can not handle bimodal backgrounds and has just one predetermined threshold for the whole image. (Stauffer & Grimson 1999)
 
-> P[F(x,y,t)] = P[I(x,y,t)] - P[mode(I(x,y,t-1) .. I(x,y,t-n))]
+> P[F(x,y,t)] = P[I(x,y,t)] - P[mode{I(x,y,t-1), ..., I(x,y,t-n)}] **rewrite**
 
 Fig. 7 - Adaptive backgrounding (without threshold)
 
