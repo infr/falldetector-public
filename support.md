@@ -78,6 +78,15 @@ Source: <http://www.cse.oulu.fi/CMV/AboutCMV?action=AttachFile&do=get&target=kon
 
 ## Stuff i want
 
+* L.Chia-Wen and all,“Automatic Fall Incident Detection in Compressed Video for Intelligent Homecare”, Journal on Computer Communications and Networks 2007, pp.1172 – 1177.
+
+* R. Cucchiara, A. Prati and R. Vezzani “A Multi-Camera Vision system for Fall Detection and Alarm Generation”, Expert Systems Journal, vol. 5, 2007.
+
+* J. Tao, T. Mukherjee, M. F. Wong, M. Wang, and Y. P. Tan. Fall incidents detection for intelligent video surveillance. In Proc. International Confer- ence on Information, Communications and Signal Processing, pages 1590 –1594, 2005.
+
+
+* N. Suvonvorn, A Video Analysis Framework for Surveillance System, IEEE 10th Multimedia Signal Processing, 2008, Cairns, Australia, p.867-871.
+
 * Doyle M. & Timonen V. 2007. Home Care for Ageing Population, A Comparative Analysis of Domiciliary Care in Denmark, United States and Germany. Cheltenham, UK: Edward Elgar Publishing. (978-1847204943)
 
 * [Background Modeling and Foreground Detection for Video Surveillance](https://www.crcpress.com/Background-Modeling-and-Foreground-Detection-for-Video-Surveillance/Bouwmans-Porikli-Hoferlin-Vacavant/p/book/9781482205374)

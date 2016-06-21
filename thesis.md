@@ -27,8 +27,13 @@ This is Kim Salmi's thesis for Haaga-Helia UAS. The thesis proposes an automatic
 			* 3.3.1.1 Terminology
 			* 3.3.1.2 Non-adaptive backgrounding
 			* 3.3.1.3 Adaptive backgrounding
-			* 3.3.1.x ...
-			* 3.3.1.x Fall detection
+			* 3.3.1.4 Modern methods
+			* 3.3.1.5 Challenges in backgrounding
+		* 3.3.4 Action detection
+			* 3.3.4.1 Static approach
+			* 3.3.4.2 Dynamic approach
+			* 3.3.4.3 Motion
+			* 3.3.4.4 Combination
 	* 3.4 Alert systems
 	* 3.5 Current commercial field
 * 4 Constructive research
@@ -127,7 +132,7 @@ European Union (EU) has noticed the growth of life expectancy and the problems i
 
 ## Automatic monitoring
 
-When elderly people fall it is particularly serious and often leads to injury or death. That is why automatic monitoring has an important role in home care and care centers. (Kroputaponchai, Suvonvorn 2013, 1) The fear of falling leads to restricted ADL/IADL. The fear is justified, fall related injuries are among the five most causes of death for the elderly population. If falls would be detected the patient could be provided with in-time medical treatment. (Lin, Ling 2007, 1172) In-time medical treatment could save lives. The presence of personnel brings an elderly patients the feeling of safety (Sanerma 2009, 71). Could the presence of an automatic fall detecting system also lower the fear and therefore increase ADL/IADL?
+When elderly people fall it is particularly serious and often leads to injury or death. That is why automatic monitoring has an important role in home care and care centers. (Kroputaponchai & Suvonvorn 2013) The fear of falling leads to restricted ADL/IADL. The fear is justified, fall related injuries are among the five most causes of death for the elderly population. If falls would be detected the patient could be provided with in-time medical treatment. (Lin, Ling 2007, 1172) In-time medical treatment could save lives. The presence of personnel brings an elderly patients the feeling of safety (Sanerma 2009, 71). Could the presence of an automatic fall detecting system also lower the fear and therefore increase ADL/IADL?
 
 Traditional surveillance systems need an operator to track activities with a video displaying multi-monitor setup. All the recording occur centralized and there is a complete lack of privacy. There need to be a paid operator watching the screens over the surveillance period. On top of this there is a study showing that after 22 minutes the operator will miss 95% of the activities on the screen. (Fleck & Straßer 2010. 986)
 
@@ -139,7 +144,7 @@ For the reasons presented above the proposed solution will be a smart camera sys
 
 ### Video analysis
 
-Video analysis can be made with a lot of different methods. Usually the interesting part of a scene is not the background but the objects in the foreground. These objects of interest could be any object, e.g. humans, cars, animals etc. *Foreground detection* is a method where objects of interest are separated from the background in a video stream. This method can also be called *background subtraction*. Further in this thesis both terms will be used. Background subtraction works by thresholding the error between the current image and the estimate of the image without the objects of interest. (Xu, et al. 2016; Chan, Mahadevan, Vasconcelos 2010; Stauffer & Grimson 1999) Faster computers have enabled researchers to propose robust models that are more complex than the previous methods. Backrounding methods can be categorized into pixel-based, region-based and hybrid methods. Every method has its own strength and weakness. (Xu, et al. 2016; Vacavant & Sobral 2014; Stauffer & Grimson 1999) In this thesis we can not cover every available algorithm but we will discuss the most significant. Basic terminology of the methods will be discussed next.
+Video analysis can be made with a lot of different methods. Usually the interesting part of a scene is not the background but the objects in the foreground. These objects of interest could be any object, e.g. humans, cars, animals etc. *Foreground detection* is a method where objects of interest are separated from the background in a video stream. This method can also be called *background subtraction*. Further in this thesis both terms will be used. Background subtraction works by thresholding the error between the current image and the estimate of the image without the objects of interest. (Xu, et al. 2016; Chan, Mahadevan, Vasconcelos 2010; Stauffer & Grimson 1999) Faster computers have enabled researchers to propose robust models that are more complex than the previous methods. Backrounding methods can be categorized into pixel-based, region-based, hybrid methods and also into parametric and non-parametric methods. Every method has its own strength and weakness. (Xu, et al. 2016; Vacavant & Sobral 2014; Stauffer & Grimson 1999) In this thesis we can not cover every available algorithm but we will discuss the most significant. Basic terminology of the methods will be discussed next.
 
 #### Terminology
 
@@ -174,7 +179,7 @@ Fig. 3 - Empty room
 Fig. 4 - Closet opened
 
 ![Closet threshold](img/closet_thresh.png)
-Fig. 5 - Closet threshold
+Fig. 5 - Closet threshold (in this example there is a Gaussian blur adapted to the image) **take new pictures without the blur**
 
 Non-adaptive backgrounding has other challenges too, it needs re-initialization (updating of the entire background model) or otherwise changes in the background is detected as foreground. These problems make non-adaptive backgrounding only useful in highly-supervised tracking applications. (Stauffer & Grimson 1999) The re-initialization could be avoided by using the previous frame as the background model (Fig. 6), but this fails if the foreground object suddenly stops (Vacavant & Sobral 2014).
 
@@ -200,15 +205,18 @@ Generally all the modern algorithms share the same pattern (Vacavant & Sobral 20
 2. *Foreground detection*: Comparing the background model to the current frame or frames
 3. *Background maintenance*: Teaching / updating the background model. Return to step 2.
 
-> Normal distribution explained
+> Normal distribution explained (Fig. 8)
+
+![Normal distribution](img/normal_distribution.png)
+Fig. 8 - Normal distribution
 
 Successful early work in the field on human tracking was made by Wren et al. (1997) who proposed *PFinder* ("person finder"). In this, pixel-based method, the background model is a single Gaussian per pixel and the tracked object have a multi-class statistical model (Wren et al. 1997). This has been proved to be a good background subtraction method (Vacavant & Sobral 2014; Stauffer & Grimson 1999). However a single Gaussian per pixel is not able to adapt quickly to a dynamic background (swaying trees, waves in the ocean).
 
 Because the background can change, short and long term, Stauffer and Grimson (1999) proposed the *Gaussian mixture model* (GMM). The GMM models every pixel with a mixture of K Gaussians function (**add a fig.**). GMM is able to quickly adapt to a dynamic background and it has become a very popular background subtraction method. However GMM is not able to handle sudden illumination changes (turning on/off lights, clouds blocking sunlight) and shadows very well. (Chan, Mahadevan, Vasconcelos 2010; Vacavant & Sobral 2014; Xu et al. 2016) Zivkovic (2004) proposed improvements to GMM with *Adaptive Gaussian mixture model* (AGMM). These improvements did not include a solution for the shadow problem but reduced processing time by automatically selecting the number of components needed for each pixel. This research was funded by EU Framework Programme 6 (FP6 2002-2006). (Zivkovic 2004)
 
-**Choosing the algorithm**
+Xu et al. (2016) tested a series of modern background subtraction methods:
 
-* Stauffer et al. Gaussian mixture model (GMM), 1999
+* Stauffer & Grimson Gaussian mixture model (GMM), 1999
 * Elgammal et al. Kernel denisty estimator (KDE) 2000
 * Kim et al. inspired from Kohonen proposed CodeBook 2004
 * Zivkovic improved GMM with Adaptive Gaussian mixture model (AGMM) 2006
@@ -217,34 +225,37 @@ Because the background can change, short and long term, Stauffer and Grimson (19
 * Barnich and Droogenbroeck a universal background subtraction algorithm (Vibe) 2011
 * Hoffmann et al. Pixel-based adaptive segmenter (PBAS) 2012
 
-(Xu et al. 2016)
+Cardinaux et al. (2011) listed a series of methods in their research:
+
+* Cucchiara et al. (2003)
+	- Statistical approach updating the background model with information from the previous frames about moving objects, shadows and ghost objects.
+* Stauffer and Grimson (1999) - GMM
+* Elgammal et al. (2000) - KDE
+* Eng et al. (2004)
+	- A Bayesian framework for challenging conditions - background and foreground share the same color or when two foreground objects overlap each other
 
 #### Challenges in backgrounding
 
-**Illumination**
+As mentioned earlier the biggest challenges in backgrounding would be *illumination*, *dynamic background*, *shadows* and *video noise*. One of the challenges is that the RGB color space is sensitive to illumination changes. For this reason SOBS uses the HSV color space and SACON normalized color space. CodeBook separates color distortion and brightness distortion with a color model. KDE combines a short and long term background model to handle rapid illumination changes. (Xu et al. 2016)
 
-- Robust system should handle illumination changes that are progressive and also sudden illumination changes eg. clouds block sunlight or lights are turned off.
-- RGB color space is sensitive to illumination changes.
-- HSV (SOBS)
-- Normalized color space (SACON)
-- CodeBook uses a color model to perform a separate evaluation of color distortion and brightness distortion.
-- Long and short term background model combined (KDE) => sensitive detection and low false positive rate
+### Action detection
 
-(Xu et al. 2016)
+* (Cardinaux et al. 2011)
+* **Fall** (Kroputaponchai & Suvonvorn 2013)
 
-**Dynamic background**
+#### Static approach
 
-**Shadows**
+* Posture
 
-**Video noise**
+#### Dynamic approach
 
-(Xu et al. 2016)
+* Time since last posture eg. if time since last detected standing - time since detected lying = 0.4-0.8 s => fall
 
-**/brainstorming**
+#### Motion
 
-#### Fall detection
+#### Combination
 
-### Alert systems
+## Alert systems
 
 *Going to write about what solutions are available?*
 
@@ -292,9 +303,13 @@ The idea of the project is to lower health care costs and provide safer home car
 
 [Cohen J. E., et al. 2003. Human Population: The Next Half Century. Science, VOL 302, pp. 1172-1175.](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.453.3842&rep=rep1&type=pdf)
 
+[Cucchiara R., Grana C., Piccardi M., Prati A. 2003. Detecting moving objects, ghosts, and shadows in video streams. IEEE Transaction on Pattern Analysis and Machine Intelligence, 25(10). pp. 1337 - 1342.](https://www.researchgate.net/publication/3193612_Detecting_Moving_Objects_Ghosts_and_Shadows_in_Video_Streams)
+
 [Fleck S., Straßer W. 2010. Privacy Sensitive Surveillance for Assisted Living - A Smart Camera Approach. pp. 985-1014. Handbook of Ambient Intelligence and Smart Environments. Part VIII. Springer US. ISBN 978-0-387-93808-0](http://www.springer.com/gp/book/9780387938073)
 
 [Gerland P., Raftery A. E., Sevcikova H., Li N., Gu D., Spoorenberg T., Alkema L., Fosdick B. K., Chunn J., Lalic N., Bay G., Buettner T., Heilig G. K., Wilmoth J. 2014. World population stabilization unlikely this century. Science VOL 346 (6206), pp. 234-247](http://science.sciencemag.org/content/346/6206/234)
+
+[Eng H., Wwang J., Kam A.H., Yau W. 2004. A Bayesian framework for robust human detection and occlusion handling human shape model. In Pattern Recognition, 2004. ICPR 2004. Proceedings of the 17th International Conference on, vol. 2. pp. 257 - 260.](https://www.researchgate.net/publication/4090417_A_Bayesian_framework_for_robust_human_detection_and_occlusion_handling_human_shape_model)
 
 Kotilainen H., Topo P., Hurnasti, T. 2009. Asuinympäristö, apuvälineet ja teknologia. Teoksessa Sormunen S. & Topo P.(toim.) Laadukkaat dementiapalvelut – opas kunnille. Jyväskylä. Gummerus Kirjapaino Oy.
 
