@@ -28,6 +28,7 @@
 * <http://iris.usc.edu/Information/Iris-Conferences.html>
 * <http://iris.usc.edu/Vision-Notes/bibliography/contents.html>
 * [Vision Club of Finland](http://www.automaatioseura.com/jaostot/konenaekoe/esittely)
+* [Precision and Recall](https://en.wikipedia.org/wiki/Precision_and_recall)
 
 * **old or broken**
 * [Suomen Hahmontunnistustutkimuksen Seura ry](http://www.cis.hut.fi/hatutus/)

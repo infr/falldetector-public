@@ -64,6 +64,10 @@ IADL - Instrumental activities of daily living
 
 VAAL - Video based solutions for Active and Assistive living
 
+GMM -  Gaussian mixture model
+
+AGMM - Adaptive Gaussian mixture model
+
 - - -
 
 # Introduction
@@ -139,13 +143,13 @@ Video analysis can be made with a lot of different methods. Usually the interest
 
 #### Terminology
 
-**rewrite**
+**rewrite this**
 
 A video consists usually of a series of bitmap digital images that are called frames. Each frame consists of a matrix of pixels. In a binary image each pixels has 1-bit of information indicating either foreground or background (black or white, 0 or 1). A grayscale image could have an 8-bit number for each pixel indicating how bright it is. Color images usually use RGB colorspace indicating values for red, green and blue separately.
 
 HSV, HSL etc..
 
-**/rewrite**
+**/rewrite this**
 
 #### Non-adaptive backgrounding
 
@@ -180,13 +184,15 @@ Fig. 6 - Frame Difference (without threshold)
 
 #### Adaptive backgrounding
 
-Modern background subtraction solutions are expected to be robust. Robust solutions should handle objects overlapping, shadows, lightning changes, moving background elements, objects of interest entering or leaving the scene, even when they are slow-moving. Traditional approaches usually fail in these conditions. (Chan et al. 2010; Stauffer & Grimson 1999)
+*Adaptive backgrounding* is a method where the background model is created using averaging images over time (1...n). (Fig. 7) The method can be memory consuming. (Tamersoy 2009) This method is effective where objects move continuously and the background is visible a significant portion of the time. This is not a robust solution because slowly moving objects are adapted to the background model and thus lost from the foreground. This solution also recovers slowly, can not handle bimodal backgrounds, does not handle lightning changes and has just one shared predetermined threshold for every pixel in the image. (Stauffer & Grimson 1999; Tamersoy 2009)
 
-*Adaptive backgrounding* is a method where the background model is created using averaging images over time (1...n). (Fig. 7) The method can be memory consuming. (Tamersoy 2009) This method is effective where objects move continuously and the background is visible a significant portion of the time. This is not a robust solution because slowly moving objects are adapted to the background model and thus lost from the foreground. This solution also recovers slowly, can not handle bimodal backgrounds and has just one predetermined threshold for the whole image. (Stauffer & Grimson 1999)
-
-> P[F(x,y,t)] = P[I(x,y,t)] - P[mode{I(x,y,t-1), ..., I(x,y,t-n)}] **rewrite**
+> P[F(x,y,t)] = P[I(x,y,t)] - P[mode{I(x,y,t-1), ..., I(x,y,t-n)}] **rewrite this**
 
 Fig. 7 - Adaptive backgrounding (without threshold)
+
+#### Modern methods
+
+Modern background subtraction solutions are expected to be robust. Robust solutions should handle objects overlapping, shadows, lightning changes, moving background elements, objects of interest entering or leaving the scene, even when they are slow-moving. Traditional approaches usually fail in these conditions. (Chan et al. 2010; Stauffer & Grimson 1999)
 
 Generally all the modern algorithms share the same pattern (Vacavant & Sobral 2014): 
 
@@ -194,17 +200,11 @@ Generally all the modern algorithms share the same pattern (Vacavant & Sobral 20
 2. *Foreground detection*: Comparing the background model to the current frame or frames
 3. *Background maintenance*: Teaching / updating the background model. Return to step 2.
 
-Successful early work in the field on human tracking was made by Wren et al. (1997) who proposed *PFinder* ("person finder"). In this method the background model is a single Gaussian per pixel and the tracked object have a multi-class statistical model (Wren et al. 1997) This has been proved to be a good background subtraction method (Vacavant & Sobral 2014; Stauffer & Grimson 1999).
+> Normal distribution explained
 
+Successful early work in the field on human tracking was made by Wren et al. (1997) who proposed *PFinder* ("person finder"). In this, pixel-based method, the background model is a single Gaussian per pixel and the tracked object have a multi-class statistical model (Wren et al. 1997). This has been proved to be a good background subtraction method (Vacavant & Sobral 2014; Stauffer & Grimson 1999). However a single Gaussian per pixel is not able to adapt quickly to a dynamic background (swaying trees, waves in the ocean).
 
-**brainstorming**
-
-> Bi- or multimodal backgrounds
-
-> Because the environment can change, both short term and through out the lifetime of the vision system, background subtraction algorithms are expected to be robust. One approach, that has gained substantial popularity, was first introduced by Stauffer and Grimson.
-> (Chan, Mahadevan, Vasconcelos 2010)
-
-**/brainstorming**
+Because the background can change, short and long term, Stauffer and Grimson (1999) proposed the *Gaussian mixture model* (GMM). The GMM models every pixel with a mixture of K Gaussians function (**add a fig.**). GMM is able to quickly adapt to a dynamic background and it has become a very popular background subtraction method. However GMM is not able to handle sudden illumination changes (turning on/off lights, clouds blocking sunlight) and shadows very well. (Chan, Mahadevan, Vasconcelos 2010; Vacavant & Sobral 2014; Xu et al. 2016) Zivkovic (2004) proposed improvements to GMM with *Adaptive Gaussian mixture model* (AGMM). These improvements did not include a solution for the shadow problem but reduced processing time by automatically selecting the number of components needed for each pixel. This research was funded by EU Framework Programme 6 (FP6 2002-2006). (Zivkovic 2004)
 
 **Choosing the algorithm**
 
@@ -321,6 +321,8 @@ Langanière R. 2011. OpenCV 2 Computer Vision Application Programming Cookbook. 
 [Wren C., Azarbayejani A., Darrell T., Pentland A. 1997. Pfinder: real-time tracking of the human body. IEEE Transactions on Pattern Analysis and Machine Intelligence 19 (7). pp. 780–785.](http://dx.doi.org/10.1109/34.598236)
 
 [Xu Y., et al. 2016 Background modeling methods in video analysis: A review and comparative evaluation. CAAI Transactions on Intelligence Technology (2016).](http://dx.doi.org/10.1016/j.trit.2016.03.005)
+
+[Zivkovic Z. 2004. Improved Adaptive Gaussian Mixture Model for Background Subtraction. Pattern Recognition, 2004. ICPR 2004. Proceedings of the 17th International Conference on, 2004, pp. 28-31 Vol.2.](http://dx.doi.org/10.1109/ICPR.2004.1333992)
 
 ### Websites
 
