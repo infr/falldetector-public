@@ -247,11 +247,13 @@ As mentioned earlier the biggest challenges in backgrounding would be *illuminat
 
 One of the reasons why we would like to detect foreground objects from a video is to be able to determinate what activity the person in the video is performing. In the a *static approach* the persons posture is analyzed at a specific time. A posture is a good indicator of what the person is doing e.g. lying, standing, sitting etc. This information alone is not very useful. That is why in the *dynamic approach* the outcome of the static approach is combined to the earlier static approach outcomes. In this way we can analyze movement patterns. (Cardinaux et al. 2011) If the person was standing 0.4-0.8 seconds ago and is now detected as lying, the person probably have suffered from a fall (Cardinaux et al. 2011; Kroputaponchai & Suvonvorn 2013).
 
-#### Static approach
+#### Static approach (frame-wise(?))
 
 *Aspect ratio measurement* is a simple and quick way to analyze a persons posture. It is used in many fall detection algorithms (Fleck & Straßer 2010; Lin & Ling 2007; Nasution & Emmanuel 2007). Aspect ratio is calculated using the foreground pixels of a person to determinate in what position the person is. (Cardinaux et al. 2011)
 
 #### Dynamic approach
+
+Nasution & Emmanuel (2007) proposed usage of a stripped GMM to detect foreground objects. To detect the activity of a person they then trained the system with sitting, standing, bending, lying and lying against the camera. After the training phase they adapted a k-Nearest Neighbor (KNN) algorithm to calculate equality with each posture from the training phase. After this they adapted an evidence accumulation technique to only change the posture (from last frame) if the equality was high enough to exceed a threshold. (Nasution & Emmanuel 2007)
 
 #### Motion
 
