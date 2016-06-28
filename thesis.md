@@ -86,6 +86,8 @@ Year 2012 world population was 7.2 billion. In the year 2100 world population is
 
 This thesis proposes an automatic monitoring system for formal and informal home care patients and care centers. It will provide security and a feeling of safety by detecting when a resident fall. After the detection the system will be able to alert professional personnel or family. The system should be affordable and should not be significantly less accurate than other available options. Further in this thesis the system will be called automatic Fall Detecting and alerting system (FD).
 
+There will be code examples written in Python, for readability, using the OpenCV library. The code examples are tested with Python version 2.7.11 and OpenCV version 2.4.13. Code examples should work in Python 2.7.x and OpenCV 2.4.x.
+
 This thesis consist of two parts. The first part will cover the theoretical frame. The theoretical frame will give necessary background information from the health care perspective for understanding the need for automatic monitoring in general. It will also cover the technical part for automatic video analysis. The main topics will be home care, European Unions active and assistive living programme, video analysis in general, motion detection, human detection, fall detection and alert systems.
 
 The goal of this project is to build a prototype that could be productized and commercialized. That is why the second part will not be publicly available. It will include the execution, testing and the outcome. Still there will be a stripped summary of how the system was developed.
@@ -163,17 +165,47 @@ HSV, HSL etc..
 
 #### Non-adaptive backgrounding
 
-If the background of a scene remains unchanged the detection of foreground objects would be easy (Vacavant & Sobral 2014; Langanière 2011, 266-277). Let us assume that each frame is converted to a grayscale image before it is processed. Basically a frame (I), at the time (t), when there is no foreground objects in the scene (empty room, road without cars) is declared as the *background model* and then each pixel value (P) is compared to the pixel value at the same coordinate (x, y), in the frame, at a specific time. Each pixel that is different from the background model would be declared as foreground (F).  (Tamersoy 2009) In Fig. 1 let us assume the first frame (t=0) has no foreground objects.
+If the background of a scene remains unchanged the detection of foreground objects would be easy (Vacavant & Sobral 2014; Langanière 2011, 266-277). Let us assume that each frame is converted to a grayscale image before it is processed. Basically a frame (I), at the time (t), when there is no foreground objects in the scene (empty room, road without cars) is declared as the *background model* and then each pixel value (P) is compared to the pixel value at the same coordinate (x, y), in the frame, at a specific time. Each pixel that is different from the background model would be declared as foreground (F).  (Tamersoy 2009) In Fig. 1 let us assume the first frame (t=0) has no foreground objects. This method can be tested with Fig. 1b.
 
 > P[F(x,y,t)] = P[I(x,y,t)] - P[I(x,y,0)]
 
 Fig. 1 - Static Frame Difference
 
-In a real life scenario pixel values in the background would not be exactly the same in each frame because of changes in illumination, dynamic background, shadows and video noise (Xu et al. 2016; Stauffer & Grimson 1999; Langanière 2011, 266-277). An attempt to fix this could be thresholding. If the absolute difference between pixels is greater than the threshold, it is declared as foreground. (Fig. 2)
+```python
+import cv2
+camera = cv2.VideoCapture(0)
+_, firstFrame = camera.read()
+firstFrame = cv2.cvtColor(firstFrame, cv2.COLOR_BGR2GRAY)
+while 1:
+	_, currentFrame = camera.read()
+	currentFrame = cv2.cvtColor(currentFrame, cv2.COLOR_BGR2GRAY)
+	foreground = cv2.absdiff(firstFrame, currentFrame)
+	cv2.imshow("foreground", foreground)
+```
+
+Fig. 1b - Static Frame Difference in Python
+
+In a real life scenario pixel values in the background would not be exactly the same in each frame because of changes in illumination, dynamic background, shadows and video noise (Xu et al. 2016; Stauffer & Grimson 1999; Langanière 2011, 266-277). An attempt to fix this could be thresholding. If the absolute difference between pixels is greater than the threshold, it is declared as foreground. (Fig. 2) This method can be tested with Fig. 2b where the static threshold is set to 100 on a scale of 0-255. Foreground is set to the value 255 which equals white color and the background is set 0 which equals black color.
 
 > P[F(x,y,t)] = |P[I(x,y,t)] - P[I(x,y,0)]| > Threshold
 
 Fig. 2 - Static Frame Difference with threshold (Tamersoy 2009)
+
+```python
+import cv2
+threshold = 100
+camera = cv2.VideoCapture(0)
+_, firstFrame = camera.read()
+firstFrame = cv2.cvtColor(firstFrame, cv2.COLOR_BGR2GRAY)
+while 1:
+	_, currentFrame = camera.read()
+	currentFrame = cv2.cvtColor(currentFrame, cv2.COLOR_BGR2GRAY)
+	frameDelta = cv2.absdiff(firstFrame, currentFrame)
+	foreground = cv2.threshold(frameDelta, threshold, 255, cv2.THRESH_BINARY)[1]
+	cv2.imshow("foreground", foreground)
+```
+
+Fig. 2b - Static Frame Difference with threshold in Python
 
 Here is an example of *traditional backgrounding* or *non-adaptive backgrounding*. We have Fig. 3 as a background model and we calculate the pixel value difference from Fig. 4. (do not mind the green boxes) with a threshold. The result is shown in Fig. 5 and then the green boxes in Fig. 4 are drawn. In this example we see a problem with the reflection from the window, it is declared as foreground (Fig. 4). If the threshold is too low it will create *false negative* outputs and if it is too high it will create *false positive* outputs.
 
@@ -186,19 +218,55 @@ Fig. 4 - Closet opened
 ![Closet threshold](img/closet_thresh.png)
 Fig. 5 - Closet threshold (in this example there is a Gaussian blur adapted to the image) **take new pictures without the blur**
 
-Non-adaptive backgrounding has other challenges too, it needs re-initialization (updating of the entire background model) or otherwise changes in the background is detected as foreground. These problems make non-adaptive backgrounding only useful in highly-supervised tracking applications. (Stauffer & Grimson 1999) The re-initialization could be avoided by using the previous frame as the background model (Fig. 6), but this fails if the foreground object suddenly stops (Vacavant & Sobral 2014).
+Non-adaptive backgrounding has other challenges too, it needs re-initialization (updating of the entire background model) or otherwise changes in the background is detected as foreground. These problems make non-adaptive backgrounding only useful in highly-supervised tracking applications. (Stauffer & Grimson 1999) The re-initialization could be avoided by using the previous frame as the background model (Fig. 6), but this fails if the foreground object suddenly stops (Vacavant & Sobral 2014). This can be tested with Fig 6b.
 
-> P[F(x,y,t)] = P[I(x,y,t)] - P[I(x,y,t-1)]
+> P[F(x,y,t)] = |P[I(x,y,t)] - P[I(x,y,t-1)]| > Threshold
 
-Fig. 6 - Frame Difference (without threshold)
+Fig. 6 - Frame Difference
+
+```python
+import cv2
+threshold = 100
+camera = cv2.VideoCapture(0)
+_, lastFrame = camera.read()
+lastFrame = cv2.cvtColor(lastFrame, cv2.COLOR_BGR2GRAY)
+while 1:
+	_, currentFrame = camera.read()
+	currentFrame = cv2.cvtColor(currentFrame, cv2.COLOR_BGR2GRAY)
+	foreground = cv2.absdiff(lastFrame, currentFrame)
+	foreground = cv2.threshold(foreground, threshold, 255, cv2.THRESH_BINARY)[1]
+	cv2.imshow("foreground", foreground)
+	lastFrame = currentFrame
+```
+
+Fig. 6b - Frame Difference in Python
 
 #### Adaptive backgrounding
 
-*Adaptive backgrounding* is a method where the background model is created using averaging images over time (1...n). (Fig. 7) The method can be memory consuming. (Tamersoy 2009) This method is effective where objects move continuously and the background is visible a significant portion of the time. This is not a robust solution because slowly moving objects are adapted to the background model and thus lost from the foreground. This solution also recovers slowly, can not handle bimodal backgrounds, does not handle lightning changes and has just one shared predetermined threshold for every pixel in the image. (Stauffer & Grimson 1999; Tamersoy 2009)
+*Adaptive backgrounding* is a method where the background model is created using averaging images over time (1...n). (Fig. 7) The method can be memory consuming. (Tamersoy 2009) This method is effective where objects move continuously and the background is visible a significant portion of the time. This is not a robust solution because slowly moving objects are adapted to the background model and thus lost from the foreground. This solution also recovers slowly, can not handle bimodal backgrounds, does not handle lightning changes and has just one shared predetermined threshold for every pixel in the image. (Stauffer & Grimson 1999; Tamersoy 2009) A variation of this method can be tested with Fig. 7b.
 
-> P[F(x,y,t)] = P[I(x,y,t)] - P[mode{I(x,y,t-1), ..., I(x,y,t-n)}] **rewrite this**
+> P[F(x,y,t)] = |P[I(x,y,t)] - P[mode{I(x,y,t-1), ..., I(x,y,t-n)}]| > Threshold **rewrite this**
 
-Fig. 7 - Adaptive backgrounding (without threshold)
+Fig. 7 - Adaptive backgrounding
+
+```python
+import cv2
+threshold = 10
+camera = cv2.VideoCapture(0)
+_, backgroundFrame = camera.read()
+backgroundFrame = cv2.cvtColor(backgroundFrame, cv2.COLOR_BGR2GRAY)
+i = 1
+while 1:
+	_, currentFrame = camera.read()
+	currentFrame = cv2.cvtColor(currentFrame, cv2.COLOR_BGR2GRAY)
+	foreground = cv2.absdiff(backgroundFrame, currentFrame)
+	foreground = cv2.threshold(foreground, threshold, 255, cv2.THRESH_BINARY)[1]
+	cv2.imshow("foreground", foreground)
+	backgroundFrame = cv2.addWeighted(currentFrame, 0.05, backgroundFrame, 0.95, 0)
+	cv2.imshow("backgroundFrame", backgroundFrame)
+	i += 1
+```
+Fig. 7b - A variation of adaptive backgrounding in Python
 
 #### Modern methods
 
