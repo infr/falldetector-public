@@ -174,12 +174,13 @@ Fig. 1 - Static Frame Difference
 ```python
 import cv2
 camera = cv2.VideoCapture(0)
-_, firstFrame = camera.read()
-firstFrame = cv2.cvtColor(firstFrame, cv2.COLOR_BGR2GRAY)
+backgroundFrame = camera.read()[1]
+backgroundFrame = cv2.cvtColor(backgroundFrame, cv2.COLOR_BGR2GRAY)
 while 1:
-	_, currentFrame = camera.read()
+	currentFrame = camera.read()[1]
 	currentFrame = cv2.cvtColor(currentFrame, cv2.COLOR_BGR2GRAY)
-	foreground = cv2.absdiff(firstFrame, currentFrame)
+	foreground = cv2.absdiff(backgroundFrame, currentFrame)
+	cv2.imshow("backgroundFrame", backgroundFrame)
 	cv2.imshow("foreground", foreground)
 ```
 
@@ -195,13 +196,13 @@ Fig. 2 - Static Frame Difference with threshold (Tamersoy 2009)
 import cv2
 threshold = 100
 camera = cv2.VideoCapture(0)
-_, firstFrame = camera.read()
-firstFrame = cv2.cvtColor(firstFrame, cv2.COLOR_BGR2GRAY)
+_, backgroundFrame = camera.read()
+backgroundFrame = cv2.cvtColor(backgroundFrame, cv2.COLOR_BGR2GRAY)
 while 1:
 	_, currentFrame = camera.read()
 	currentFrame = cv2.cvtColor(currentFrame, cv2.COLOR_BGR2GRAY)
-	frameDelta = cv2.absdiff(firstFrame, currentFrame)
-	foreground = cv2.threshold(frameDelta, threshold, 255, cv2.THRESH_BINARY)[1]
+	foreground = cv2.absdiff(backgroundFrame, currentFrame)
+	foreground = cv2.threshold(foreground, threshold, 255, cv2.THRESH_BINARY)[1]
 	cv2.imshow("foreground", foreground)
 ```
 
@@ -228,15 +229,15 @@ Fig. 6 - Frame Difference
 import cv2
 threshold = 100
 camera = cv2.VideoCapture(0)
-_, lastFrame = camera.read()
-lastFrame = cv2.cvtColor(lastFrame, cv2.COLOR_BGR2GRAY)
+_, backgroundFrame = camera.read()
+backgroundFrame = cv2.cvtColor(backgroundFrame, cv2.COLOR_BGR2GRAY)
 while 1:
 	_, currentFrame = camera.read()
 	currentFrame = cv2.cvtColor(currentFrame, cv2.COLOR_BGR2GRAY)
-	foreground = cv2.absdiff(lastFrame, currentFrame)
+	foreground = cv2.absdiff(backgroundFrame, currentFrame)
 	foreground = cv2.threshold(foreground, threshold, 255, cv2.THRESH_BINARY)[1]
 	cv2.imshow("foreground", foreground)
-	lastFrame = currentFrame
+	backgroundFrame = currentFrame
 ```
 
 Fig. 6b - Frame Difference in Python
@@ -262,7 +263,8 @@ while 1:
 	foreground = cv2.absdiff(backgroundFrame, currentFrame)
 	foreground = cv2.threshold(foreground, threshold, 255, cv2.THRESH_BINARY)[1]
 	cv2.imshow("foreground", foreground)
-	backgroundFrame = cv2.addWeighted(currentFrame, 0.05, backgroundFrame, 0.95, 0)
+	alpha = (1.0/i)
+	backgroundFrame = cv2.addWeighted(currentFrame, alpha, backgroundFrame, 1.0-alpha, 0)
 	cv2.imshow("backgroundFrame", backgroundFrame)
 	i += 1
 ```

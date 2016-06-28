@@ -1,3 +1,4 @@
+# Fig. 2b - Static Frame Difference with threshold in Python
 import cv2
 threshold = 100
 camera = cv2.VideoCapture(0)

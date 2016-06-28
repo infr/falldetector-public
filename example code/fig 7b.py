@@ -1,3 +1,4 @@
+# Fig. 7b - A variation of adaptive backgrounding in Python
 import cv2
 threshold = 10
 camera = cv2.VideoCapture(0)
@@ -10,6 +11,7 @@ while 1:
 	foreground = cv2.absdiff(backgroundFrame, currentFrame)
 	foreground = cv2.threshold(foreground, threshold, 255, cv2.THRESH_BINARY)[1]
 	cv2.imshow("foreground", foreground)
-	backgroundFrame = cv2.addWeighted(currentFrame, 0.05, backgroundFrame, 0.95, 0)
+	alpha = (1.0/i)
+	backgroundFrame = cv2.addWeighted(currentFrame, alpha, backgroundFrame, 1.0-alpha, 0)
 	cv2.imshow("backgroundFrame", backgroundFrame)
 	i += 1
