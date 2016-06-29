@@ -1,7 +1,7 @@
 import sys
 import cv2
 
-def go(camera):
+def main(camera):
 	# Fig. 1b - Static Frame Difference
 	camera = cv2.VideoCapture(camera)
 	backgroundFrame = camera.read()[1]
@@ -18,3 +18,6 @@ def go(camera):
 			cv2.destroyAllWindows()
 			camera.release()
 			sys.exit()
+
+if __name__ == '__main__':
+   main()

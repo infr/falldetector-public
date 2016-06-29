@@ -1,7 +1,7 @@
 import sys
 import cv2
 
-def go(camera):
+def main(camera):
 	# Fig. 2b - Static Frame Difference with threshold
 	threshold = 100
 	camera = cv2.VideoCapture(camera)
@@ -14,9 +14,12 @@ def go(camera):
 		foreground = cv2.threshold(foreground, threshold, 255, cv2.THRESH_BINARY)[1]
 		cv2.imshow("backgroundFrame", backgroundFrame)
 		cv2.imshow("foreground", foreground)
-
+		
 		key = cv2.waitKey(1) & 0xFF
 		if key == ord("q"):
 			cv2.destroyAllWindows()
 			camera.release()
 			sys.exit()
+
+if __name__ == '__main__':
+   main()

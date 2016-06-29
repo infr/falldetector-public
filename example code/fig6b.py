@@ -1,7 +1,7 @@
 import sys
 import cv2
 
-def go(camera):
+def main(camera):
 	# Fig. 6b - Frame Difference
 	threshold = 100
 	camera = cv2.VideoCapture(camera)
@@ -21,3 +21,6 @@ def go(camera):
 			cv2.destroyAllWindows()
 			camera.release()
 			sys.exit()
+
+if __name__ == '__main__':
+   main()

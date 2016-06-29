@@ -1,8 +1,8 @@
 import sys
 import cv2
 
-def go(camera):
-	# Fig. 7b - A variation of adaptive backgrounding
+def main(camera):
+	# Fig. 7b - A variation of adaptive backgrounding with median
 	threshold = 10
 	camera = cv2.VideoCapture(camera)
 	_, backgroundFrame = camera.read()
@@ -24,3 +24,6 @@ def go(camera):
 			cv2.destroyAllWindows()
 			camera.release()
 			sys.exit()
+
+if __name__ == '__main__':
+   main()

@@ -277,7 +277,7 @@ Fig. 6b - Frame Difference in Python
 Fig. 7 - Adaptive backgrounding
 
 ```python
-# Fig. 7b - A variation of adaptive backgrounding
+# Fig. 7b - A variation of adaptive backgrounding with median
 import sys
 import cv2
 threshold = 10
@@ -302,7 +302,7 @@ while 1:
 		camera.release()
 		sys.exit()
 ```
-Fig. 7b - A variation of adaptive backgrounding in Python
+Fig. 7b - A variation of adaptive backgrounding with median in Python
 
 #### Modern methods
 
@@ -314,14 +314,14 @@ Generally all the modern algorithms share the same pattern (Vacavant & Sobral 20
 2. *Foreground detection*: Comparing the background model to the current frame or frames
 3. *Background maintenance*: Teaching / updating the background model. Return to step 2.
 
-> Normal distribution explained (Fig. 8)
+> Normal distribution also called Gaussian distribution is a continuous probability distribution. It is determined N(μ, σ^2) where μ is the mean or expectation and σ^2 is the variance. μ controls the location of the peak of the distribution and σ^2 controls how wide the curve is. (Fig. 8) The Central Limit Theorems states that averages of random variables that are added together, all having the same probability distribution, tends towards Gaussian (or normal distribution) as the number of variables increases. (Lyon 2014)
 
-![Normal distribution](img/normal_distribution.png)
-Fig. 8 - Normal distribution
+> ![Normal distribution](img/fig8.png)
+> Fig. 8 - Normal distribution
 
 Successful early work in the field on human tracking was made by Wren et al. (1997) who proposed *PFinder* ("person finder"). In this, pixel-based method, the background model is a single Gaussian per pixel and the tracked object have a multi-class statistical model (Wren et al. 1997). This has been proved to be a good background subtraction method (Vacavant & Sobral 2014; Stauffer & Grimson 1999). However a single Gaussian per pixel is not able to adapt quickly to a dynamic background (swaying trees, waves in the ocean).
 
-Because the background can change, short and long term, Stauffer and Grimson (1999) proposed the *Gaussian mixture model* (GMM). The GMM models every pixel with a mixture of K Gaussians function (**add a fig.**). GMM is able to quickly adapt to a dynamic background and it has become a very popular background subtraction method. However GMM is not able to handle sudden illumination changes (turning on/off lights, clouds blocking sunlight) and shadows very well. (Chan, Mahadevan, Vasconcelos 2010; Vacavant & Sobral 2014; Xu et al. 2016) Zivkovic (2004) proposed improvements to GMM with *Adaptive Gaussian mixture model* (AGMM). These improvements did not include a solution for the shadow problem but reduced processing time by automatically selecting the number of components needed for each pixel. This research was funded by EU Framework Programme 6 (FP6 2002-2006). (Zivkovic 2004)
+Because the background can change, short and long term, Stauffer and Grimson (1999) proposed the *Gaussian mixture model* (GMM). The GMM models every pixel with a mixture of K Gaussians function. GMM is able to quickly adapt to a dynamic background and it has become a very popular background subtraction method. However GMM is not able to handle sudden illumination changes (turning on/off lights, clouds blocking sunlight) and shadows very well. (Chan, Mahadevan, Vasconcelos 2010; Vacavant & Sobral 2014; Xu et al. 2016) Zivkovic (2004) proposed improvements to GMM with *Adaptive Gaussian mixture model* (AGMM). These improvements did not include a solution for the shadow problem but reduced processing time by automatically selecting the number of components needed for each pixel. This research was funded by EU Framework Programme 6 (FP6 2002-2006). (Zivkovic 2004)
 
 Xu et al. (2016) tested a series of modern background subtraction methods:
 
@@ -343,21 +343,25 @@ Cardinaux et al. (2011) listed a series of methods in their research:
 * Eng et al. (2004)
 	- A Bayesian framework for challenging conditions - background and foreground share the same color or when two foreground objects overlap each other
 
+In order to choose the perfect background subtraction method for the fall detection system proposed it is crucial to determinate what features are needed and what challenges the method has to handle. Challenges in backgrounding is discussed next.
+
 #### Challenges in backgrounding
 
 As mentioned earlier the biggest challenges in backgrounding would be *illumination*, *dynamic background*, *shadows* and *video noise*. One of the challenges is that the RGB color space is sensitive to illumination changes. For this reason SOBS uses the HSV color space and SACON normalized color space. CodeBook separates color distortion and brightness distortion with a color model. KDE combines a short and long term background model to handle rapid illumination changes. (Xu et al. 2016)
+
+**write more about the challenges and how the different methods handle them**
 
 ### Activity detection
 
 One of the reasons why we would like to detect foreground objects from a video is to be able to determinate what activity the person in the video is performing. In the a *static approach* the persons posture is analyzed at a specific time. A posture is a good indicator of what the person is doing e.g. lying, standing, sitting etc. This information alone is not very useful. That is why in the *dynamic approach* the outcome of the static approach is combined to the earlier static approach outcomes. In this way we can analyze movement patterns. (Cardinaux et al. 2011) If the person was standing 0.4-0.8 seconds ago and is now detected as lying, the person probably have suffered from a fall (Cardinaux et al. 2011; Kroputaponchai & Suvonvorn 2013).
 
-#### Static approach (frame-wise(?))
+#### Static approach
 
 *Aspect ratio measurement* is a simple and quick way to analyze a persons posture. It is used in many fall detection algorithms (Fleck & Straßer 2010; Lin & Ling 2007; Nasution & Emmanuel 2007). Aspect ratio is calculated using the foreground pixels of a person to determinate in what position the person is. (Cardinaux et al. 2011)
 
 #### Dynamic approach
 
-Nasution & Emmanuel (2007) proposed usage of a stripped GMM to detect foreground objects. To detect the activity of a person they then trained the system with sitting, standing, bending, lying and lying against the camera. After the training phase they adapted a k-Nearest Neighbor (KNN) algorithm to calculate equality with each posture from the training phase. After this they adapted an evidence accumulation technique to only change the posture (from last frame) if the equality was high enough to exceed a threshold. (Nasution & Emmanuel 2007)
+Nasution & Emmanuel (2007) proposed usage of a stripped GMM to detect foreground objects. To detect the activity of a person they then trained the system with sitting, standing, bending, lying and lying against the camera. After the training phase they adapted a k-Nearest Neighbor (k-NN) algorithm to calculate equality with each posture from the training phase. After this they adapted an evidence accumulation technique to only change the posture (from last frame) if the equality was high enough to exceed a threshold. (Nasution & Emmanuel 2007)
 
 #### Motion
 
@@ -426,6 +430,8 @@ Kotilainen H., Topo P., Hurnasti, T. 2009. Asuinympäristö, apuvälineet ja tek
 Langanière R. 2011. OpenCV 2 Computer Vision Application Programming Cookbook. Packt Publishing Ltd. ISBN 978-1-849513-24-1
 
 [Lin C., Ling Z, 2007. Automatic Fall Incident Detection in Compressed Video for Intelligent Homecare. Proceedings of 16th International Conference on Computer Communications and Networks, 2007. ICCCN 2007, pp. 1172-1177](https://www.researchgate.net/publication/224721605_Automatic_Fall_Incident_Detection_in_Compressed_Video_for_Intelligent_Homecare)
+
+[Lyon A. 2014. Why are Normal Distributions Normal? The British Journal for the Philosophy of Science.](http://dx.doi.org/10.1093/bjps/axs046)
 
 [Morrow-Howell N., Proctor E. & Rozario P. 2001. How Much Is Enough? Perspectives of Care Repients and Professionals on the Sufficiency in In-Home Care. The Gerontologist 41, pp. 723–732.](http://gerontologist.oxfordjournals.org/content/41/6/723.long)
 
