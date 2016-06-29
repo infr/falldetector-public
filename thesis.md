@@ -86,7 +86,7 @@ Year 2012 world population was 7.2 billion. In the year 2100 world population is
 
 This thesis proposes an automatic monitoring system for formal and informal home care patients and care centers. It will provide security and a feeling of safety by detecting when a resident fall. After the detection the system will be able to alert professional personnel or family. The system should be affordable and should not be significantly less accurate than other available options. Further in this thesis the system will be called automatic Fall Detecting and alerting system (FD).
 
-There will be code examples written in Python, for readability, using the OpenCV library. The code examples are tested with Python version 2.7.11 and OpenCV version 2.4.13. Code examples should work in Python 2.7.x and OpenCV 2.4.x.
+There will be code examples written in Python using the OpenCV library. The code examples are tested with Python version 2.7.11 and OpenCV version 2.4.13. Code examples should work in Python 2.7.x and OpenCV 2.4.x. The examples can be found at [Github](https://github.com/infr/falldetector-public/tree/master/example%20code). The code examples can be tested with [example.py](example%20code/example.py).
 
 This thesis consist of two parts. The first part will cover the theoretical frame. The theoretical frame will give necessary background information from the health care perspective for understanding the need for automatic monitoring in general. It will also cover the technical part for automatic video analysis. The main topics will be home care, European Unions active and assistive living programme, video analysis in general, motion detection, human detection, fall detection and alert systems.
 
@@ -172,7 +172,9 @@ If the background of a scene remains unchanged the detection of foreground objec
 Fig. 1 - Static Frame Difference
 
 ```python
+# Fig. 1b - Static Frame Difference
 import cv2
+import sys
 camera = cv2.VideoCapture(0)
 backgroundFrame = camera.read()[1]
 backgroundFrame = cv2.cvtColor(backgroundFrame, cv2.COLOR_BGR2GRAY)
@@ -182,6 +184,12 @@ while 1:
 	foreground = cv2.absdiff(backgroundFrame, currentFrame)
 	cv2.imshow("backgroundFrame", backgroundFrame)
 	cv2.imshow("foreground", foreground)
+
+	key = cv2.waitKey(1) & 0xFF
+	if key == ord("q"):
+		cv2.destroyAllWindows()
+		camera.release()
+		sys.exit()
 ```
 
 Fig. 1b - Static Frame Difference in Python
@@ -193,6 +201,8 @@ In a real life scenario pixel values in the background would not be exactly the 
 Fig. 2 - Static Frame Difference with threshold (Tamersoy 2009)
 
 ```python
+# Fig. 2b - Static Frame Difference with threshold
+import sys
 import cv2
 threshold = 100
 camera = cv2.VideoCapture(0)
@@ -203,7 +213,14 @@ while 1:
 	currentFrame = cv2.cvtColor(currentFrame, cv2.COLOR_BGR2GRAY)
 	foreground = cv2.absdiff(backgroundFrame, currentFrame)
 	foreground = cv2.threshold(foreground, threshold, 255, cv2.THRESH_BINARY)[1]
+	cv2.imshow("backgroundFrame", backgroundFrame)
 	cv2.imshow("foreground", foreground)
+
+	key = cv2.waitKey(1) & 0xFF
+	if key == ord("q"):
+		cv2.destroyAllWindows()
+		camera.release()
+		sys.exit()
 ```
 
 Fig. 2b - Static Frame Difference with threshold in Python
@@ -226,9 +243,11 @@ Non-adaptive backgrounding has other challenges too, it needs re-initialization 
 Fig. 6 - Frame Difference
 
 ```python
+# Fig. 6b - Frame Difference
 import cv2
+import sys
 threshold = 100
-camera = cv2.VideoCapture(0)
+camera = cv2.VideoCapture(camera)
 _, backgroundFrame = camera.read()
 backgroundFrame = cv2.cvtColor(backgroundFrame, cv2.COLOR_BGR2GRAY)
 while 1:
@@ -236,8 +255,15 @@ while 1:
 	currentFrame = cv2.cvtColor(currentFrame, cv2.COLOR_BGR2GRAY)
 	foreground = cv2.absdiff(backgroundFrame, currentFrame)
 	foreground = cv2.threshold(foreground, threshold, 255, cv2.THRESH_BINARY)[1]
+	cv2.imshow("backgroundFrame", backgroundFrame)
 	cv2.imshow("foreground", foreground)
 	backgroundFrame = currentFrame
+	
+	key = cv2.waitKey(1) & 0xFF
+	if key == ord("q"):
+		cv2.destroyAllWindows()
+		camera.release()
+		sys.exit()
 ```
 
 Fig. 6b - Frame Difference in Python
@@ -251,6 +277,8 @@ Fig. 6b - Frame Difference in Python
 Fig. 7 - Adaptive backgrounding
 
 ```python
+# Fig. 7b - A variation of adaptive backgrounding
+import sys
 import cv2
 threshold = 10
 camera = cv2.VideoCapture(0)
@@ -267,6 +295,12 @@ while 1:
 	backgroundFrame = cv2.addWeighted(currentFrame, alpha, backgroundFrame, 1.0-alpha, 0)
 	cv2.imshow("backgroundFrame", backgroundFrame)
 	i += 1
+
+	key = cv2.waitKey(1) & 0xFF
+	if key == ord("q"):
+		cv2.destroyAllWindows()
+		camera.release()
+		sys.exit()
 ```
 Fig. 7b - A variation of adaptive backgrounding in Python
 
