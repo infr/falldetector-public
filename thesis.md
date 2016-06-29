@@ -317,6 +317,7 @@ Generally all the modern algorithms share the same pattern (Vacavant & Sobral 20
 > Normal distribution also called Gaussian distribution is a continuous probability distribution. It is determined N(μ, σ^2) where μ is the mean or expectation and σ^2 is the variance. μ controls the location of the peak of the distribution and σ^2 controls how wide the curve is. (Fig. 8) The Central Limit Theorems states that averages of random variables that are added together, all having the same probability distribution, tends towards Gaussian (or normal distribution) as the number of variables increases. (Lyon 2014)
 
 > ![Normal distribution](img/fig8.png)
+	
 > Fig. 8 - Normal distribution
 
 Successful early work in the field on human tracking was made by Wren et al. (1997) who proposed *PFinder* ("person finder"). In this, pixel-based method, the background model is a single Gaussian per pixel and the tracked object have a multi-class statistical model (Wren et al. 1997). This has been proved to be a good background subtraction method (Vacavant & Sobral 2014; Stauffer & Grimson 1999). However a single Gaussian per pixel is not able to adapt quickly to a dynamic background (swaying trees, waves in the ocean).
@@ -386,6 +387,61 @@ Nasution & Emmanuel (2007) proposed usage of a stripped GMM to detect foreground
 This thesis consist of two parts. This is the second part of the thesis.
 
 ## Execution
+
+## Fall detector installation
+
+Fall detector is installed to a Raspberry Pi 3 model B. Now follows a step-by-step guide for installation.
+
+For debuggin purposes [RASPBIAN JESSIE](https://www.raspberrypi.org/downloads/raspbian/) (Full desktop image based on Debian Jessie) is installed as the operating system (OS). For the commercial version RASPBIAN JESSIE LITE (Minimal image based on Debian Jessie) with Python and OpenCV installed would be better.
+
+Installing the operating system to the SD card is simple and Raspberry Pi foundation has it all covered up on their [website](https://www.raspberrypi.org/documentation/installation/installing-images/README.md).
+
+After OS is runnign there are a few things that should be done. Localisation options can be set, if needed, with raspi-config. The following commands will set it to Finnish.
+
+> sudo raspi-config
+> 5 Internationalisation Options
+> I1 Change locale
+> fi_FI.UTF8
+
+Keyboard language can be set to Finnish, or any other language, with setxbmap.
+
+> setxkbmap fi
+
+
+ Now everything should be updated. This can be made by connecting the device to the internet, via wifi or ethernet. After the connection is established the package list should be updated and then every program should be upgraded and lastly downloaded packages should be cleaned up. This can be made with the following commands.
+
+> sudo apt-get udpdate
+> sudo apt-get dist-upgrade
+> sudo apt-get clean
+
+After this the latest firmaware should be updated. Raspbian has a tool called rpi-update pre-installed and this can be used for the purpose.
+
+> sudo rpi-update
+
+After the firmware update a restart of the system is needed.
+
+> sudo shutdown -r 0
+
+Python should be already installed in the system. This can be verified with running python from the terminal.
+
+> python
+
+Next OpenCV should be installed with apt-get.
+
+> sudo apt-get install libopencv-dev python-opencv
+
+Numpy should be already installed. This can be verified with trying to install it with the Python package manager pip, which is a recursive acronym that stands for "Pip installs Packages".
+
+> pip install numpy
+
+Fall detector repository is cloned from Github.
+
+> git clone https://github.com/infr/falldetector.git
+
+After this the system can be tested with running main.py.
+
+> cd falldetector\fall\ detector
+> python main.py
 
 ## Testing
 
