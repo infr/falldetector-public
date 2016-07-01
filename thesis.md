@@ -327,7 +327,7 @@ Because the background can change, short and long term, Stauffer and Grimson (19
 Xu et al. (2016) tested a series of modern background subtraction methods:
 
 | Paper | Method |
-| --- | --- | --- |
+| --- | --- |
 | Stauffer & Grimson (1999) | Gaussian mixture model (GMM) |
 | Elgammal et al. (2000) | Kernel denisty estimator (KDE) |
 | Kim et al. (2004) inspired from Kohonen | CodeBook |
@@ -340,7 +340,7 @@ Xu et al. (2016) tested a series of modern background subtraction methods:
 Cardinaux et al. (2011) listed a series of methods in their research:
 
 | Paper | Method |
-| --- | --- |
+| --- | --- |
 | Cucchiara et al. (2003) | Statistical approach updating the background model with information from the previous frames about moving objects, shadows and ghost objects. |
 | Stauffer and Grimson (1999) | GMM |
 | Elgammal et al. (2000) | KDE |
