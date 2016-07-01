@@ -326,38 +326,39 @@ Because the background can change, short and long term, Stauffer and Grimson (19
 
 Xu et al. (2016) tested a series of modern background subtraction methods:
 
-* Stauffer & Grimson Gaussian mixture model (GMM), 1999
-* Elgammal et al. Kernel denisty estimator (KDE) 2000
-* Kim et al. inspired from Kohonen proposed CodeBook 2004
-* Zivkovic improved GMM with Adaptive Gaussian mixture model (AGMM) 2006
-* Wang et al. Consensus-based method (SACON) 2007
-* Maddalena and Petrosino a self-organizing background subtraction method (SOBS) 2008
-* Barnich and Droogenbroeck a universal background subtraction algorithm (Vibe) 2011
-* Hoffmann et al. Pixel-based adaptive segmenter (PBAS) 2012
+| Paper | Method |
+| --- | --- | --- |
+| Stauffer & Grimson (1999) | Gaussian mixture model (GMM) |
+| Elgammal et al. (2000) | Kernel denisty estimator (KDE) |
+| Kim et al. (2004) inspired from Kohonen | CodeBook |
+| Zivkovic (2006) | improved GMM with Adaptive Gaussian mixture model (AGMM) |
+| Wang et al. (2007) | Consensus-based method (SACON) |
+| Maddalena and Petrosino 2008 | a self-organizing background subtraction method (SOBS) |
+| Barnich and Droogenbroeck (2011) | a universal background subtraction algorithm (Vibe) (*This method is patented*) |
+| Hoffmann et al. (2012) | Pixel-based adaptive segmenter (PBAS) |
 
 Cardinaux et al. (2011) listed a series of methods in their research:
 
-* Cucchiara et al. (2003)
-	- Statistical approach updating the background model with information from the previous frames about moving objects, shadows and ghost objects.
-* Stauffer and Grimson (1999) - GMM
-* Elgammal et al. (2000) - KDE
-* Eng et al. (2004)
-	- A Bayesian framework for challenging conditions - background and foreground share the same color or when two foreground objects overlap each other
+| Paper | Method |
+| --- | --- |
+| Cucchiara et al. (2003) | Statistical approach updating the background model with information from the previous frames about moving objects, shadows and ghost objects. |
+| Stauffer and Grimson (1999) | GMM |
+| Elgammal et al. (2000) | KDE |
+| Eng et al. (2004) | A Bayesian framework for challenging conditions - background and foreground share the same color or when two foreground objects overlap each other. |
 
-OpenCV have libraries ready for the following methods (OpenCV):
+OpenCV have libraries ready for the following methods (OpenCV - cv::BackgroundSubtractor Class Reference):
 
-| Description of the method | Paper method is based on | Class in OpenCV |
+| Class in OpenCV | Method | Paper |
 | --- | --- | --- | --- |
-| K-nearest neigbours - Background/Foreground Segmentation Algorithm | Zivkovic 2006 | cv::BackgroundSubtractorKNN |
-| Gaussian Mixture-based Background/Foreground Segmentation Algorithm | Zivkovic 2004 & 2006 | cv::BackgroundSubtractorMOG2 |
-| Gaussian Mixture-based Background/Foreground Segmentation Algorithm | Zivkovic 2004 | cv::cuda::BackgroundSubtractorMOG2 |
-| Background Subtractor module - Takes a series of images and returns a sequence of mask (8UC1) images of the same size, where 255 indicates Foreground and 0 represents Background | Godbehere, Matsukawa & Goldberg 2012 | cv::bgsegm::BackgroundSubtractorGMG |
-| Gaussian Mixture-based Background/Foreground Segmentation | KaewTraKulPong & Bowden 2002 | cv::bgsegm::BackgroundSubtractorMOG |
+| cv::BackgroundSubtractorKNN | K-nearest neigbours - Background/Foreground Segmentation Algorithm | Zivkovic 2006 |
+| cv::BackgroundSubtractorMOG2 | Gaussian Mixture-based Background/Foreground Segmentation Algorithm | Zivkovic 2004 & 2006 |
+| cv::cuda::BackgroundSubtractorMOG2 | Gaussian Mixture-based Background/Foreground Segmentation Algorithm | Zivkovic 2004 |
+| cv::bgsegm::BackgroundSubtractorGMG | Background Subtractor module - Takes a series of images and returns a sequence of mask (8UC1) images of the same size, where 255 indicates Foreground and 0 represents Background | Godbehere, Matsukawa & Goldberg 2012 |
+| cv::bgsegm::BackgroundSubtractorMOG | Gaussian Mixture-based Background/Foreground Segmentation | KaewTraKulPong & Bowden 2002 |
 | The class discriminates between foreground and background pixels by building and maintaining a model of the background. Any pixel which does not fit this model is then deemed to be foreground. | Li , Huang, Gu & Tian 2003 |cv::cuda::BackgroundSubtractorFGD |
-| Background/Foreground Segmentation - The class discriminates between foreground and background pixels by building and maintaining a model of the background. Any pixel which does not fit this model is then deemed to be foreground. | Godbehere, Matsukawa & Goldberg 2012 | cv::cuda::BackgroundSubtractorGMG |
-| Gaussian Mixture-based Background/Foreground Segmentation - The class discriminates between foreground and background pixels by building and maintaining a model of the background. Any pixel which does not fit this model is then deemed to be foreground. | KaewTraKulPong & Bowden 2002 | cv::cuda::BackgroundSubtractorMOG |
-| Gaussian Mixture-based Background/Foreground Segmentation - The class discriminates between foreground and background pixels by building and maintaining a model of the background. Any pixel which does not fit this model is then deemed to be foreground. | KaewTraKulPong & Bowden 2002 | cv::cuda::BackgroundSubtractorMOG |
-| --- | --- | --- |
+| cv::cuda::BackgroundSubtractorGMG | Background/Foreground Segmentation - The class discriminates between foreground and background pixels by building and maintaining a model of the background. Any pixel which does not fit this model is then deemed to be foreground. | Godbehere, Matsukawa & Goldberg 2012 |
+| cv::cuda::BackgroundSubtractorMOG | Gaussian Mixture-based Background/Foreground Segmentation - The class discriminates between foreground and background pixels by building and maintaining a model of the background. Any pixel which does not fit this model is then deemed to be foreground. | KaewTraKulPong & Bowden 2002 |
+| cv::cuda::BackgroundSubtractorMOG | Gaussian Mixture-based Background/Foreground Segmentation - The class discriminates between foreground and background pixels by building and maintaining a model of the background. Any pixel which does not fit this model is then deemed to be foreground. | KaewTraKulPong & Bowden 2002 |
 
 
 In order to choose the perfect background subtraction method for the fall detection system proposed it is crucial to determinate what features are needed and what challenges the method has to handle. Challenges in backgrounding is discussed next.
