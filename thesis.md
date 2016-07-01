@@ -344,6 +344,22 @@ Cardinaux et al. (2011) listed a series of methods in their research:
 * Eng et al. (2004)
 	- A Bayesian framework for challenging conditions - background and foreground share the same color or when two foreground objects overlap each other
 
+OpenCV have libraries ready for the following methods (OpenCV):
+
+| Description of the method | Paper method is based on | Class in OpenCV |
+| --- | --- | --- | --- |
+| K-nearest neigbours - Background/Foreground Segmentation Algorithm | Zivkovic 2006 | cv::BackgroundSubtractorKNN |
+| Gaussian Mixture-based Background/Foreground Segmentation Algorithm | Zivkovic 2004 & 2006 | cv::BackgroundSubtractorMOG2 |
+| Gaussian Mixture-based Background/Foreground Segmentation Algorithm | Zivkovic 2004 | cv::cuda::BackgroundSubtractorMOG2 |
+| Background Subtractor module - Takes a series of images and returns a sequence of mask (8UC1) images of the same size, where 255 indicates Foreground and 0 represents Background | Godbehere, Matsukawa & Goldberg 2012 | cv::bgsegm::BackgroundSubtractorGMG |
+| Gaussian Mixture-based Background/Foreground Segmentation | KaewTraKulPong & Bowden 2002 | cv::bgsegm::BackgroundSubtractorMOG |
+| The class discriminates between foreground and background pixels by building and maintaining a model of the background. Any pixel which does not fit this model is then deemed to be foreground. | Li , Huang, Gu & Tian 2003 |cv::cuda::BackgroundSubtractorFGD |
+| Background/Foreground Segmentation - The class discriminates between foreground and background pixels by building and maintaining a model of the background. Any pixel which does not fit this model is then deemed to be foreground. | Godbehere, Matsukawa & Goldberg 2012 | cv::cuda::BackgroundSubtractorGMG |
+| Gaussian Mixture-based Background/Foreground Segmentation - The class discriminates between foreground and background pixels by building and maintaining a model of the background. Any pixel which does not fit this model is then deemed to be foreground. | KaewTraKulPong & Bowden 2002 | cv::cuda::BackgroundSubtractorMOG |
+| Gaussian Mixture-based Background/Foreground Segmentation - The class discriminates between foreground and background pixels by building and maintaining a model of the background. Any pixel which does not fit this model is then deemed to be foreground. | KaewTraKulPong & Bowden 2002 | cv::cuda::BackgroundSubtractorMOG |
+| --- | --- | --- |
+
+
 In order to choose the perfect background subtraction method for the fall detection system proposed it is crucial to determinate what features are needed and what challenges the method has to handle. Challenges in backgrounding is discussed next.
 
 #### Challenges in backgrounding
@@ -473,17 +489,23 @@ The idea of the project is to lower health care costs and provide safer home car
 
 [Cucchiara R., Grana C., Piccardi M., Prati A. 2003. Detecting moving objects, ghosts, and shadows in video streams. IEEE Transaction on Pattern Analysis and Machine Intelligence, 25(10). pp. 1337 - 1342.](https://www.researchgate.net/publication/3193612_Detecting_Moving_Objects_Ghosts_and_Shadows_in_Video_Streams)
 
+[Eng H., Wwang J., Kam A.H., Yau W. 2004. A Bayesian framework for robust human detection and occlusion handling human shape model. In Pattern Recognition, 2004. ICPR 2004. Proceedings of the 17th International Conference on, vol. 2. pp. 257 - 260.](https://www.researchgate.net/publication/4090417_A_Bayesian_framework_for_robust_human_detection_and_occlusion_handling_human_shape_model)
+
 [Fleck S., Straßer W. 2010. Privacy Sensitive Surveillance for Assisted Living - A Smart Camera Approach. pp. 985-1014. Handbook of Ambient Intelligence and Smart Environments. Part VIII. Springer US. ISBN 978-0-387-93808-0](http://www.springer.com/gp/book/9780387938073)
 
-[Gerland P., Raftery A. E., Sevcikova H., Li N., Gu D., Spoorenberg T., Alkema L., Fosdick B. K., Chunn J., Lalic N., Bay G., Buettner T., Heilig G. K., Wilmoth J. 2014. World population stabilization unlikely this century. Science VOL 346 (6206), pp. 234-247](http://science.sciencemag.org/content/346/6206/234)
+[Gerland P., Raftery A. E., Sevcikova H., Li N., Gu D., Spoorenberg T., Alkema L., Fosdick B. K., Chunn J., Lalic N., Bay G., Buettner T., Heilig G. K., Wilmoth J. 2014. World population stabilization unlikely this century. Science VOL 346 (6206). pp. 234-247](http://science.sciencemag.org/content/346/6206/234)
 
-[Eng H., Wwang J., Kam A.H., Yau W. 2004. A Bayesian framework for robust human detection and occlusion handling human shape model. In Pattern Recognition, 2004. ICPR 2004. Proceedings of the 17th International Conference on, vol. 2. pp. 257 - 260.](https://www.researchgate.net/publication/4090417_A_Bayesian_framework_for_robust_human_detection_and_occlusion_handling_human_shape_model)
+[Godbehere A. B., Matsukawa A., and Goldberg K. 2012. Visual tracking of human visitors under variable-lighting conditions for a responsive audio art installation. In American Control Conference (ACC). pp. 4305–4312. IEEE, 2012](http://dx.doi.org/10.1109/ACC.2012.6315174)
+
+[KaewTraKulPong P., Bowden R. 2002. An improved adaptive background mixture model for real-time tracking with shadow detection. In Video-Based Surveillance Systems, pp. 135–144. Springer.](http://dx.doi.org/10.1007/978-1-4615-0913-4_11)
 
 Kotilainen H., Topo P., Hurnasti, T. 2009. Asuinympäristö, apuvälineet ja teknologia. Teoksessa Sormunen S. & Topo P.(toim.) Laadukkaat dementiapalvelut – opas kunnille. Jyväskylä. Gummerus Kirjapaino Oy.
 
 [Kroputaponchai T., Suvonvorn N. 2013. Vision-based Fall Detection and Alert System Suitable for the Elderly and Disabled Peoples](https://www.researchgate.net/publication/239928029_Vision-based_Fall_Detection_and_Alert_System_Suitable_for_the_Elderly_and_Disabled_Peoples)
 
 Langanière R. 2011. OpenCV 2 Computer Vision Application Programming Cookbook. Packt Publishing Ltd. ISBN 978-1-849513-24-1
+
+[Li L., Huang W, Gu I. Y. H., Tian T. 2003. Foreground object detection from videos containing complex background. In Proceedings of the eleventh ACM international conference on Multimedia. pp. 2–10. ACM.](http://dx.doi.org/10.1145/957013.957017)
 
 [Lin C., Ling Z, 2007. Automatic Fall Incident Detection in Compressed Video for Intelligent Homecare. Proceedings of 16th International Conference on Computer Communications and Networks, 2007. ICCCN 2007, pp. 1172-1177](https://www.researchgate.net/publication/224721605_Automatic_Fall_Incident_Detection_in_Compressed_Video_for_Intelligent_Homecare)
 
@@ -518,6 +540,8 @@ AAL - Active and Assistive Living programme, 2016. About. <http://www.aal-europe
 European Comission. What is Horizon 2020? <http://ec.europa.eu/programmes/horizon2020/en/what-horizon-2020> Accessed: 16.3.2016
 
 Grove J. 2011. 'Triple miracle' sees huge rise in EU funds for frontier research. Times Higher Education. <https://www.timeshighereducation.com/news/triple-miracle-sees-huge-rise-in-eu-funds-for-frontier-research/416952.article?storycode=416952> Accessed: 17.6.2016
+
+OpenCV - cv::BackgroundSubtractor Class Reference <http://docs.opencv.org/3.1.0/d7/df6/classcv_1_1BackgroundSubtractor.html> Accessed: 30.6.2016
 
 Roser M., 2016 – Life Expectancy. OurWorldInData.org. Data taken from the Human Mortality Database. University of California, Berkeley (USA), and Max Planck Institute for Demographic Research (Germany) <https://ourworldindata.org/life-expectancy/> Accessed: 7.6.2016
 
