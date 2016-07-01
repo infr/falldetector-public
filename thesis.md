@@ -375,11 +375,15 @@ One of the reasons why we would like to detect foreground objects from a video i
 
 #### Static approach
 
-*Aspect ratio measurement* is a simple and quick way to analyze a persons posture. It is used in many fall detection algorithms (Fleck & Straßer 2010; Lin & Ling 2007; Nasution & Emmanuel 2007). Aspect ratio is calculated using the foreground pixels of a person to determinate in what position the person is. (Cardinaux et al. 2011)
+The static approach tries to detect in what posture the target person is. This analysis is done frame-wise (for each frame separately). Posture of a person is a good indication of the persons state. *Aspect ratio measurement* is a simple and quick way to analyze a persons posture. It is used in many fall detection algorithms (Fleck & Straßer 2010; Lin & Ling 2007; Nasution & Emmanuel 2007). Aspect ratio is calculated using the foreground pixels of a person, that are obtained with a background subtraction, to determinate in what position the person is. The persons bounding box is constructed by finding the furthest foreground pixels (leftmost, rightmost, topmost, bottommost). Shadows and noise can cause errors in the bounding box calculations. To avoid this there can be a histogram applied row-wise and column-wise and then the bounding box would be constructed for the pixels that exceed the histograms threshold. Horizontal and vertical projection histograms can decrease the effects of noise and shadows. A k-Nearest Neighbor (KNN) algorithm could also be applied to find the most similar posture. (Cardinaux et al. 2011; Nasution & Emmanuel 2007)
 
 #### Dynamic approach
 
-Nasution & Emmanuel (2007) proposed usage of a stripped GMM to detect foreground objects. To detect the activity of a person they then trained the system with sitting, standing, bending, lying and lying against the camera. After the training phase they adapted a k-Nearest Neighbor (k-NN) algorithm to calculate equality with each posture from the training phase. After this they adapted an evidence accumulation technique to only change the posture (from last frame) if the equality was high enough to exceed a threshold. (Nasution & Emmanuel 2007)
+Because the static approach alone is not very useful dynamic approach is used. In the dynamic approach the results from the static analysis are used and applied to a histogram. With the histogram the system can identify if a lying person did fall or intentionally lying. (Cardinaux et al. 2011)
+
+Nasution & Emmanuel (2007) proposed usage of a stripped GMM to detect foreground objects. To detect the activity of a person they then trained the system with sitting, standing, bending, lying and lying against the camera. After the training phase they adapted a KNN algorithm to calculate equality with each posture from the training phase. After this they adapted an evidence accumulation technique to only change the posture (from last frame) if the equality was high enough to exceed a threshold. (Nasution & Emmanuel 2007)
+
+Time from standing to lying can be used as a indicator to identify falls. (Cardinaux et al. 2011)
 
 #### Motion
 
