@@ -371,23 +371,27 @@ As mentioned earlier the biggest challenges in backgrounding would be *illuminat
 
 ### Activity detection
 
-One of the reasons why we would like to detect foreground objects from a video is to be able to determinate what activity the person in the video is performing. In the a *static approach* the persons posture is analyzed at a specific time. A posture is a good indicator of what the person is doing e.g. lying, standing, sitting etc. This information alone is not very useful. That is why in the *dynamic approach* the outcome of the static approach is combined to the earlier static approach outcomes. In this way we can analyze movement patterns. (Cardinaux et al. 2011) If the person was standing 0.4-0.8 seconds ago and is now detected as lying, the person probably have suffered from a fall (Cardinaux et al. 2011; Kroputaponchai & Suvonvorn 2013).
+One of the reasons why one would like to detect foreground objects from a video is to be able to determinate what activity the person in the video is performing. In the *static approach* the persons posture is analyzed at a specific time. A posture is a good indicator of what the person is doing e.g. lying, standing or sitting. This information alone is not very useful. That is why in the *dynamic approach* the outcome of the static approach is combined to the earlier static approach outcomes. In this way we can analyze movement patterns. (Cardinaux et al. 2011) If the person was standing in the last frame and in the current frame is detected as lying, the person probably have suffered from a fall (Cardinaux et al. 2011; Kroputaponchai & Suvonvorn 2013).
 
-#### Static approach
+#### Static analysis
 
-The static approach tries to detect in what posture the target person is. This analysis is done frame-wise (for each frame separately). Posture of a person is a good indication of the persons state. *Aspect ratio measurement* is a simple and quick way to analyze a persons posture. It is used in many fall detection algorithms (Fleck & Straßer 2010; Lin & Ling 2007; Nasution & Emmanuel 2007). Aspect ratio is calculated using the foreground pixels of a person, that are obtained with a background subtraction, to determinate in what position the person is. The persons bounding box is constructed by finding the furthest foreground pixels (leftmost, rightmost, topmost, bottommost). Shadows and noise can cause errors in the bounding box calculations. To avoid this there can be a histogram applied row-wise and column-wise and then the bounding box would be constructed for the pixels that exceed the histograms threshold. Horizontal and vertical projection histograms can decrease the effects of noise and shadows. A k-Nearest Neighbor (KNN) algorithm could also be applied to find the most similar posture. (Cardinaux et al. 2011; Nasution & Emmanuel 2007)
+The static approach tries to detect in what posture the target person is. This analysis is done frame-wise (for each frame separately). Posture of a person is a good indication of the persons state. *Aspect ratio measurement* is a simple and quick way to analyze a persons posture. It is used in many fall detection algorithms (Fleck & Straßer 2010; Lin & Ling 2007; Nasution & Emmanuel 2007). Aspect ratio is calculated using the foreground pixels of a person, that are obtained with a background subtraction, to determinate in what position the person is. The persons bounding box is constructed by finding the furthest foreground pixels (leftmost, rightmost, topmost, bottommost). Shadows and noise can cause errors in the bounding box calculations. To avoid this there can be a histogram applied row-wise and column-wise and then the bounding box would be constructed for the pixels that exceed the histograms threshold. Horizontal and vertical projection histograms can decrease the effects of noise and shadows. (Cardinaux et al. 2011) Nasution & Emmanuel (2007) proposed a k-Nearest Neighbor (KNN) algorithm to identify the most similar posture from the postures that were trained to the algorithm during the training phase.
 
-#### Dynamic approach
+#### Dynamic analysis
 
-Because the static approach alone is not very useful dynamic approach is used. In the dynamic approach the results from the static analysis are used and applied to a histogram. With the histogram the system can identify if a lying person did fall or intentionally lying. (Cardinaux et al. 2011)
+Because the static approach alone is not very useful a dynamic approach is used. In the dynamic analysis the results from the static analysis are used and saved to a register. With the register the system can identify if a lying person did fall or intentionally lying. The time since a person detected as standing to the time that the person is detected lying is used to identify falls. (Cardinaux et al. 2011)  If the person was standing 0.4-0.8 seconds ago and is now detected as lying, the person probably have suffered from a fall. Also an audio analysis could be utilized with video-based methods to make the detection more robust. (Cardinaux et al. 2011; Kroputaponchai & Suvonvorn 2013)
 
 Nasution & Emmanuel (2007) proposed usage of a stripped GMM to detect foreground objects. To detect the activity of a person they then trained the system with sitting, standing, bending, lying and lying against the camera. After the training phase they adapted a KNN algorithm to calculate equality with each posture from the training phase. After this they adapted an evidence accumulation technique to only change the posture (from last frame) if the equality was high enough to exceed a threshold. (Nasution & Emmanuel 2007)
 
-Time from standing to lying can be used as a indicator to identify falls. (Cardinaux et al. 2011)
+#### Position analysis
 
-#### Motion
+While posture analysis is a good way to detect the persons state it is hard for it to detect what activity, more specific than just sitting, standing or lying, the person is performing. That is why the persons position could be used to determine what ADL or IADL the person is currently performing. With this technique the daily routines could be monitored and taught to the system and if something abnormal is detected it could create an alarm. (OMASeniori)
+
+The persons position analysis with an overhead camera could extract the following information: *position*, *velocity* and *orientation*. This could be done by tracking the persons head. (Cardinaux et al. 2011)
 
 #### Combination
+
+Because presented methods does not always achieve the sensitivity needed for a robust system these methods could be combined.
 
 ## Alert systems
 
@@ -545,6 +549,8 @@ AAL - Active and Assistive Living programme, 2016. About. <http://www.aal-europe
 European Comission. What is Horizon 2020? <http://ec.europa.eu/programmes/horizon2020/en/what-horizon-2020> Accessed: 16.3.2016
 
 Grove J. 2011. 'Triple miracle' sees huge rise in EU funds for frontier research. Times Higher Education. <https://www.timeshighereducation.com/news/triple-miracle-sees-huge-rise-in-eu-funds-for-frontier-research/416952.article?storycode=416952> Accessed: 17.6.2016
+
+OMAseniori | Yksinasuvan seniorin turvapalvelu <https://www.omaseniori.fi> Accessed: 4.7.2016
 
 OpenCV - cv::BackgroundSubtractor Class Reference <http://docs.opencv.org/3.1.0/d7/df6/classcv_1_1BackgroundSubtractor.html> Accessed: 30.6.2016
 
