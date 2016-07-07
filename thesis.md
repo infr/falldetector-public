@@ -135,19 +135,19 @@ European Union (EU) has noticed the growth of life expectancy and the problems i
 
 ## Automatic monitoring
 
-When elderly people fall it is particularly serious and often leads to injury or death. That is why automatic monitoring has an important role in home care and care centers. (Kroputaponchai & Suvonvorn 2013) The fear of falling leads to restricted ADL/IADL. The fear is justified, fall related injuries are among the five most causes of death for the elderly population. If falls would be detected the patient could be provided with in-time medical treatment. (Lin & Ling 2007, 1172) In-time medical treatment could save lives. The presence of personnel brings an elderly patients the feeling of safety (Sanerma 2009, 71). Could the presence of an automatic fall detecting system also lower the fear and therefore increase ADL/IADL?
+When elderly people fall it is particularly serious and often leads to injury or death. That is why automatic monitoring has an important role in home care and care centers. (Rubentein & Josephson 2002; Kroputaponchai & Suvonvorn 2013) The fear of falling leads to restricted ADL/IADL. The fear is justified, fall related injuries are among the five most causes of death for the elderly population. Even if the count of falls would be smaller than a child would have, falling is much more dangerous for older persons with e.g. slower protection reflexes. If falls would be detected the patient could be provided with in-time medical treatment. (Lin & Ling 2007; Rubentein & Josephson 2002) A long lie after the fall is a poor prognostic sign. (Rubenstein 2002). In-time medical treatment could minimize the damage and save lives. The presence of personnel brings an elderly patients the feeling of safety (Sanerma 2009, 71). Could the presence of an automatic fall detecting system also lower the fear and therefore increase ADL/IADL?
 
 One of the methods to automatically monitor persons and their activities is utilizing sensors. These can be *body-worn sensors* or *embedded sensors* installed to the environment. Embedded sensors generally need a large network of sensors. They could be placed on every door to detect when it does open or close. (Cardinaux et al. 2011) Or as Ropponen (2012) suggested sensors could be mounted in to the floor. These embedded systems are usually costly to maintain and the installation or relocation of them can be time-consuming. Embedded sensors are also highly sensitive to the performance of the sensor. Body-worn sensors could monitor falling, activity, vital signs, etc. and they do it quite effectively. In body-worn sensors user compliance is poor and they do not work if the patient forgets to wear them. Fall detection could also be made with floor vibration sensors, sound monitoring or video monitoring. These methods could also be combined to get the advantages of all systems. (Cardinaux et al. 2011)
 
 Video based monitoring has some advantages, one single camera could monitor one room and pick up most of the activities in that room. Also the installation of a robust system could be easy. There are still some barriers to overcome, mostly around the patients concerns about their privacy. (Cardinaux et al. 2011)
 
-Traditional video surveillance systems need an operator to track activities with a video displaying multi-monitor setup. All the recording occur centralized and there is a complete lack of privacy. There need to be a paid operator watching the screens over the surveillance period. On top of this there is a study showing that after 22 minutes the operator will miss 95% of the activities on the screen. (Fleck & Straßer 2010. 986)
+Traditional video surveillance systems need an operator to track activities with a video displaying multi-monitor setup. All the recording occur centralized and there is a complete lack of privacy. There need to be a paid operator watching the screens over the surveillance period. On top of this there is a study showing that after 22 minutes the operator will miss 95% of the activities on the screen. (Fleck & Straßer 2010)
 
-One of the biggest concerns for the patients is about how they preserve their privacy. Some of them are not agreeable with installation of cameras and sensors in their home. The main concern is the loss of privacy and particularly in solutions that includes cameras. (Cardinaux et al. 2011, 11) This is why the privacy concerns, in such a system, should be taken seriously.
+One of the biggest concerns for the patients is about how they preserve their privacy. Some of them are not agreeable with installation of cameras and sensors in their home. The main concern is the loss of privacy and particularly in solutions that includes cameras. (Cardinaux et al. 2011) This is why the privacy concerns, in such a system, should be taken seriously.
 
-There are different technologies available for processing video material in a secure way. The video can be filtered and obscured so that identities or activities can not be recognized. A silhouette can be placed over the humans in the video so that they can not be identified. (Cardinaux et al. 2011, 11-12)
+There are different technologies available for processing video material in a secure way. The video can be filtered and obscured so that identities or activities can not be recognized. A silhouette can be placed over the humans in the video so that they can not be identified. (Cardinaux et al. 2011)
 
-For the reasons presented above the proposed solution will be a smart camera system. A smart camera system is a privacy respecting solution. In the system there are multiple camera nodes. Each camera node can analyze the video automatically and detect falls. The cameras will not transfer the video to any centralized system and thus preventing loss of privacy. (Fleck & Straßer 2010. 986-987) In the proposed solution no human is able to see the video. If the camera detects a fall it will alarm the personnel or family. The alarm can be made with different solutions and are discussed further later in this thesis.
+For the reasons presented above the proposed solution will be a smart camera system. A smart camera system is a privacy respecting solution. In the system there are multiple camera nodes. Each camera node can analyze the video automatically and detect falls. The cameras will not transfer the video to any centralized system and thus preventing loss of privacy. (Fleck & Straßer 2010) In the proposed solution no human is able to see the video. If the camera detects a fall it will alarm the personnel or family. The alarm can be made with different solutions and are discussed further later in this thesis.
 
 ### Video analysis
 
@@ -375,7 +375,7 @@ One of the reasons why one would like to detect foreground objects from a video 
 
 #### Static analysis
 
-The static approach tries to detect in what posture the target person is. This analysis is done frame-wise (for each frame separately). Posture of a person is a good indication of the persons state. *Aspect ratio measurement* is a simple and quick way to analyze a persons posture. It is used in many fall detection algorithms (Fleck & Straßer 2010; Lin & Ling 2007; Nasution & Emmanuel 2007). Aspect ratio is calculated using the foreground pixels of a person, that are obtained with a background subtraction, to determinate in what position the person is. The persons bounding box is constructed by finding the furthest foreground pixels (leftmost, rightmost, topmost, bottommost). Shadows and noise can cause errors in the bounding box calculations. To avoid this there can be a histogram applied row-wise and column-wise and then the bounding box would be constructed for the pixels that exceed the histograms threshold. Horizontal and vertical projection histograms can decrease the effects of noise and shadows. (Cardinaux et al. 2011) Nasution & Emmanuel (2007) proposed a k-Nearest Neighbor (KNN) algorithm to identify the most similar posture from the postures that were trained to the algorithm during the training phase.
+The static approach tries to detect in what posture the target person is. This analysis is done frame-wise (for each frame separately). Posture of a person is a good indication of the persons state. *Aspect ratio measurement* is a simple and quick way to analyze a persons posture. It is used in many fall detection algorithms (Fleck & Straßer 2010; Lin & Ling 2007; Nasution & Emmanuel 2007). Aspect ratio is calculated using the foreground pixels of a person, that are obtained with a background subtraction, to determinate in what position the person is. The persons *bounding box* is constructed by finding the furthest foreground pixels (leftmost, rightmost, topmost, bottommost). Shadows and noise can cause errors in the bounding box calculations. To avoid this there can be a histogram applied row-wise and column-wise and then the bounding box would be constructed for the pixels that exceed the histograms threshold. Horizontal and vertical projection histograms can decrease the effects of noise and shadows. (Cardinaux et al. 2011) Nasution & Emmanuel (2007) proposed a k-Nearest Neighbor (KNN) algorithm to identify the most similar posture from the postures that were trained to the algorithm during the training phase.
 
 #### Dynamic analysis
 
@@ -383,11 +383,13 @@ Because the static approach alone is not very useful a dynamic approach is used.
 
 Nasution & Emmanuel (2007) proposed usage of a stripped GMM to detect foreground objects. To detect the activity of a person they then trained the system with sitting, standing, bending, lying and lying against the camera. After the training phase they adapted a KNN algorithm to calculate equality with each posture from the training phase. After this they adapted an evidence accumulation technique to only change the posture (from last frame) if the equality was high enough to exceed a threshold. (Nasution & Emmanuel 2007)
 
-#### Position analysis
+Many researches define a fall as a person having a greater acceleration than in their normal daily activities (Gjoreski, Lustrek, Gams 2012; Kroputaponchai & Suvonvorn 2013; Nasution & Emmanuel 2007). Fall-like activities can have the same acceleration as normal activities such as lying down on the bed quickly or quickly sitting down. Additionally, all falls does not include a fast acceleration. (Gjoreski et al. 2012; Rubenstein 2002) Gjoreski et al. (2012) proposed that Rubenstein (2002) showed that 22% of the falls could be "slow falls", falls that does not have a greater acceleration than normal activities. That is why approaches that only rely on acceleration can be problematic and could cause many false detections. A robust system should detect slower falls and be able to separate quick normal activities from falls.
 
-While posture analysis is a good way to detect the persons state it is hard for it to detect what activity, more specific than just sitting, standing or lying, the person is performing. That is why the persons position could be used to determine what ADL or IADL the person is currently performing. With this technique the daily routines could be monitored and taught to the system and if something abnormal is detected it could create an alarm. (OMASeniori)
+#### Position and motion analysis
 
-The persons position analysis with an overhead camera could extract the following information: *position*, *velocity* and *orientation*. This could be done by tracking the persons head. (Cardinaux et al. 2011)
+While posture analysis is a good way to detect the persons state it is hard for it to detect what activity, more specific than just sitting, standing or lying, the person is performing. That is why the persons position could be used to determine what ADL or IADL the person is currently performing. With this technique the daily routines could be monitored and taught to the system and if something abnormal is detected, it could create an alarm (OMASeniori).
+
+The persons position analysis with an overhead camera could extract the following information: *position*, *velocity* and *orientation*. This could be done by tracking the persons head. Motion and position information is useful for making decisions of activities. (Cardinaux et al. 2011) If a person is detected as falling on to the sofa and then detected as sitting, the person could be intentionally sitting. Another example could be that a person should not be lying on the floor but can lye on the bed.
 
 #### Combination
 
@@ -402,7 +404,7 @@ Because presented methods does not always achieve the sensitivity needed for a r
 *Going to write about what solutions are available on the current market*
 
 * Seniortek (Kukkatolppa)
-* Terveysoperaattori (OMAsensori)
+* Terveysoperaattori (OMAseniori)
 * ..
 
 - - -
@@ -504,6 +506,8 @@ The idea of the project is to lower health care costs and provide safer home car
 
 [Gerland P., Raftery A. E., Sevcikova H., Li N., Gu D., Spoorenberg T., Alkema L., Fosdick B. K., Chunn J., Lalic N., Bay G., Buettner T., Heilig G. K., Wilmoth J. 2014. World population stabilization unlikely this century. Science VOL 346 (6206). pp. 234-247](http://science.sciencemag.org/content/346/6206/234)
 
+[Gjoreski H., Lustrek M., Gams M. 2012. Context-Based Fall Detection Using Inertial and Location Sensors. Ambient Intelligence. Volume 7683. pp. 1-16.](http://dx.doi.org/10.1007/978-3-642-34898-3_1)
+
 [Godbehere A. B., Matsukawa A., and Goldberg K. 2012. Visual tracking of human visitors under variable-lighting conditions for a responsive audio art installation. In American Control Conference (ACC). pp. 4305–4312. IEEE, 2012](http://dx.doi.org/10.1109/ACC.2012.6315174)
 
 [KaewTraKulPong P., Bowden R. 2002. An improved adaptive background mixture model for real-time tracking with shadow detection. In Video-Based Surveillance Systems, pp. 135–144. Springer.](http://dx.doi.org/10.1007/978-1-4615-0913-4_11)
@@ -525,6 +529,8 @@ Langanière R. 2011. OpenCV 2 Computer Vision Application Programming Cookbook. 
 [Nasution A. H., Emmanuel S. 2007. Intelligent Video Surveillance for Monitoring Elderly in Home Environments. Multimedia Signal Processing. MMSP 2007. IEEE 9th Workshop on, Crete, 2007. pp. 203-206.](http://dx.doi.org/10.1109/MMSP.2007.4412853)
 
 [Ropponen A. 2012. An Arrangement to Locate and Identify People with Dual-Frequency Tags Providing Context-Related Information. ISBN 978-952-60-4871-0](http://urn.fi/URN:ISBN:978-952-60-4871-0)
+
+[Rubenstein L.Z., Josephson K.R. 2002. The epidemiology of falls and syncope. Clinics in Geriatric Medicine 18(2). pp. 141–158.](http://dx.doi.org/10.1016/S0749-0690(02%2900002-2)
 
 [Sanerma P. 2009. Kotihoitotyön kehittäminen tiimityön avulla. ISBN 978-951-44-7855-0](http://urn.fi/urn:isbn:978-951-44-7855-0)
 
