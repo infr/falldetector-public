@@ -137,7 +137,7 @@ European Union (EU) has noticed the growth of life expectancy and the problems i
 
 When elderly people fall it is particularly serious and often leads to injury or death. That is why automatic monitoring has an important role in home care and care centers. (Rubentein & Josephson 2002; Kroputaponchai & Suvonvorn 2013) The fear of falling leads to restricted ADL/IADL. The fear is justified, fall related injuries are among the five most causes of death for the elderly population. Even if the count of falls would be smaller than a child would have, falling is much more dangerous for older persons with e.g. slower protection reflexes. If falls would be detected the patient could be provided with in-time medical treatment. (Lin & Ling 2007; Rubentein & Josephson 2002) A long lie after the fall is a poor prognostic sign. (Rubenstein 2002). In-time medical treatment could minimize the damage and save lives. The presence of personnel brings an elderly patients the feeling of safety (Sanerma 2009, 71). Could the presence of an automatic fall detecting system also lower the fear and therefore increase ADL/IADL?
 
-One of the methods to automatically monitor persons and their activities is utilizing sensors. These can be *body-worn sensors* or *embedded sensors* installed to the environment. Embedded sensors generally need a large network of sensors. They could be placed on every door to detect when it does open or close. (Cardinaux et al. 2011) Or as Ropponen (2012) suggested sensors could be mounted in to the floor. These embedded systems are usually costly to maintain and the installation or relocation of them can be time-consuming. Embedded sensors are also highly sensitive to the performance of the sensor. Body-worn sensors could monitor falling, activity, vital signs, etc. and they do it quite effectively. In body-worn sensors user compliance is poor and they do not work if the patient forgets to wear them. Fall detection could also be made with floor vibration sensors, sound monitoring or video monitoring. These methods could also be combined to get the advantages of all systems. (Cardinaux et al. 2011)
+One of the methods to automatically monitor persons and their activities is utilizing sensors. These can be *body-worn sensors* or *embedded sensors* installed to the environment. Embedded sensors generally need a large network of sensors. They could be placed on every door to detect when it does open or close. (Cardinaux et al. 2011) Or as Ropponen (2012) suggested sensors could be mounted in to the floor. These embedded systems are usually costly to maintain and the installation or relocation of them can be time-consuming. Embedded sensors are also highly sensitive to the performance of the sensor. Body-worn sensors could monitor falling, activity, vital signs, etc. and they do it quite effectively. In body-worn sensors user compliance is poor and they do not work if the patient forgets to wear them. Help buttons can be useful but are useless if the person is unconscious or is not able to move. Fall detection could also be made with floor vibration sensors, sound monitoring or video monitoring. Sound monitoring could detect when something hits the floor and also identify speech to identify a cry for help. These methods could also be combined to get the advantages of all systems. (Cardinaux et al. 2011; Lin & Ling 2007; Rougier et al. 2007)
 
 Video based monitoring has some advantages, one single camera could monitor one room and pick up most of the activities in that room. Also the installation of a robust system could be easy. There are still some barriers to overcome, mostly around the patients concerns about their privacy. (Cardinaux et al. 2011)
 
@@ -151,7 +151,7 @@ For the reasons presented above the proposed solution will be a smart camera sys
 
 ### Video analysis
 
-Video analysis can be made with a lot of different methods. Usually the interesting part of a scene is not the background but the objects in the foreground. These objects of interest could be any object, e.g. humans, cars, animals etc. *Foreground detection* is a method where objects of interest are separated from the background in a video stream. This method can also be called *background subtraction*. Further in this thesis both terms will be used. Background subtraction works by thresholding the error between the current image and the estimate of the image without the objects of interest. (Xu, et al. 2016; Chan, Mahadevan, Vasconcelos 2010; Stauffer & Grimson 1999) Faster computers have enabled researchers to propose robust models that are more complex than the previous methods. Backrounding methods can be categorized into pixel-based, region-based, hybrid methods and also into parametric and non-parametric methods. Every method has its own strength and weakness. (Xu, et al. 2016; Vacavant & Sobral 2014; Stauffer & Grimson 1999) In this thesis we can not cover every available algorithm but we will discuss the most significant. Basic terminology of the methods will be discussed next.
+Video analysis can be made with a lot of different methods. Usually the interesting part of a scene is not the background but the objects in the foreground. These objects of interest could be any object, e.g. humans, cars, animals etc. *Foreground detection* is a method where objects of interest are separated from the background in a video stream. This method can also be called *background subtraction*. Further in this thesis both terms will be used. Background subtraction works by thresholding the error between the current image and the estimate of the image without the objects of interest. (Xu, et al. 2016; Chan, Mahadevan, Vasconcelos 2010; Stauffer & Grimson 1999) Faster computers have enabled researchers to propose robust models that are more complex than the previous methods. Backrounding methods can be categorized into pixel-based, region-based, hybrid methods and also into parametric and non-parametric methods. Every method has its own strength and weakness. (Xu, et al. 2016; Vacavant & Sobral 2014; Stauffer & Grimson 1999) In this thesis we can not cover every available algorithms but we will discuss the most significant. Basic terminology of the methods will be discussed next.
 
 #### Terminology
 
@@ -355,11 +355,10 @@ OpenCV have libraries ready for the following methods (OpenCV - cv::BackgroundSu
 | cv::cuda::BackgroundSubtractorMOG2 | Gaussian Mixture-based Background/Foreground Segmentation Algorithm | Zivkovic 2004 |
 | cv::bgsegm::BackgroundSubtractorGMG | Background Subtractor module - Takes a series of images and returns a sequence of mask (8UC1) images of the same size, where 255 indicates Foreground and 0 represents Background | Godbehere, Matsukawa & Goldberg 2012 |
 | cv::bgsegm::BackgroundSubtractorMOG | Gaussian Mixture-based Background/Foreground Segmentation | KaewTraKulPong & Bowden 2002 |
-| The class discriminates between foreground and background pixels by building and maintaining a model of the background. Any pixel which does not fit this model is then deemed to be foreground. | Li , Huang, Gu & Tian 2003 |cv::cuda::BackgroundSubtractorFGD |
+|cv::cuda::BackgroundSubtractorFGD | The class discriminates between foreground and background pixels by building and maintaining a model of the background. Any pixel which does not fit this model is then deemed to be foreground. | Li , Huang, Gu & Tian 2003 |
 | cv::cuda::BackgroundSubtractorGMG | Background/Foreground Segmentation - The class discriminates between foreground and background pixels by building and maintaining a model of the background. Any pixel which does not fit this model is then deemed to be foreground. | Godbehere, Matsukawa & Goldberg 2012 |
 | cv::cuda::BackgroundSubtractorMOG | Gaussian Mixture-based Background/Foreground Segmentation - The class discriminates between foreground and background pixels by building and maintaining a model of the background. Any pixel which does not fit this model is then deemed to be foreground. | KaewTraKulPong & Bowden 2002 |
 | cv::cuda::BackgroundSubtractorMOG | Gaussian Mixture-based Background/Foreground Segmentation - The class discriminates between foreground and background pixels by building and maintaining a model of the background. Any pixel which does not fit this model is then deemed to be foreground. | KaewTraKulPong & Bowden 2002 |
-
 
 In order to choose the perfect background subtraction method for the fall detection system proposed it is crucial to determinate what features are needed and what challenges the method has to handle. Challenges in backgrounding is discussed next.
 
@@ -369,13 +368,22 @@ As mentioned earlier the biggest challenges in backgrounding would be *illuminat
 
 **write more about the challenges and how the different methods handle them**
 
+##### Video noise
+
+Usually every video feed has noise. This noise is ... **write more about noise**
+Video noise is usually handled with a Gaussian or median filter. After the filter a dilation of foreground pixels can be performed. The dilation helps to ... **write more**
+
 ### Activity detection
 
-One of the reasons why one would like to detect foreground objects from a video is to be able to determinate what activity the person in the video is performing. In the *static approach* the persons posture is analyzed at a specific time. A posture is a good indicator of what the person is doing e.g. lying, standing or sitting. This information alone is not very useful. That is why in the *dynamic approach* the outcome of the static approach is combined to the earlier static approach outcomes. In this way we can analyze movement patterns. (Cardinaux et al. 2011) If the person was standing in the last frame and in the current frame is detected as lying, the person probably have suffered from a fall (Cardinaux et al. 2011; Kroputaponchai & Suvonvorn 2013).
+One of the reasons why one would like to detect foreground objects from a video is to be able to determinate what activity the person in the video is performing. In the *static analysis* the persons posture is analyzed at a specific time. A posture is a good indicator of what the person is doing e.g. lying, standing or sitting. This information alone is not very useful. That is why in the *dynamic analysis* the outcome of the static approach is combined to the earlier static approach outcomes. In this way we can analyze movement patterns. (Cardinaux et al. 2011) If the person was standing in the last frame and in the current frame is detected as lying, the person probably have suffered from a fall (Cardinaux et al. 2011; Kroputaponchai & Suvonvorn 2013).
 
 #### Static analysis
 
-The static approach tries to detect in what posture the target person is. This analysis is done frame-wise (for each frame separately). Posture of a person is a good indication of the persons state. *Aspect ratio measurement* is a simple and quick way to analyze a persons posture. It is used in many fall detection algorithms (Fleck & Straßer 2010; Lin & Ling 2007; Nasution & Emmanuel 2007). Aspect ratio is calculated using the foreground pixels of a person, that are obtained with a background subtraction, to determinate in what position the person is. The persons *bounding box* is constructed by finding the furthest foreground pixels (leftmost, rightmost, topmost, bottommost). Shadows and noise can cause errors in the bounding box calculations. To avoid this there can be a histogram applied row-wise and column-wise and then the bounding box would be constructed for the pixels that exceed the histograms threshold. Horizontal and vertical projection histograms can decrease the effects of noise and shadows. (Cardinaux et al. 2011) Nasution & Emmanuel (2007) proposed a k-Nearest Neighbor (KNN) algorithm to identify the most similar posture from the postures that were trained to the algorithm during the training phase.
+The static approach tries to detect in what posture the target person is. This analysis is done frame-wise (for each frame separately). Posture of a person is a good indication of the persons state. *Aspect ratio measurement* is a simple and quick way to analyze a persons posture. It is used in many fall detection algorithms (Fleck & Straßer 2010; Lin & Ling 2007; Nasution & Emmanuel 2007). Aspect ratio is calculated using the foreground pixels of a person, that are obtained with a background subtraction, to determinate in what position the person is. The persons *bounding box* is constructed by finding the furthest foreground pixels (leftmost, rightmost, topmost, bottommost). Shadows and noise can cause errors in the bounding box calculations. To avoid this there can be a histogram applied row-wise and column-wise and then the bounding box would be constructed for the pixels that exceed the histograms threshold. Horizontal and vertical projection histograms can decrease the effects of noise and shadows. (Cardinaux et al. 2011)
+
+Nasution & Emmanuel (2007) proposed a k-Nearest Neighbor (KNN) algorithm to identify the most similar posture from the postures that were trained to the algorithm during the training phase.
+
+Rougier et al. (2007) proposed the usage of an *approximated ellipse* instead of a bounding box to estimate the persons posture. This method can extract the orientation of a person better than the bounding box.
 
 #### Dynamic analysis
 
@@ -383,17 +391,33 @@ Because the static approach alone is not very useful a dynamic approach is used.
 
 Nasution & Emmanuel (2007) proposed usage of a stripped GMM to detect foreground objects. To detect the activity of a person they then trained the system with sitting, standing, bending, lying and lying against the camera. After the training phase they adapted a KNN algorithm to calculate equality with each posture from the training phase. After this they adapted an evidence accumulation technique to only change the posture (from last frame) if the equality was high enough to exceed a threshold. (Nasution & Emmanuel 2007)
 
-Many researches define a fall as a person having a greater acceleration than in their normal daily activities (Gjoreski, Lustrek, Gams 2012; Kroputaponchai & Suvonvorn 2013; Nasution & Emmanuel 2007). Fall-like activities can have the same acceleration as normal activities such as lying down on the bed quickly or quickly sitting down. Additionally, all falls does not include a fast acceleration. (Gjoreski et al. 2012; Rubenstein 2002) Gjoreski et al. (2012) proposed that Rubenstein (2002) showed that 22% of the falls could be "slow falls", falls that does not have a greater acceleration than normal activities. That is why approaches that only rely on acceleration can be problematic and could cause many false detections. A robust system should detect slower falls and be able to separate quick normal activities from falls.
+Lin & Ling (2007) found three features that usually occur when a person falls. The incident will happen in a *short time period*, typically in a range of 0.4-0.8 seconds.
+The persons *centroid changes* rapidly and significantly. The *vertical projection* of the person changes significantly. (Lin & Ling 2007)
+
+Rougier et al. (2007) used a *Motion History Image* (MHI) to determine if a person is falling or performing some other activity. In the MHI pixel intensity represents the recent motion. This method rely on the assumption that falls will have a high motion. As the background subtraction method Rougier et al. (2007) used an improved CodeBook proposed by Kim et al. (2004).
+
+Many researches define a fall as a person having a greater acceleration than in their normal daily activities (Gjoreski, Lustrek, Gams 2012; Kroputaponchai & Suvonvorn 2013; Nasution & Emmanuel 2007). Fall-like activities can have the same acceleration as normal activities such as lying down on the bed quickly or quickly sitting down. Additionally, all falls does not include a fast acceleration. (Gjoreski et al. 2012; Rubenstein 2002; Rougier et al. 2007) Gjoreski et al. (2012) proposed that Rubenstein (2002) showed that 22% of the falls could be "slow falls", falls that does not have a greater acceleration than normal activities. That is why approaches that only rely on acceleration can be problematic and could cause many false detections. A robust system should detect slower falls and be able to separate quick normal activities from falls.
 
 #### Position and motion analysis
 
-While posture analysis is a good way to detect the persons state it is hard for it to detect what activity, more specific than just sitting, standing or lying, the person is performing. That is why the persons position could be used to determine what ADL or IADL the person is currently performing. With this technique the daily routines could be monitored and taught to the system and if something abnormal is detected, it could create an alarm (OMASeniori).
+While posture analysis is a good way to detect the persons state it is hard for it to detect what activity, more specific than just sitting, standing or lying, the person is performing. That is why the persons position could be used to determine what ADL or IADL the person is currently performing. With this technique the daily routines could be monitored and taught to the system and if something abnormal is detected, it could create an alarm (Rougier et al. 2007; OMASeniori; Lin & Ling 2007).
 
-The persons position analysis with an overhead camera could extract the following information: *position*, *velocity* and *orientation*. This could be done by tracking the persons head. Motion and position information is useful for making decisions of activities. (Cardinaux et al. 2011) If a person is detected as falling on to the sofa and then detected as sitting, the person could be intentionally sitting. Another example could be that a person should not be lying on the floor but can lye on the bed.
+The persons position analysis with an overhead camera could extract the following information: *position*, *velocity* and *orientation*. This could be done by tracking the persons head. The head tracking can be made with an approximated ellipse to extract information of height changes i.e. how close to the camera is the person. Motion and position information is useful for making decisions of activities. (Cardinaux et al. 2011) Unusual inactivity could also be detected (Lin & Ling 2007). Position based limitations could be defined to turn off the fall detection on zones where falls could be normal (Rougier et al. 2007). If a person is detected as falling on to the sofa and then detected as sitting, the person could be intentionally sitting. Another example could be that it is not normal behavior for a person to be lying on the floor but the person can lye down on the bed.
+
+Rougier et al. (2007) used the persons motion after a detected fall to determine if a fall was bad enough that it should create an alert.
 
 #### Combination
 
 Because presented methods does not always achieve the sensitivity needed for a robust system these methods could be combined.
+
+Rougier et al. (2007) combined the output of MHI (to detect if there was enough motion), orientation and ratio of the ellipse (to detect a possible fall) and lastly if there were little or none motion after the fall. If all these conditions were true a detection of a fall was created.
+
+#### Measurements
+
+* True Positive (TP): Fall present, fall detected.
+* True Negative (TN): No fall, no detection.
+* False Positive (FP): No fall, fall detected (false alarm).
+* False Negative (FN): Fall present, no detection (miss).
 
 ## Alert systems
 
@@ -417,35 +441,34 @@ This thesis consist of two parts. This is the second part of the thesis.
 
 ## Fall detector installation
 
-Fall detector is installed to a Raspberry Pi 3 model B. Now follows a step-by-step guide for installation.
+Fall detector is installed to a Raspberry Pi 3 model B. Now follows a step-by-step guide for the installation.
 
-For debuggin purposes [RASPBIAN JESSIE](https://www.raspberrypi.org/downloads/raspbian/) (Full desktop image based on Debian Jessie) is installed as the operating system (OS). For the commercial version RASPBIAN JESSIE LITE (Minimal image based on Debian Jessie) with Python and OpenCV installed would be better.
+For debuggin purposes [*RASPBIAN JESSIE*](https://www.raspberrypi.org/downloads/raspbian/) (Full desktop image based on Debian Jessie) is installed as the operating system (OS). For the commercial version *RASPBIAN JESSIE LITE* (Minimal image based on Debian Jessie) with Python and OpenCV installed would be better.
 
 Installing the operating system to the SD card is simple and Raspberry Pi foundation has it all covered up on their [website](https://www.raspberrypi.org/documentation/installation/installing-images/README.md).
 
-After OS is runnign there are a few things that should be done. Localisation options can be set, if needed, with raspi-config. The following commands will set it to Finnish.
+After OS is runnign there are a few things that should be done. Localisation options can be set, if needed, with *raspi-config*. The following commands will set it to Finnish.
 
 > sudo raspi-config
 > 5 Internationalisation Options
 > I1 Change locale
 > fi_FI.UTF8
 
-Keyboard language can be set to Finnish, or any other language, with setxbmap.
+Keyboard language can be set to Finnish, or any other language, with *setxbmap*.
 
 > setxkbmap fi
 
-
- Now everything should be updated. This can be made by connecting the device to the internet, via wifi or ethernet. After the connection is established the package list should be updated and then every program should be upgraded and lastly downloaded packages should be cleaned up. This can be made with the following commands.
+Now everything can be updated. This can be made by connecting the device to the internet, via wifi or ethernet. After the connection is established the package list should be updated and then every program should be upgraded and lastly downloaded packages should be cleaned up. This can be made with the following commands.
 
 > sudo apt-get udpdate
 > sudo apt-get dist-upgrade
 > sudo apt-get clean
 
-After this the latest firmaware should be updated. Raspbian has a tool called rpi-update pre-installed and this can be used for the purpose.
+After this the latest firmaware should be updated. Raspbian has a tool called *rpi-update* pre-installed and this can be used for the purpose.
 
 > sudo rpi-update
 
-After the firmware update a restart of the system is needed.
+After the firmware is updated, a restart of the system is needed.
 
 > sudo shutdown -r 0
 
@@ -453,11 +476,11 @@ Python should be already installed in the system. This can be verified with runn
 
 > python
 
-Next OpenCV should be installed with apt-get.
+Next OpenCV can be installed with *apt-get*.
 
 > sudo apt-get install libopencv-dev python-opencv
 
-Numpy should be already installed. This can be verified with trying to install it with the Python package manager pip, which is a recursive acronym that stands for "Pip installs Packages".
+*Numpy* should be already installed. This can be verified with trying to install it with the Python package manager *pip*, which is a recursive acronym that stands for "Pip installs Packages".
 
 > pip install numpy
 
@@ -512,6 +535,8 @@ The idea of the project is to lower health care costs and provide safer home car
 
 [KaewTraKulPong P., Bowden R. 2002. An improved adaptive background mixture model for real-time tracking with shadow detection. In Video-Based Surveillance Systems, pp. 135–144. Springer.](http://dx.doi.org/10.1007/978-1-4615-0913-4_11)
 
+[Kim K., Chalidabhongse T., Harwood D., Davis L. 2005. Real-time foreground-background segmentation using codebook model. Real-Time Imaging. 11(3). pp. 172–185](http://dx.doi.org/10.1016/j.rti.2004.12.004)
+
 Kotilainen H., Topo P., Hurnasti, T. 2009. Asuinympäristö, apuvälineet ja teknologia. Teoksessa Sormunen S. & Topo P.(toim.) Laadukkaat dementiapalvelut – opas kunnille. Jyväskylä. Gummerus Kirjapaino Oy.
 
 [Kroputaponchai T., Suvonvorn N. 2013. Vision-based Fall Detection and Alert System Suitable for the Elderly and Disabled Peoples](https://www.researchgate.net/publication/239928029_Vision-based_Fall_Detection_and_Alert_System_Suitable_for_the_Elderly_and_Disabled_Peoples)
@@ -530,6 +555,8 @@ Langanière R. 2011. OpenCV 2 Computer Vision Application Programming Cookbook. 
 
 [Ropponen A. 2012. An Arrangement to Locate and Identify People with Dual-Frequency Tags Providing Context-Related Information. ISBN 978-952-60-4871-0](http://urn.fi/URN:ISBN:978-952-60-4871-0)
 
+[Rougier C., Meunier J., St-Arnaud A., Rousseau J. 2007. Fall detection from human shape and motion history using video surveillance. In Proc. International Conference on Advanced Information Networking and Applications Workshops (AINAW). Vol 2. pp. 875–880.](http://dx.doi.org/10.1109/AINAW.2007.181)
+
 [Rubenstein L.Z., Josephson K.R. 2002. The epidemiology of falls and syncope. Clinics in Geriatric Medicine 18(2). pp. 141–158.](http://dx.doi.org/10.1016/S0749-0690(02%2900002-2)
 
 [Sanerma P. 2009. Kotihoitotyön kehittäminen tiimityön avulla. ISBN 978-951-44-7855-0](http://urn.fi/urn:isbn:978-951-44-7855-0)
@@ -538,7 +565,7 @@ Langanière R. 2011. OpenCV 2 Computer Vision Application Programming Cookbook. 
 
 [Stengård M. 2011. Muistisairaiden kotihoito ja sen kehittäminen. Satakunta University of Applied Sciences.](http://urn.fi/URN:NBN:fi:amk-201105117456)
 
-[Thome B., Dykes A-K., & Hallberg I. 2003. Home Care with Regard to Definition, Care Recipients, Content and Outcome: Systematic Literature Review. Journal of Clinical Nursing. Vol 12. pp 860-872.](http://onlinelibrary.wiley.com/doi/10.1046/j.1365-2702.2003.00803.x/abstract)
+[Thome B., Dykes A-K., Hallberg I. 2003. Home Care with Regard to Definition, Care Recipients, Content and Outcome: Systematic Literature Review. Journal of Clinical Nursing. Vol 12. pp 860-872.](http://onlinelibrary.wiley.com/doi/10.1046/j.1365-2702.2003.00803.x/abstract)
 
 [Vacavant A., Sobral A. 2014. A comprehensive review of background subtraction algorithms evaluated with synthetic and real videos. Computer Vision and Image Understanding 122 (2014). pp. 4–21](http://dx.doi.org/10.1016/j.cviu.2013.12.005)
 
