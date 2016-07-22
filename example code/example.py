@@ -20,6 +20,10 @@ def normalDistribution():
 	import fig8
 	fig8.main()
 
+def boundingBox(camera):
+	import fig9b
+	fig9b.main(camera)
+
 while 1:
 	camera = 0
 	print "Select script to run"
@@ -28,6 +32,7 @@ while 1:
 	print "3: Fig. 6b - Frame Difference"
 	print "4: Fig. 7b - A variation of adaptive backgrounding"
 	print "5: Fig. 8 - Normal Distribution"
+	print "6: Fig. 9b - Bounding box"
 
 	print "0: exit"
 	s = raw_input("> ")
@@ -43,5 +48,6 @@ while 1:
 		variationOfAdaptiveBackgrounding(camera)
 	elif s == "5":
 		normalDistribution()
-
+	elif s == "6":
+		boundingBox(camera)
 	

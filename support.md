@@ -31,6 +31,8 @@
 * [Precision and Recall](https://en.wikipedia.org/wiki/Precision_and_recall)
 * [Philips Lifeline](https://www.lifeline.philips.com)
 
+<https://www.pubpub.org>
+
 * **old or broken**
 * [Suomen Hahmontunnistustutkimuksen Seura ry](http://www.cis.hut.fi/hatutus/)
 * <http://www.cs.cmu.edu/~cil/vision.html>

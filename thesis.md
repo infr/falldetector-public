@@ -29,12 +29,15 @@ This is Kim Salmi's thesis for Haaga-Helia UAS. The thesis proposes an automatic
 			* 3.3.1.3 Adaptive backgrounding
 			* 3.3.1.4 Modern methods
 			* 3.3.1.5 Challenges in backgrounding
-			* 3.3.1.6 
+			* 3.3.1.6 ..
 		* 3.3.2 Action detection
 			* 3.3.2.1 Static approach
 			* 3.3.2.2 Dynamic approach
 			* 3.3.2.3 Motion
 			* 3.3.2.4 Combination
+			* 3.3.2.5 Behavior analysis
+			* 3.3.2.6 Physiological monitoring
+		* 3.3.3 Evaluation of monitoring methods
 	* 3.3 Alert systems
 	* 3.4 Current commercial field
 * 4 Constructive research
@@ -410,14 +413,23 @@ Rougier et al. (2007) used the persons motion after a detected fall to determine
 
 Because presented methods does not always achieve the sensitivity needed for a robust system these methods could be combined.
 
-Rougier et al. (2007) combined the output of MHI (to detect if there was enough motion), orientation and ratio of the ellipse (to detect a possible fall) and lastly if there were little or none motion after the fall. If all these conditions were true a detection of a fall was created.
+Rougier et al. (2007) combined the output of MHI (to detect if there was enough motion), orientation and ratio of the ellipse (to detect a possible fall) and lastly if there were little or none motion after the fall. If all these conditions were true, a detection of a fall was created.
 
-#### Measurements
+The results from static analysis, dynamic analysis, position and motion analysis can be combined with simple AND or OR rules. The final decision could also be generated with combining each output and the certainty of it as a weighted result to create a maybe more robust solution. (Cardinaux et al. 2011)
 
-* True Positive (TP): Fall present, fall detected.
-* True Negative (TN): No fall, no detection.
-* False Positive (FP): No fall, fall detected (false alarm).
-* False Negative (FN): Fall present, no detection (miss).
+#### Behavior analysis
+
+As earlier mentioned daily routines could be taught to the system and abnormal activity could be noticed. These activities could include sleep patterns, exiting the facility, falls, immobility, ADL and IADL. Most of the activities could be extracted from the position and motion analysis. (Rougier et al. 2007; OMASeniori; Lin & Ling 2007; Cardinaux et al. 2011)
+
+#### Physiological monitoring
+
+Cardinaux et al. (2011) presented physiological video monitoring papers including monitoring breathing and monitoring cardiac pulse (multiple persons, with a webcam, even when the head is moving). Even if these solutions would be useful, they fall out of this papers scope. But these techniques should be considered for further improvements.
+
+### Evaluation of monitoring methods
+
+The performance of different techniques can be evaluated on multiple levels. *Technical performance* can be evaluated with measuring the following classifiers: *true positive (TP)* when a fall is present and the fall is detected, *true negative (TN)* when there is no fall and no detection of a fall, *false positive (FP)* when there is no fall but a fall is detected (false alarm) and *false negative (FN)* when a fall is present but there is no detection (miss). With the technical performance evaluation different techniques can be compared.
+
+Other evaluation targets could be the *outcome* evaluation that aims to determine the effect on users and others involved, *privacy protection* evaluation that aims to ensure the level of security and *user acceptability* evaluation that aims to determine how well users will approve the presented method. (Cardinaux et al. 2011)
 
 ## Alert systems
 
@@ -427,8 +439,9 @@ Rougier et al. (2007) combined the output of MHI (to detect if there was enough 
 
 *Going to write about what solutions are available on the current market*
 
-* Seniortek (Kukkatolppa)
-* Terveysoperaattori (OMAseniori)
+* Seniortek, Kukkatolppa
+* Terveysoperaattori, OMAseniori
+* Philips, Lifeline Solutions
 * ..
 
 - - -
