@@ -353,15 +353,15 @@ OpenCV have libraries ready for the following methods (OpenCV - cv::BackgroundSu
 
 | Class in OpenCV | Method | Paper |
 | --- | --- | --- | --- |
-| cv::BackgroundSubtractorKNN | K-nearest neigbours - Background/Foreground Segmentation Algorithm | Zivkovic 2006 |
-| cv::BackgroundSubtractorMOG2 | Gaussian Mixture-based Background/Foreground Segmentation Algorithm | Zivkovic 2004 & 2006 |
-| cv::cuda::BackgroundSubtractorMOG2 | Gaussian Mixture-based Background/Foreground Segmentation Algorithm | Zivkovic 2004 |
-| cv::bgsegm::BackgroundSubtractorGMG | Background Subtractor module - Takes a series of images and returns a sequence of mask (8UC1) images of the same size, where 255 indicates Foreground and 0 represents Background | Godbehere, Matsukawa & Goldberg 2012 |
-| cv::bgsegm::BackgroundSubtractorMOG | Gaussian Mixture-based Background/Foreground Segmentation | KaewTraKulPong & Bowden 2002 |
-|cv::cuda::BackgroundSubtractorFGD | The class discriminates between foreground and background pixels by building and maintaining a model of the background. Any pixel which does not fit this model is then deemed to be foreground. | Li , Huang, Gu & Tian 2003 |
-| cv::cuda::BackgroundSubtractorGMG | Background/Foreground Segmentation - The class discriminates between foreground and background pixels by building and maintaining a model of the background. Any pixel which does not fit this model is then deemed to be foreground. | Godbehere, Matsukawa & Goldberg 2012 |
-| cv::cuda::BackgroundSubtractorMOG | Gaussian Mixture-based Background/Foreground Segmentation - The class discriminates between foreground and background pixels by building and maintaining a model of the background. Any pixel which does not fit this model is then deemed to be foreground. | KaewTraKulPong & Bowden 2002 |
-| cv::cuda::BackgroundSubtractorMOG | Gaussian Mixture-based Background/Foreground Segmentation - The class discriminates between foreground and background pixels by building and maintaining a model of the background. Any pixel which does not fit this model is then deemed to be foreground. | KaewTraKulPong & Bowden 2002 |
+| Zivkovic 2006 | K-nearest neigbours - Background/Foreground Segmentation Algorithm | cv::BackgroundSubtractorKNN | 
+| Zivkovic 2004 & 2006 | Gaussian Mixture-based Background/Foreground Segmentation Algorithm | cv::BackgroundSubtractorMOG2 |
+| Zivkovic 2004 | Gaussian Mixture-based Background/Foreground Segmentation Algorithm | cv::cuda::BackgroundSubtractorMOG2 |
+| Godbehere, Matsukawa & Goldberg 2012 | Background Subtractor module - Takes a series of images and returns a sequence of mask (8UC1) images of the same size, where 255 indicates Foreground and 0 represents Background | cv::bgsegm::BackgroundSubtractorGMG | 
+| KaewTraKulPong & Bowden 2002 | Gaussian Mixture-based Background/Foreground Segmentation | cv::bgsegm::BackgroundSubtractorMOG |
+| Li , Huang, Gu & Tian 2003 | The class discriminates between foreground and background pixels by building and maintaining a model of the background. Any pixel which does not fit this model is then deemed to be foreground. |cv::cuda::BackgroundSubtractorFGD | 
+| Godbehere, Matsukawa & Goldberg 2012 | Background/Foreground Segmentation - The class discriminates between foreground and background pixels by building and maintaining a model of the background. Any pixel which does not fit this model is then deemed to be foreground. | cv::cuda::BackgroundSubtractorGMG | 
+| KaewTraKulPong & Bowden 2002 | Gaussian Mixture-based Background/Foreground Segmentation - The class discriminates between foreground and background pixels by building and maintaining a model of the background. Any pixel which does not fit this model is then deemed to be foreground. |  cv::cuda::BackgroundSubtractorMOG |
+| KaewTraKulPong & Bowden 2002 | Gaussian Mixture-based Background/Foreground Segmentation - The class discriminates between foreground and background pixels by building and maintaining a model of the background. Any pixel which does not fit this model is then deemed to be foreground. | cv::cuda::BackgroundSubtractorMOG | 
 
 In order to choose the perfect background subtraction method for the fall detection system proposed it is crucial to determinate what features are needed and what challenges the method has to handle. Challenges in backgrounding is discussed next.
 
@@ -370,6 +370,8 @@ In order to choose the perfect background subtraction method for the fall detect
 As mentioned earlier the biggest challenges in backgrounding would be *illumination*, *dynamic background*, *shadows* and *video noise*. One of the challenges is that the RGB color space is sensitive to illumination changes. For this reason SOBS uses the HSV color space and SACON normalized color space. CodeBook separates color distortion and brightness distortion with a color model. KDE combines a short and long term background model to handle rapid illumination changes. (Xu et al. 2016)
 
 **write more about the challenges and how the different methods handle them**
+
+Pre-processing and post-processing
 
 ##### Video noise
 
@@ -580,13 +582,15 @@ Langanière R. 2011. OpenCV 2 Computer Vision Application Programming Cookbook. 
 
 [Thome B., Dykes A-K., Hallberg I. 2003. Home Care with Regard to Definition, Care Recipients, Content and Outcome: Systematic Literature Review. Journal of Clinical Nursing. Vol 12. pp 860-872.](http://onlinelibrary.wiley.com/doi/10.1046/j.1365-2702.2003.00803.x/abstract)
 
-[Vacavant A., Sobral A. 2014. A comprehensive review of background subtraction algorithms evaluated with synthetic and real videos. Computer Vision and Image Understanding 122 (2014). pp. 4–21](http://dx.doi.org/10.1016/j.cviu.2013.12.005)
+[Vacavant A., Sobral A. 2014. A comprehensive review of background subtraction algorithms evaluated with synthetic and real videos. Computer Vision and Image Understanding 122 (2014). pp. 4–21.](http://dx.doi.org/10.1016/j.cviu.2013.12.005)
 
 [Wren C., Azarbayejani A., Darrell T., Pentland A. 1997. Pfinder: real-time tracking of the human body. IEEE Transactions on Pattern Analysis and Machine Intelligence 19 (7). pp. 780–785.](http://dx.doi.org/10.1109/34.598236)
 
 [Xu Y., et al. 2016 Background modeling methods in video analysis: A review and comparative evaluation. CAAI Transactions on Intelligence Technology (2016).](http://dx.doi.org/10.1016/j.trit.2016.03.005)
 
 [Zivkovic Z. 2004. Improved Adaptive Gaussian Mixture Model for Background Subtraction. Pattern Recognition, 2004. ICPR 2004. Proceedings of the 17th International Conference on, 2004, pp. 28-31 Vol.2.](http://dx.doi.org/10.1109/ICPR.2004.1333992)
+
+[Zivkovic Z., van der Heijden F. 2006. Efficient adaptive density estimation per image pixel for the task of background subtraction. Pattern recognition letters, 27(7). pp. 773-780.](http://dx.doi.org/10.1016/j.patrec.2005.11.005)
 
 ### Websites
 
