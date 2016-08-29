@@ -158,13 +158,15 @@ Video analysis can be made with a lot of different methods. Usually the interest
 
 #### Terminology
 
-**rewrite this**
-
 A video consists usually of a series of bitmap digital images that are called frames. Each frame consists of a matrix of pixels. In a binary image each pixels has 1-bit of information indicating either foreground or background (black or white, 0 or 1). A grayscale image could have an 8-bit number for each pixel indicating how bright it is. Color images usually use RGB colorspace indicating values for red, green and blue separately.
 
-HSV, HSL etc..
+HSV, HSL
 
-**/rewrite this**
+Pixel-based backgrounding methods
+
+Region-based backgrounding methods
+
+Parametric and non-parametric methods
 
 #### Non-adaptive backgrounding
 
@@ -425,7 +427,7 @@ As earlier mentioned daily routines could be taught to the system and abnormal a
 
 #### Physiological monitoring
 
-Cardinaux et al. (2011) presented physiological video monitoring papers including monitoring breathing and monitoring cardiac pulse (multiple persons, with a webcam, even when the head is moving). Even if these solutions would be useful, they fall out of this papers scope. But these techniques should be considered for further improvements.
+Cardinaux et al. (2011) presented physiological video monitoring papers including monitoring breathing and monitoring cardiac pulse (multiple persons, with a webcam, [sic] while the head is moving). Even if these solutions would be useful, they fall out of this papers scope. But these techniques should be considered for further improvements.
 
 ### Evaluation of monitoring methods
 
@@ -617,8 +619,6 @@ Roser M., 2016 – Life Expectancy. OurWorldInData.org. Data taken from the Huma
 
 ## Timetable for the thesis
 
-The thesis will contain one core project and the theoretical frame around that subject.
-
 * Week 3 - 10
 	- Building a Prototype (BUS4TN007 Haaga-Helia course)
 		- First prototype of the product
@@ -632,19 +632,22 @@ The thesis will contain one core project and the theoretical frame around that s
 	- Studying to the entrance examination for The University of Helsinki, Faculty of Law
 	- Linux project (ICT4TN018 Haaga-Helia course)
 		- Enhance the original prototype
-* Week 22-26
+* Week 22-30
 	- Writing the theoretical frame
 		- Video analysis
 			- Detection algorithms
-* Week 27-30
+* Week 35-36
+	- Theoretical frame
+		- Terminology
+		- VAAL
+* Week 37-40
 	- Product development
 		- Motion detection algorithms
 		- Adapting different fall detecting algorithms
-		- Testing -> live testing for a few months(?)
 	- Writing about the product development
 	- Product testing
-	- Writing about the tests
 	- Finishing the thesis
+* Thesis defense after week 38
 
 - - -
 
