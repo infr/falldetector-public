@@ -370,7 +370,7 @@ In order to choose the perfect background subtraction method for the fall detect
 
 #### Challenges in backgrounding
 
-As mentioned earlier the biggest challenges in backgrounding would be *illumination*, *dynamic background*, *shadows* and *video noise*. One of the challenges is that the RGB color space is sensitive to illumination changes. For this reason SOBS uses the HSV color space and SACON normalized color space. CodeBook separates color distortion and brightness distortion with a color model. KDE combines a short and long term background model to handle rapid illumination changes. (Xu et al. 2016)
+As mentioned earlier the biggest challenges in backgrounding would be *illumination*, *dynamic background*, *shadows* and *video noise*. One of the challenges is that the RGB color space is sensitive to illumination changes. For this reason SOBS uses the HSV color space and SACON normalized color space. CodeBook separates color distortion and brightness distortion with a color model. Rapid illumination changes can occur when someone turn on a light or sunlight is blocked by some clouds. KDE combines a short and long term background model to handle rapid illumination changes. (Xu et al. 2016)
 
 Usually every video feed has noise. The source of this noise can be e.g. sensor noise, compression artifacts or camera shaking. One technique to minimize the effects of noise is to adapt a Gaussian or median filter to the video stream. Another technique is to construct the background model from noisy pixel values so that the model will automatically adapt to noise. Vibe uses this method to construct the background model. Robust backgrounding methods should be able to cope with noise disturbance. (Xu et al. 2016)
 
@@ -435,7 +435,21 @@ Other evaluation targets could be the *outcome* evaluation that aims to determin
 
 This thesis consist of two parts. This is the second part of the thesis.
 
-## Execution
+## Fall detector v1
+
+The first version of the fall detector utilizes sort of a dynamic approach. It will detect if a person is not moving or is moving too little in a specific time period. Detections could be configured so that there are different detection times for e.g. sitting on the sofa or lying in the bed and if the person is lying on the floor not moving the detection could be triggered in a few minutes. When the detection is made it will create an alarm to a RESTful web service. This web service could trigger different functions from a centralized alarm center. These functions could include information to professional care takers and family.
+
+### Backgrounding method
+
+The first version of the fall detector uses a simple adaptive backgrounding method such as the one seen in Fig 7. As preprocessing the background method does make the frame gray scale and resizes it smaller so that the foreground can be detected faster. This backgrounding method is not able to handle illumination changes quickly. This method can identify and track movement of multiple objects at the same time.
+
+## Fall detector v2
+
+The second version of the fall detector is an improvement to the first version.
+
+# Backgrounding method
+
+OpenCv has it own library ready for an variation of Zivkovic (2004 & 2006) AGMM. This method was chosen for the second version as the backgrounding method for reasons presented earlier. One substantial reason was Xu et al. (2016) did show that AGMM performed good in their tests. It can also detect shadows which was considered as a good thing in this case.
 
 ## Fall detector installation
 
