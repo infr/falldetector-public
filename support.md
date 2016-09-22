@@ -96,6 +96,14 @@ Source: <http://www.cse.oulu.fi/CMV/AboutCMV?action=AttachFile&do=get&target=kon
 
 # Brainstorming
 
+# Commercial
+
+* Seniortek, Kukkatolppa
+* Terveysoperaattori, OMAseniori
+* Philips, Lifeline Solutions
+* Vivago
+
+
 ## Muistisairaat
 
 > Muistamattomuus aiheuttaa paljon vaaratilanteita varsinkin yksin asuvalle muistisai- raalle. Liesi voi jäädä päälle, vesihana unohtua auki, avain sisälle, ovi unohtua lukita jne. Hyvällä ennakoinnilla ja suunnittelulla näihinkin asioihin voidaan vaikuttaa. Toimivat palovaroittimet ovat välttämättömyys ja paloturvallisten materiaalien käyt- täminen aina kun mahdollista. Ylimääräisen tavaran poistaminen lieden läheltä ja liesivahdit tai mahdollisesti mikroaaltouunin ja vedenkeittimen käyttöönottaminen luovat kotia paloturvallisemmaksi. (Kotilainen, Topo & Hurnasti 2008, 106-112.)

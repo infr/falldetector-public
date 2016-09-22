@@ -38,8 +38,6 @@ This is Kim Salmi's thesis for Haaga-Helia UAS. The thesis proposes an automatic
 			* 3.3.2.5 Behavior analysis
 			* 3.3.2.6 Physiological monitoring
 		* 3.3.3 Evaluation of monitoring methods
-	* 3.3 Alert systems
-	* 3.4 Current commercial field
 * 4 Constructive research
 	* 4.1 Execution
 	* 4.2 Testing
@@ -125,14 +123,13 @@ Formal care can be divided in four different categories. *Practical* - Preparing
 
 There are many technological solutions available for patients living at their home. Monitoring and security solutions can be utilized by family and professional care takers. There should always be the patients consent before bringing such equipment to their home. Patients privacy should be respected when they open their home to others. (Cardinaux, Bhowmik, Abhayaratne & Hawley 2011, 11-12; Sanerma 2009, 64-66; Stengård 2011, 18) Patients with memory disorders can have problems adapting to new things in their home. Foreign objects and strange environment usually cause anxiety. Therefore it is crucial to install such equipment there before the patients memory is starting to fail. (Kotilainen, Topo, Hurnasti 2009, 106-112; Stengård 2011, 17-18)
 
-Sanerma (2009, 64-75) and Stengård (2011, 38-42) agree that one of the big problems in home care with is that care takers do not have enough time for each patient. Could automatic monitoring free resources for the care takers?
+Sanerma (2009, 64-75) and Stengård (2011, 38-42) agree that one of the big problems in home care with is that care takers do not have enough time for each patient. Automatic monitoring could free resources for the care takers.
 
+Kangasniemi and Andersson (2016) made a cautious estimation that 20% of the care takers work, in Finnish hospitals, could be automatically performed by currently available technology. They estimated that some monotonous tasks could be performed by robots or by automation and would give more time to spend on tasks that can only be performed by humans. They estimated that a this would not affect care takers employment because of the rising amount of elderly population. Implementation of the technologies needed would take 2-3 years.
 
 ## Active and Assistive living
 
 European Union (EU) has noticed the growth of life expectancy and the problems it will bring to the health care system. EU/European Commission have established funding programs to support research and global competitiveness since 1984, currently in the European Research Area (ERA). The funding programs are called Framework Programmes for Research and Technological Development and currently run at phase eighth. Horizon 2020 or Framework Programme 8 (FP8) is currently in progress with an estimated budget of 80 billion euros. (Grove 2011) One of the funded projects is Active and Assistive Living (AAL).[^1] With a 700 million euros budget, AAL is trying to enhance the quality of life for the older people while improving the industry in Europe with the help of technology. (AAL - Active and Assistive Living programme 2016) Industry and research has shown growing interest in video based solutions for AAL (VAAL). Technology has evolved to a state that products are being commercialized. (Cardinaux et al. 2011)
-
-*Here I'm going to write about their research, projects and results*
 
 [^1]: Renamed in 2014 when FP8 started. A lot of the literature references to the old name Ambient Assisted Living (AAL) Joint Programme (2008-2013).
 
@@ -158,15 +155,11 @@ Video analysis can be made with a lot of different methods. Usually the interest
 
 #### Terminology
 
-A video consists usually of a series of bitmap digital images that are called frames. Each frame consists of a matrix of pixels. In a binary image each pixels has 1-bit of information indicating either foreground or background (black or white, 0 or 1). A grayscale image could have an 8-bit number for each pixel indicating how bright it is. Color images usually use RGB colorspace indicating values for red, green and blue separately.
+A video consists usually of a series of bitmap digital images that are called frames. Each frame consists of a matrix of pixels. In a binary image each pixels has 1-bit of information indicating either foreground or background (black or white, 0 or 1). A grayscale image could have an 8-bit number for each pixel indicating how bright it is. Color images can use RGB color space indicating values for red, green and blue separately. These color models can be divided to additive (e.g. HSV, HSL) and subtractive models (e.g. CMYK) and they can contain an alpha channel for determine the opacity of a pixel. HSV stands for hue, saturation and value. HSL stands for hue, saturation and lightness. CMYK, which is used in print, stands for cyan, magenta, yellow and key (black). (Granholm 2015)
 
-HSV, HSL
+Each frame can be denoted as I(x, y) where x and y are coordinates of the pixels position. (Granholm 2015) I(x, y, t) can be used in a video to determine a frame at the specific time (t).
 
-Pixel-based backgrounding methods
-
-Region-based backgrounding methods
-
-Parametric and non-parametric methods
+Image segmentation is a process where the frame is divided into multiple segments. These segments are created with labeling each pixel according to their shared characteristics, such as value or position. These methods can be divided in to region-based and pixel-based methods. More specifically these labeling techniques can use e.g. inter-pixel relations, edge detection or histograms. With the help of the labels it is easier to further process a single or multiple frames. (Srinivasan & Shobha 2007, Xu et al. 2016)
 
 #### Non-adaptive backgrounding
 
@@ -177,6 +170,8 @@ If the background of a scene remains unchanged the detection of foreground objec
 Fig. 1 - Static Frame Difference
 
 ```python
+# Kim Salmi kim.salmi(at)iki(dot)fi http://tunn.us/arduino/falldetector.php
+# 2016 License: GPLv3
 # Fig. 1b - Static Frame Difference
 import cv2
 import sys
@@ -206,6 +201,8 @@ In a real life scenario pixel values in the background would not be exactly the 
 Fig. 2 - Static Frame Difference with threshold (Tamersoy 2009)
 
 ```python
+# Kim Salmi kim.salmi(at)iki(dot)fi http://tunn.us/arduino/falldetector.php
+# 2016 License: GPLv3
 # Fig. 2b - Static Frame Difference with threshold
 import sys
 import cv2
@@ -248,6 +245,8 @@ Non-adaptive backgrounding has other challenges too, it needs re-initialization 
 Fig. 6 - Frame Difference
 
 ```python
+# Kim Salmi kim.salmi(at)iki(dot)fi http://tunn.us/arduino/falldetector.php
+# 2016 License: GPLv3
 # Fig. 6b - Frame Difference
 import cv2
 import sys
@@ -277,11 +276,13 @@ Fig. 6b - Frame Difference in Python
 
 *Adaptive backgrounding* is a method where the background model is created using averaging images over time (1...n). (Fig. 7) The method can be memory consuming. (Tamersoy 2009) This method is effective where objects move continuously and the background is visible a significant portion of the time. This is not a robust solution because slowly moving objects are adapted to the background model and thus lost from the foreground. This solution also recovers slowly, can not handle bimodal backgrounds, does not handle lightning changes and has just one shared predetermined threshold for every pixel in the image. (Stauffer & Grimson 1999; Tamersoy 2009) A variation of this method can be tested with Fig. 7b.
 
-> P[F(x,y,t)] = |P[I(x,y,t)] - P[mode{I(x,y,t-1), ..., I(x,y,t-n)}]| > Threshold **rewrite this**
+> P[F(x,y,t)] = |P[I(x,y,t)] - P[mode{I(x,y,t-1), ..., I(x,y,t-n)}]| > Threshold
 
 Fig. 7 - Adaptive backgrounding
 
 ```python
+# Kim Salmi kim.salmi(at)iki(dot)fi http://tunn.us/arduino/falldetector.php
+# 2016 License: GPLv3
 # Fig. 7b - A variation of adaptive backgrounding with median
 import sys
 import cv2
@@ -353,7 +354,7 @@ Cardinaux et al. (2011) listed a series of methods in their research:
 
 OpenCV have libraries ready for the following methods (OpenCV - cv::BackgroundSubtractor Class Reference):
 
-| Class in OpenCV | Method | Paper |
+| Paper | Method | Class in OpenCV |
 | --- | --- | --- | --- |
 | Zivkovic 2006 | K-nearest neigbours - Background/Foreground Segmentation Algorithm | cv::BackgroundSubtractorKNN | 
 | Zivkovic 2004 & 2006 | Gaussian Mixture-based Background/Foreground Segmentation Algorithm | cv::BackgroundSubtractorMOG2 |
@@ -371,14 +372,9 @@ In order to choose the perfect background subtraction method for the fall detect
 
 As mentioned earlier the biggest challenges in backgrounding would be *illumination*, *dynamic background*, *shadows* and *video noise*. One of the challenges is that the RGB color space is sensitive to illumination changes. For this reason SOBS uses the HSV color space and SACON normalized color space. CodeBook separates color distortion and brightness distortion with a color model. KDE combines a short and long term background model to handle rapid illumination changes. (Xu et al. 2016)
 
-**write more about the challenges and how the different methods handle them**
+Usually every video feed has noise. The source of this noise can be e.g. sensor noise, compression artifacts or camera shaking. One technique to minimize the effects of noise is to adapt a Gaussian or median filter to the video stream. Another technique is to construct the background model from noisy pixel values so that the model will automatically adapt to noise. Vibe uses this method to construct the background model. Robust backgrounding methods should be able to cope with noise disturbance. (Xu et al. 2016)
 
-Pre-processing and post-processing
-
-##### Video noise
-
-Usually every video feed has noise. This noise is ... **write more about noise**
-Video noise is usually handled with a Gaussian or median filter. After the filter a dilation of foreground pixels can be performed. The dilation helps to ... **write more**
+Foreground object often cast a shadow. A shadow from a foreground object will affect the backgrounds illumination. Usually shadowed areas have a minor color variation, but a significant illumination variation. This creates challenges for backgrounding methods and a robust method should be able to handle shadows. (Xu et al. 2016)
 
 ### Activity detection
 
@@ -434,21 +430,6 @@ Cardinaux et al. (2011) presented physiological video monitoring papers includin
 The performance of different techniques can be evaluated on multiple levels. *Technical performance* can be evaluated with measuring the following classifiers: *true positive (TP)* when a fall is present and the fall is detected, *true negative (TN)* when there is no fall and no detection of a fall, *false positive (FP)* when there is no fall but a fall is detected (false alarm) and *false negative (FN)* when a fall is present but there is no detection (miss). With the technical performance evaluation different techniques can be compared.
 
 Other evaluation targets could be the *outcome* evaluation that aims to determine the effect on users and others involved, *privacy protection* evaluation that aims to ensure the level of security and *user acceptability* evaluation that aims to determine how well users will approve the presented method. (Cardinaux et al. 2011)
-
-## Alert systems
-
-*Going to write about what solutions are available?*
-
-### Current commercial field
-
-*Going to write about what solutions are available on the current market*
-
-* Seniortek, Kukkatolppa
-* Terveysoperaattori, OMAseniori
-* Philips, Lifeline Solutions
-* ..
-
-- - -
 
 # Constructive research 
 
@@ -550,7 +531,11 @@ The idea of the project is to lower health care costs and provide safer home car
 
 [Godbehere A. B., Matsukawa A., and Goldberg K. 2012. Visual tracking of human visitors under variable-lighting conditions for a responsive audio art installation. In American Control Conference (ACC). pp. 4305–4312. IEEE, 2012](http://dx.doi.org/10.1109/ACC.2012.6315174)
 
+[Granholm E. 2015. Feature-based Image Interpretation for Lightweight Computer Vision. Arcada - Nylands svenska yrkeshögskola](http://urn.fi/URN:NBN:fi:amk-2015072113866)
+
 [KaewTraKulPong P., Bowden R. 2002. An improved adaptive background mixture model for real-time tracking with shadow detection. In Video-Based Surveillance Systems, pp. 135–144. Springer.](http://dx.doi.org/10.1007/978-1-4615-0913-4_11)
+
+[Kangansniemi M., Andersson C. 2016. Enemmän inhimillistä hoivaa. EVA Raportti 2/2016. Taloustieto Oy. ISBN 978-951-628-674-0](http://www.eva.fi/wp-content/uploads/2016/09/Robotit-t%C3%B6ihin.pdf)
 
 [Kim K., Chalidabhongse T., Harwood D., Davis L. 2005. Real-time foreground-background segmentation using codebook model. Real-Time Imaging. 11(3). pp. 172–185](http://dx.doi.org/10.1016/j.rti.2004.12.004)
 
@@ -577,6 +562,8 @@ Langanière R. 2011. OpenCV 2 Computer Vision Application Programming Cookbook. 
 [Rubenstein L.Z., Josephson K.R. 2002. The epidemiology of falls and syncope. Clinics in Geriatric Medicine 18(2). pp. 141–158.](http://dx.doi.org/10.1016/S0749-0690(02%2900002-2)
 
 [Sanerma P. 2009. Kotihoitotyön kehittäminen tiimityön avulla. ISBN 978-951-44-7855-0](http://urn.fi/urn:isbn:978-951-44-7855-0)
+
+[Srinivasan G.N., Shobha G. 2007. Segmentation techniques for target recognition. International Journal of Computers and Communications, 1(3), pp.313-333.](https://www.researchgate.net/publication/234804225_Segmentation_techniques_for_target_recognition)
 
 [Stauffer C., Grimson W. E. L. 1999. Adaptive Background Mixture Models for Real-Time Tracking. IEEE Computer Society Conference on Computer Vision and Pattern Recognition. pp. 246–252](https://www.researchgate.net/publication/215722011_Adaptive_Background_Mixture_Models_for_Real-Time_Tracking)
 
