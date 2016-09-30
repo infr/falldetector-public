@@ -91,7 +91,7 @@ There will be code examples written in Python using the OpenCV library. The code
 
 This thesis consist of two parts. The first part will cover the theoretical frame. The theoretical frame will give necessary background information from the health care perspective for understanding the need for automatic monitoring in general. It will also cover the technical part for automatic video analysis. The main topics will be home care, European Unions active and assistive living programme, video analysis in general, motion detection, human detection, fall detection and alert systems.
 
-The goal of this project is to build a prototype that could be productized and commercialized. That is why the second part will not be publicly available. It will include the execution, testing and the outcome. Still there will be a stripped summary of how the system was developed.
+The goal of this project is to build a prototype that could be productized and commercialized. The code will be available publicly from Github and will be available in the appendix. The second part will include the execution, testing and the outcome. There will be a summary of how the system was developed.
 
 ## Goals of the study
 
@@ -104,9 +104,7 @@ Research questions are:
 		- How to detect humans and track them
 		- How to detect falling or collapsing
 		- Can it be done with just one camera or is more needed?
-	- What are the current systems on the market?
 	- How to keep the system unit cost low (< 200€)
-		- How to save computational resources
 	- How to handle the privacy?
 
 - - -
@@ -433,7 +431,7 @@ Other evaluation targets could be the *outcome* evaluation that aims to determin
 
 # Constructive research 
 
-This thesis consist of two parts. This is the second part of the thesis.
+This thesis consist of two parts. This is the second part of the thesis. Two different prototypes were developed, one that could be implemented as it is (v1) and the second prototype (v2) that will be able to monitor more features but needs further development so that it could function independently.
 
 ## Fall detector v1
 
@@ -445,67 +443,15 @@ The first version of the fall detector uses a simple adaptive backgrounding meth
 
 ## Fall detector v2
 
-The second version of the fall detector is an improvement to the first version.
+The second version of the fall detector is an improvement to the first version. It will use an *approximated ellipse* instead of a bounding box to estimate the persons posture. This method can extract the orientation of a person better than the bounding box. This version will be able to extract the following information: *position*, *velocity* and *orientation*.
 
-# Backgrounding method
+### Backgrounding method
 
 OpenCv has it own library ready for an variation of Zivkovic (2004 & 2006) AGMM. This method was chosen for the second version as the backgrounding method for reasons presented earlier. One substantial reason was Xu et al. (2016) did show that AGMM performed good in their tests. It can also detect shadows which was considered as a good thing in this case.
 
-## Fall detector installation
-
-Fall detector is installed to a Raspberry Pi 3 model B. Now follows a step-by-step guide for the installation.
-
-For debuggin purposes [*RASPBIAN JESSIE*](https://www.raspberrypi.org/downloads/raspbian/) (Full desktop image based on Debian Jessie) is installed as the operating system (OS). For the commercial version *RASPBIAN JESSIE LITE* (Minimal image based on Debian Jessie) with Python and OpenCV installed would be better.
-
-Installing the operating system to the SD card is simple and Raspberry Pi foundation has it all covered up on their [website](https://www.raspberrypi.org/documentation/installation/installing-images/README.md).
-
-After OS is runnign there are a few things that should be done. Localisation options can be set, if needed, with *raspi-config*. The following commands will set it to Finnish.
-
-> sudo raspi-config
-> 5 Internationalisation Options
-> I1 Change locale
-> fi_FI.UTF8
-
-Keyboard language can be set to Finnish, or any other language, with *setxbmap*.
-
-> setxkbmap fi
-
-Now everything can be updated. This can be made by connecting the device to the internet, via wifi or ethernet. After the connection is established the package list should be updated and then every program should be upgraded and lastly downloaded packages should be cleaned up. This can be made with the following commands.
-
-> sudo apt-get udpdate
-> sudo apt-get dist-upgrade
-> sudo apt-get clean
-
-After this the latest firmaware should be updated. Raspbian has a tool called *rpi-update* pre-installed and this can be used for the purpose.
-
-> sudo rpi-update
-
-After the firmware is updated, a restart of the system is needed.
-
-> sudo shutdown -r 0
-
-Python should be already installed in the system. This can be verified with running python from the terminal.
-
-> python
-
-Next OpenCV can be installed with *apt-get*.
-
-> sudo apt-get install libopencv-dev python-opencv
-
-*Numpy* should be already installed. This can be verified with trying to install it with the Python package manager *pip*, which is a recursive acronym that stands for "Pip installs Packages".
-
-> pip install numpy
-
-Fall detector repository is cloned from Github.
-
-> git clone https://github.com/infr/falldetector.git
-
-After this the system can be tested with running main.py.
-
-> cd falldetector\fall\ detector
-> python main.py
-
 ## Testing
+
+These both methods will be tested with a few videos and the differences will be explained.
 
 ## Outcome
 
@@ -685,3 +631,66 @@ Roser M., 2016 – Life Expectancy. OurWorldInData.org. Data taken from the Huma
 	- Finishing the product for the presentation
 
 - - -
+## Fall detector installation
+
+Fall detector is installed to a Raspberry Pi 3 model B. Now follows a step-by-step guide for the installation.
+
+For debuggin purposes [*RASPBIAN JESSIE*](https://www.raspberrypi.org/downloads/raspbian/) (Full desktop image based on Debian Jessie) is installed as the operating system (OS). For the commercial version *RASPBIAN JESSIE LITE* (Minimal image based on Debian Jessie) with Python and OpenCV installed would be better.
+
+Installing the operating system to the SD card is simple and Raspberry Pi foundation has it all covered up on their [website](https://www.raspberrypi.org/documentation/installation/installing-images/README.md).
+
+After OS is runnign there are a few things that should be done. Localisation options can be set, if needed, with *raspi-config*. The following commands will set it to Finnish.
+
+> sudo raspi-config
+> 5 Internationalisation Options
+> I1 Change locale
+> fi_FI.UTF8
+
+Keyboard language can be set to Finnish, or any other language, with *setxbmap*.
+
+> setxkbmap fi
+
+Now everything can be updated. This can be made by connecting the device to the internet, via wifi or ethernet. After the connection is established the package list should be updated and then every program should be upgraded and lastly downloaded packages should be cleaned up. This can be made with the following commands.
+
+> sudo apt-get udpdate
+> sudo apt-get dist-upgrade
+> sudo apt-get clean
+
+After this the latest firmaware should be updated. Raspbian has a tool called *rpi-update* pre-installed and this can be used for the purpose.
+
+> sudo rpi-update
+
+After the firmware is updated, a restart of the system is needed.
+
+> sudo shutdown -r 0
+
+Python should be already installed in the system. This can be verified with running python from the terminal.
+
+> python
+
+Next OpenCV can be installed with *apt-get*.
+
+> sudo apt-get install libopencv-dev python-opencv
+
+*Numpy* should be already installed. This can be verified with trying to install it with the Python package manager *pip*, which is a recursive acronym that stands for "Pip installs Packages".
+
+> pip install numpy
+
+Fall detector repository is cloned from Github.
+
+> git clone https://github.com/infr/falldetector.git
+
+After this the system can be tested with running main.py.
+
+> cd falldetector\fall\ detector
+> python main.py
+
+---
+## The code for Fall detector v1
+
+Currently available here <https://github.com/infr/falldetector-public/tree/master/fall-detector-v1> . The final version will be added to this thesis.
+
+---
+## The code for Fall detector v2
+
+Currently available here <https://github.com/infr/falldetector-public/tree/master/fall-detector-v2> . The final version will be added to this thesis.
