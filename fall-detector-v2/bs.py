@@ -32,6 +32,8 @@ class Bs:
 
 		if self.method == 1:
 			alpha = (1.0/self.frameCount)
+			if self.backgroundFrame is None:
+				self.backgroundFrame = frame
 			self.backgroundFrame = cv2.addWeighted(frame, alpha, self.backgroundFrame, 1.0-alpha, 0)
 			self.frameCount += 1
 
@@ -40,8 +42,9 @@ class Bs:
 			return self.foregroundMask
 
 		if self.method == 1:
-			self.frameDelta = cv2.absdiff(self.backgroundFrame, self.frame)
-			self.backgroundFrame = cv2.threshold(self.frameDelta, self.settings.thresholdLimit, 255, cv2.THRESH_BINARY)[1]
+			self.frameDelta = cv2.absdiff(self.backgroundFrame, frame)
+			self.foregroundMask = cv2.threshold(self.frameDelta, self.settings.thresholdLimit, 255, cv2.THRESH_BINARY)[1]
+			return self.foregroundMask
 
 	def deleteBackground(self):
 		if self.method == 0:

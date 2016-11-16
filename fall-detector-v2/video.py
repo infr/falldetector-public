@@ -13,16 +13,14 @@ import settings
 import webservice
 import bs
 
-debug = 0
-
 class Video:
-	def __init__(self, source):
-		self.camera = cv2.VideoCapture(source)
+	def __init__(self):
 		self.settings = settings.Settings()
+		self.camera = cv2.VideoCapture(self.settings.source)
 		self.bs = bs.Bs()
 		self.persons = person.Persons(self.settings.movementMaximum, self.settings.movementMinimum, self.settings.movementTime)
 		self.start = time.time()
-		self.webservice = webservice.Webservice(self.settings.location)
+		self.webservice = webservice.Webservice(self.settings.location, self.settings.phone)
 		self.errorcount = 0
 		self.alertLog = []
 		self.frameCount = 1
@@ -34,10 +32,11 @@ class Video:
 		self.convertFrame()
 
 	def showFrame(self):
-		if debug:
+		if self.settings.debug:
 			cv2.imshow("Thresh", self.thresh)
-			cv2.imshow("backgroundFrame", self.backgroundFrame)
-			cv2.imshow("frameDelta", self.frameDelta)
+			#if self.settings.bsMethod == 1:
+				#cv2.imshow("backgroundFrame", self.backgroundFrame)
+				#cv2.imshow("frameDelta", self.frameDelta)
 		cv2.imshow("Feed", self.frame)
 
 
@@ -64,8 +63,8 @@ class Video:
 	def testBackgroundFrame(self):
 		key = cv2.waitKey(1) & 0xFF
 		if key == ord("n"):
-			bs.deleteBackground()
-		self.resetBackgroundFrame()
+			self.bs.deleteBackground()
+		#self.resetBackgroundFrame()
 		
 	def updateBackground(self):
 		self.bs.updateBackground(self.frame)
@@ -141,6 +140,7 @@ class Video:
 
 		detectStatus = "idle"
 
+
 		for contour in contours:
 			if cv2.contourArea(contour) < self.settings.minArea:
 				continue
@@ -167,7 +167,7 @@ class Video:
 			cv2.putText(self.frame, "{} : {}".format(person.id, person.lastmoveTime), (x, y+20), cv2.FONT_HERSHEY_SIMPLEX, 0.8, color, 1)
 
 		# Hud + fps
-		if debug:
+		if self.settings.debug:
 			self.end = time.time()
 			seconds = self.end - self.start
 			fps  = round((1 / seconds), 1)

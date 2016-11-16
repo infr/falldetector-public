@@ -10,7 +10,7 @@ import numpy as np
 import cv2
 import time
 
-video = video.Video(0)
+video = video.Video()
 time.sleep(1.0) # let camera autofocus + autosaturation settle
 video.nextFrame()
 video.testBackgroundFrame()

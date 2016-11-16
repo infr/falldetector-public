@@ -2,6 +2,8 @@
 
 This is Kim Salmi's thesis for Haaga-Helia UAS. The thesis proposes an automatic monitoring system for formal and informal home care patients and care centers. It will provide security and a feeling of safety by detecting when a resident fall. After the detection the system will be able to alert professional personnel or family. The system should be affordable and should not be significantly less accurate than other available options.
 
+If you are reading this in paper format please consider reading it in your browser where links work at: https://github.com/infr/falldetector-public/
+
 * Working title: Improving safety for home care with a low cost computer vision embedded solution thus letting the aging generation live longer at home
 * Name: Kim Salmi
 * E-Mail: kim.salmi[at]iki.fi
@@ -85,13 +87,13 @@ Year 2012 world population was 7.2 billion. In the year 2100 world population is
 
 ## About this thesis
 
-This thesis proposes an automatic monitoring system for formal and informal home care patients and care centers. It will provide security and a feeling of safety by detecting when a resident fall. After the detection the system will be able to alert professional personnel or family. The system should be affordable and should not be significantly less accurate than other available options. Further in this thesis the system will be called automatic Fall Detecting and alerting system (FD).
+This thesis proposes an automatic monitoring system for formal and informal home care patients and care centers. It will provide security and a feeling of safety by detecting when a resident fall. After the detection the system will be able to alert professional personnel or family. The system should be affordable and should not be significantly less accurate than other available options. Further in this thesis the system will be called automatic Fall detector.
 
 There will be code examples written in Python using the OpenCV library. The code examples are tested with Python version 2.7.11 and OpenCV version 2.4.13. Code examples should work in Python 2.7.x and OpenCV 2.4.x. The examples can be found at [Github](https://github.com/infr/falldetector-public/tree/master/example%20code). The code examples can be tested with [example.py](example%20code/example.py).
 
 This thesis consist of two parts. The first part will cover the theoretical frame. The theoretical frame will give necessary background information from the health care perspective for understanding the need for automatic monitoring in general. It will also cover the technical part for automatic video analysis. The main topics will be home care, European Unions active and assistive living programme, video analysis in general, motion detection, human detection, fall detection and alert systems.
 
-The goal of this project is to build a prototype that could be productized and commercialized. The code will be available publicly from Github and will be available in the appendix. The second part will include the execution, testing and the outcome. There will be a summary of how the system was developed.
+The goal of this project is to build a prototype that could be productized and commercialized. The code will be available publicly at Github. The second part will include the a summary of how the system was developed.
 
 ## Goals of the study
 
@@ -102,7 +104,7 @@ Research questions are:
 - How to create a fall detection system to monitor home care patients?
 	- How to create a software that detects falling
 		- How to detect humans and track them
-		- How to detect falling or collapsing
+		- How to detect problems
 		- Can it be done with just one camera or is more needed?
 	- How to keep the system unit cost low (< 200€)
 	- How to handle the privacy?
@@ -392,8 +394,7 @@ Because the static approach alone is not very useful a dynamic approach is used.
 
 Nasution & Emmanuel (2007) proposed usage of a stripped GMM to detect foreground objects. To detect the activity of a person they then trained the system with sitting, standing, bending, lying and lying against the camera. After the training phase they adapted a KNN algorithm to calculate equality with each posture from the training phase. After this they adapted an evidence accumulation technique to only change the posture (from last frame) if the equality was high enough to exceed a threshold. (Nasution & Emmanuel 2007)
 
-Lin & Ling (2007) found three features that usually occur when a person falls. The incident will happen in a *short time period*, typically in a range of 0.4-0.8 seconds.
-The persons *centroid changes* rapidly and significantly. The *vertical projection* of the person changes significantly. (Lin & Ling 2007)
+Lin & Ling (2007) found three features that usually occur when a person falls. The incident will happen in a *short time period*, typically in a range of 0.4-0.8 seconds. The persons *centroid changes* rapidly and significantly. The *vertical projection* of the person changes significantly. (Lin & Ling 2007)
 
 Rougier et al. (2007) used a *Motion History Image* (MHI) to determine if a person is falling or performing some other activity. In the MHI pixel intensity represents the recent motion. This method rely on the assumption that falls will have a high motion. As the background subtraction method Rougier et al. (2007) used an improved CodeBook proposed by Kim et al. (2004).
 
@@ -431,11 +432,13 @@ Other evaluation targets could be the *outcome* evaluation that aims to determin
 
 # Constructive research 
 
-This thesis consist of two parts. This is the second part of the thesis. Two different prototypes were developed, one that could be implemented as it is (v1) and the second prototype (v2) that will be able to monitor more features but needs further development so that it could function independently.
+This thesis consist of two parts. This is the second part of the thesis. Two different software prototypes were developed, one that could be implemented as it is (v1) and the second prototype (v2) that will be able to monitor more features but needs further development so that it could function independently. After describing the key features of the two systems there will be an explanation of the infrastructure and how the software works.
+
+The source code is available at [Github](https://github.com/infr/falldetector-public). There are demo videos available at [tunn.us](http://tunn.us/arduino/falldetector2.php). In the appendix there are step-by-step instructions to install and test this solution on a Raspberry Pi.
 
 ## Fall detector v1
 
-The first version of the fall detector utilizes sort of a dynamic approach. It will detect if a person is not moving or is moving too little in a specific time period. Detections could be configured so that there are different detection times for e.g. sitting on the sofa or lying in the bed and if the person is lying on the floor not moving the detection could be triggered in a few minutes. When the detection is made it will create an alarm to a RESTful web service. This web service could trigger different functions from a centralized alarm center. These functions could include information to professional care takers and family.
+The first version of the fall detector utilizes sort of a dynamic approach. It will detect if a person is not moving or is moving too little in a specific time period. Detections could be configured so that there are different detection times for e.g. sitting on the sofa or lying in the bed and if the person is lying on the floor not moving the detection could be triggered in a few minutes. When the detection is made it will send an alarm to a RESTful web service. This web service can trigger different functions from a centralized alarm center. These functions include information to professional care takers and family.
 
 ### Backgrounding method
 
@@ -443,35 +446,72 @@ The first version of the fall detector uses a simple adaptive backgrounding meth
 
 ## Fall detector v2
 
-The second version of the fall detector is an improvement to the first version. It will use an *approximated ellipse* instead of a bounding box to estimate the persons posture. This method can extract the orientation of a person better than the bounding box. This version will be able to extract the following information: *position*, *velocity* and *orientation*.
+The second version of the fall detector is an improvement to the first version.
 
 ### Backgrounding method
 
-OpenCv has it own library ready for an variation of Zivkovic (2004 & 2006) AGMM. This method was chosen for the second version as the backgrounding method for reasons presented earlier. One substantial reason was Xu et al. (2016) did show that AGMM performed good in their tests. It can also detect shadows which was considered as a good thing in this case.
+OpenCv has it own library ready for an variation of Zivkovic (2004 & 2006) AGMM (MOG2). This method was chosen for the second version as the backgrounding method for reasons presented earlier. One substantial reason was Xu et al. (2016) did show that AGMM performed good in their tests. It can also detect shadows which was considered as a good thing in this case.
 
-## Testing
+## Infrastructure
 
-These both methods will be tested with a few videos and the differences will be explained.
+In Fig. 9 the infrastructure of this system is presented. The components with a darker background are presented in this paper. The camera node detects a person having a problem, this process is later discussed in more detail. After the detection the camera node sends an alert, via internet, to a backend, via a RESTfull API. The camera node never transmits any video feed or photo to ensure the patients privacy.
 
-## Outcome
+When an alarm is raised to the backend it will inform the professional care taker or family about the problem. The professional care taker or the family can then try to call the patient and see if everything is clear. If no one answers the phone they should probably visit the facility where the patient lives.
+
+![Infrastructure](img/infrastructure.png)
+Fig. 9 - Infrastructure
+
+In Fig. 10 the camera node is presented. The camera node consists of Raspberry Pi 3 Model B and a camera attached to it. A Raspberry Pi and a generic camera is currently costing around 50€ (Farnell element14 2016). This generic camera sends its video feed to the Raspberry Pi that is running fall detector v1 or v2 and analyzing the video to detect different types of problems. All the computation is made in the Raspberry Pi 3 Model B. Currently it detects if a person is not moving enough (over the threshold). When the detection is made it will send an alarm. 
+
+![Camera node](img/camera_node.png)
+Fig. 10 - Camera node
+
+## Software design
+
+This section will explain how the software works in a technical way. Fall detector v1 and v2 works technically in the same way but v1 has less features included. That is why v2 functionality will be explained. The software is written in Python using the OpenCV library. The code is tested with Python version 2.7.11 and OpenCV version 2.4.13. Code should work in Python 2.7.x and OpenCV 2.4.x.
+
+[settings.py](fall-detector-v2/settings.py) includes all the settings that can be modified in the system. Some of these settings can be changed on the fly but some are static when the program runs.
+
+[main.py](fall-detector-v2/main.py) is the main loop. This main loop starts the software and keeps it running while calling different functions in the video class.
+
+[video.py](fall-detector-v2/video.py) utilizes the video feed. It is able to capture frames from the feed, call different background subtraction features, take keyboard inputs for changing settings, raise an alarm, downscale frames for rapider future use, show frames for debugging reasons and release the camera and cleanup if quitting.
+
+[bs.py](fall-detector-v2/bs.py) is handling the background subtraction and currently supports MOG2 and the dynamic approach presented in Fig. 7b.
+
+[person.py](fall-detector-v2/person.py) is called by Video class. It includes two classes Person and Persons. Each time a frame is analyzed and a person is found it will try to analyze if the person has been in the previous frames and is it the same person as earlier. Other features are data of how much the person moved during last frames, has the person raised an alarm and has it been sent to the webservice, where was the person in the last frame and should the person be removed (exited the scene).
+
+[webservice.py](fall-detector-v2/webservice.py) is able to send alarms to a webservice via http-requests.
+
+# Future steps
+
+The following features are not yet implemented in the prototype but are essential for the device before real commercial usage:
+
+* There should be different thresholds for the floor, sofa, bed, etc. These thresholds could be set when installing the device.
+* For the camera to work in the dark, the camera node could utilize active infrared night vision. This feature can be added with a light source that emits infrared radiation, invisible for the eye, but it will light up the space for the camera.
+
+The following steps would increase the system stability but are not essential before real commercial usage:
+
+* It should use an *approximated ellipse* instead of a bounding box to estimate the persons posture. This method can extract the orientation of a person better than the bounding box. This version will be able to extract the following information: *position*, *velocity* and *orientation*.
+* If the patients facility have more than one camera these could be attached to each other, via a private wireless network, so that only one of the devices needs to be connected to the internet. This master node could also have a backup battery and a GSM module for situations like power cuts. If a blackout occurs this device could continue working normally and transmitting only via SMS.
+* Learning of sleep patterns
+* Learning of movement patterns
+* Door alarms with video
 
 - - -
 
 # Discussion
 
-## Significance of the results
+The idea of the project is to lower health care costs and provide safer home care for the aging generation. The presented system is just a raw prototype and should be further developed for commercial use. The methods presented in this paper were not systematically tested, these methods could be tested in further research. The features that are not yet implemented in the system but were presented earlier should be implemented. This paper did not include cost comparison of available systems, but a quick look at the market field suggest that this is a thing that should be researched. How much the solution could save is not yet relevant and was not be in the scope of the paper.
 
-The idea of the project is to lower health care costs and provide safer home care for the aging generation. How much the solution could save is not yet relevant and will not be in the scope of the project.
+Special thanks to my supervisor [Tero Karvinen](http://terokarvinen.com), organizers of [Wellbeing Hackathon 2016](http://hyvinvointihack.fi/ratkaisut-solutions-2016/) (this solution won the hackathon), the people at [Ministry of Social Affairs and Health (Finland)](http://stm.fi) for their sparring, my brother [Max Salmi](http://salmi.pro/cv) and everyone else who has helped with this project!
 
-## Conclusion / Summary
-
-## Further research suggestions
+I really hope that this solution will some day save a life.
 
 - - -
 
 # References
 
-### Publications
+AAL - Active and Assistive Living programme, 2016. About. <http://www.aal-europe.eu/about/> Accessed: 16.3.2016
 
 [Cardinaux F., Bhowmik D., Abhayaratne S. & Hawley M. S. 2011. Video Based Technology for Ambient Assisted Living: A review of the literature. Journal of Ambient Intelligence and Smart Environments 3(3), pp. 253-269](https://www.researchgate.net/publication/220497491)
 
@@ -483,6 +523,10 @@ The idea of the project is to lower health care costs and provide safer home car
 
 [Eng H., Wwang J., Kam A.H., Yau W. 2004. A Bayesian framework for robust human detection and occlusion handling human shape model. In Pattern Recognition, 2004. ICPR 2004. Proceedings of the 17th International Conference on, vol. 2. pp. 257 - 260.](https://www.researchgate.net/publication/4090417_A_Bayesian_framework_for_robust_human_detection_and_occlusion_handling_human_shape_model)
 
+European Comission. What is Horizon 2020? <http://ec.europa.eu/programmes/horizon2020/en/what-horizon-2020> Accessed: 16.3.2016
+
+Farnell element14. 2016 <https://fi.farnell.com/raspberry-pi/rpi3-8mp-camera-bundle/raspberry-pi3-8mp-camera/dp/2580632?COM=superwidget-link_RaspberryPi%20CMPNULL> Acessed: 16.12.2016
+
 [Fleck S., Straßer W. 2010. Privacy Sensitive Surveillance for Assisted Living - A Smart Camera Approach. pp. 985-1014. Handbook of Ambient Intelligence and Smart Environments. Part VIII. Springer US. ISBN 978-0-387-93808-0](http://www.springer.com/gp/book/9780387938073)
 
 [Gerland P., Raftery A. E., Sevcikova H., Li N., Gu D., Spoorenberg T., Alkema L., Fosdick B. K., Chunn J., Lalic N., Bay G., Buettner T., Heilig G. K., Wilmoth J. 2014. World population stabilization unlikely this century. Science VOL 346 (6206). pp. 234-247](http://science.sciencemag.org/content/346/6206/234)
@@ -492,6 +536,8 @@ The idea of the project is to lower health care costs and provide safer home car
 [Godbehere A. B., Matsukawa A., and Goldberg K. 2012. Visual tracking of human visitors under variable-lighting conditions for a responsive audio art installation. In American Control Conference (ACC). pp. 4305–4312. IEEE, 2012](http://dx.doi.org/10.1109/ACC.2012.6315174)
 
 [Granholm E. 2015. Feature-based Image Interpretation for Lightweight Computer Vision. Arcada - Nylands svenska yrkeshögskola](http://urn.fi/URN:NBN:fi:amk-2015072113866)
+
+Grove J. 2011. 'Triple miracle' sees huge rise in EU funds for frontier research. Times Higher Education. <https://www.timeshighereducation.com/news/triple-miracle-sees-huge-rise-in-eu-funds-for-frontier-research/416952.article?storycode=416952> Accessed: 17.6.2016
 
 [KaewTraKulPong P., Bowden R. 2002. An improved adaptive background mixture model for real-time tracking with shadow detection. In Video-Based Surveillance Systems, pp. 135–144. Springer.](http://dx.doi.org/10.1007/978-1-4615-0913-4_11)
 
@@ -515,7 +561,13 @@ Langanière R. 2011. OpenCV 2 Computer Vision Application Programming Cookbook. 
 
 [Nasution A. H., Emmanuel S. 2007. Intelligent Video Surveillance for Monitoring Elderly in Home Environments. Multimedia Signal Processing. MMSP 2007. IEEE 9th Workshop on, Crete, 2007. pp. 203-206.](http://dx.doi.org/10.1109/MMSP.2007.4412853)
 
+OMAseniori | Yksinasuvan seniorin turvapalvelu <https://www.omaseniori.fi> Accessed: 4.7.2016
+
+OpenCV - cv::BackgroundSubtractor Class Reference <http://docs.opencv.org/3.1.0/d7/df6/classcv_1_1BackgroundSubtractor.html> Accessed: 30.6.2016
+
 [Ropponen A. 2012. An Arrangement to Locate and Identify People with Dual-Frequency Tags Providing Context-Related Information. ISBN 978-952-60-4871-0](http://urn.fi/URN:ISBN:978-952-60-4871-0)
+
+Roser M., 2016 – Life Expectancy. OurWorldInData.org. Data taken from the Human Mortality Database. University of California, Berkeley (USA), and Max Planck Institute for Demographic Research (Germany) <https://ourworldindata.org/life-expectancy/> Accessed: 7.6.2016
 
 [Rougier C., Meunier J., St-Arnaud A., Rousseau J. 2007. Fall detection from human shape and motion history using video surveillance. In Proc. International Conference on Advanced Information Networking and Applications Workshops (AINAW). Vol 2. pp. 875–880.](http://dx.doi.org/10.1109/AINAW.2007.181)
 
@@ -529,6 +581,8 @@ Langanière R. 2011. OpenCV 2 Computer Vision Application Programming Cookbook. 
 
 [Stengård M. 2011. Muistisairaiden kotihoito ja sen kehittäminen. Satakunta University of Applied Sciences.](http://urn.fi/URN:NBN:fi:amk-201105117456)
 
+[Tamersoy B. 2009. Lecture Slides: Background Subtraction. CS 378. Computer Vision The University of Texas at Austin. Accessed: 17.6.2016](http://www.cs.utexas.edu/~grauman/courses/fall2009/slides/lecture9_background.pdf)
+
 [Thome B., Dykes A-K., Hallberg I. 2003. Home Care with Regard to Definition, Care Recipients, Content and Outcome: Systematic Literature Review. Journal of Clinical Nursing. Vol 12. pp 860-872.](http://onlinelibrary.wiley.com/doi/10.1046/j.1365-2702.2003.00803.x/abstract)
 
 [Vacavant A., Sobral A. 2014. A comprehensive review of background subtraction algorithms evaluated with synthetic and real videos. Computer Vision and Image Understanding 122 (2014). pp. 4–21.](http://dx.doi.org/10.1016/j.cviu.2013.12.005)
@@ -541,24 +595,6 @@ Langanière R. 2011. OpenCV 2 Computer Vision Application Programming Cookbook. 
 
 [Zivkovic Z., van der Heijden F. 2006. Efficient adaptive density estimation per image pixel for the task of background subtraction. Pattern recognition letters, 27(7). pp. 773-780.](http://dx.doi.org/10.1016/j.patrec.2005.11.005)
 
-### Websites
-
-AAL - Active and Assistive Living programme, 2016. About. <http://www.aal-europe.eu/about/> Accessed: 16.3.2016
-
-European Comission. What is Horizon 2020? <http://ec.europa.eu/programmes/horizon2020/en/what-horizon-2020> Accessed: 16.3.2016
-
-Grove J. 2011. 'Triple miracle' sees huge rise in EU funds for frontier research. Times Higher Education. <https://www.timeshighereducation.com/news/triple-miracle-sees-huge-rise-in-eu-funds-for-frontier-research/416952.article?storycode=416952> Accessed: 17.6.2016
-
-OMAseniori | Yksinasuvan seniorin turvapalvelu <https://www.omaseniori.fi> Accessed: 4.7.2016
-
-OpenCV - cv::BackgroundSubtractor Class Reference <http://docs.opencv.org/3.1.0/d7/df6/classcv_1_1BackgroundSubtractor.html> Accessed: 30.6.2016
-
-Roser M., 2016 – Life Expectancy. OurWorldInData.org. Data taken from the Human Mortality Database. University of California, Berkeley (USA), and Max Planck Institute for Demographic Research (Germany) <https://ourworldindata.org/life-expectancy/> Accessed: 7.6.2016
-
-
-### Others
-
-[Tamersoy B. 2009. Lecture Slides: Background Subtraction. CS 378. Computer Vision The University of Texas at Austin. Accessed: 17.6.2016](http://www.cs.utexas.edu/~grauman/courses/fall2009/slides/lecture9_background.pdf)
 
 - - -
 
@@ -639,7 +675,7 @@ For debuggin purposes [*RASPBIAN JESSIE*](https://www.raspberrypi.org/downloads/
 
 Installing the operating system to the SD card is simple and Raspberry Pi foundation has it all covered up on their [website](https://www.raspberrypi.org/documentation/installation/installing-images/README.md).
 
-After OS is runnign there are a few things that should be done. Localisation options can be set, if needed, with *raspi-config*. The following commands will set it to Finnish.
+After the OS is runnign there are a few things that should be done. Localisation options can be set, if needed, with *raspi-config*. The following commands will set it to Finnish.
 
 > sudo raspi-config
 > 5 Internationalisation Options
@@ -678,19 +714,25 @@ Next OpenCV can be installed with *apt-get*.
 
 Fall detector repository is cloned from Github.
 
-> git clone https://github.com/infr/falldetector.git
+> git clone https://github.com/infr/falldetector-public.git
 
 After this the system can be tested with running main.py.
 
-> cd falldetector\fall\ detector
+> cd falldetector-public/fall-detector-v1/
 > python main.py
+
+Or for running version 2
+
+> cd falldetector-public/fall-detector-v2/
+> python main.py
+
 
 ---
 ## The code for Fall detector v1
 
-Currently available here <https://github.com/infr/falldetector-public/tree/master/fall-detector-v1> . The final version will be added to this thesis.
+The code is available here <https://github.com/infr/falldetector-public/tree/master/fall-detector-v1> .
 
 ---
 ## The code for Fall detector v2
 
-Currently available here <https://github.com/infr/falldetector-public/tree/master/fall-detector-v2> . The final version will be added to this thesis.
+The code is available here <https://github.com/infr/falldetector-public/tree/master/fall-detector-v2> .
