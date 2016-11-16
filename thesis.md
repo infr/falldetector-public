@@ -1,10 +1,10 @@
-# Thesis - Fall detection - Work in progress
+# Thesis - Improving safety for home care patients with a low cost computer vision solution
 
 This is Kim Salmi's thesis for Haaga-Helia UAS. The thesis proposes an automatic monitoring system for formal and informal home care patients and care centers. It will provide security and a feeling of safety by detecting when a resident fall. After the detection the system will be able to alert professional personnel or family. The system should be affordable and should not be significantly less accurate than other available options.
 
 If you are reading this in paper format please consider reading it in your browser where links work at: https://github.com/infr/falldetector-public/
 
-* Working title: Improving safety for home care with a low cost computer vision embedded solution thus letting the aging generation live longer at home
+* Improving safety for home care patients with a low cost computer vision solution
 * Name: Kim Salmi
 * E-Mail: kim.salmi[at]iki.fi
 * Student number: a1204035
@@ -88,7 +88,7 @@ Year 2012 world population was 7.2 billion. In the year 2100 world population is
 
 This thesis proposes an automatic monitoring system for formal and informal home care patients and care centers. It will provide security and a feeling of safety by detecting when a resident fall. After the detection the system will be able to alert professional personnel or family. The system should be affordable and should not be significantly less accurate than other available options. Further in this thesis the system will be called automatic Fall detector.
 
-There will be code examples written in Python using the OpenCV library. The code examples are tested with Python version 2.7.11 and OpenCV version 2.4.13. Code examples should work in Python 2.7.x and OpenCV 2.4.x. The examples can be found at [Github](https://github.com/infr/falldetector-public/tree/master/example%20code). The code examples can be tested with [example.py](example%20code/example.py).
+There will be code examples written in Python using the OpenCV library. The code examples are tested with Python version 2.7.11 and OpenCV version 2.4.13. Code examples should work in Python 2.7.x and OpenCV 2.4.x. The examples can be found at [Github](https://github.com/infr/falldetector-public/tree/master/example%20code). The code examples can be tested with [example.py](example%20code/example.py). The code is licensed under GPLv3.
 
 This thesis consist of two parts. The first part will cover the theoretical frame. The theoretical frame will give necessary background information from the health care perspective for understanding the need for automatic monitoring in general. It will also cover the technical part for automatic video analysis. The main topics will be home care, European Unions active and assistive living programme, video analysis in general, motion detection, human detection, fall detection and alert systems.
 
@@ -467,7 +467,7 @@ Fig. 10 - Camera node
 
 ## Software design
 
-This section will explain how the software works in a technical way. Fall detector v1 and v2 works technically in the same way but v1 has less features included. That is why v2 functionality will be explained. The software is written in Python using the OpenCV library. The code is tested with Python version 2.7.11 and OpenCV version 2.4.13. Code should work in Python 2.7.x and OpenCV 2.4.x.
+This section will explain how the software works in a technical way. Fall detector v1 and v2 works technically in the same way but v1 has less features included. That is why v2 functionality will be explained. The software is written in Python using the OpenCV library. The code is tested with Python version 2.7.11 and OpenCV version 2.4.13. Code should work in Python 2.7.x and OpenCV 2.4.x. The code is licensed under GPLv3.
 
 [settings.py](fall-detector-v2/settings.py) includes all the settings that can be modified in the system. Some of these settings can be changed on the fly but some are static when the program runs.
 
@@ -673,8 +673,11 @@ Installing the operating system to the SD card is simple and Raspberry Pi founda
 After the OS is runnign there are a few things that should be done. Localisation options can be set, if needed, with *raspi-config*. The following commands will set it to Finnish.
 
 > sudo raspi-config
+
 > 5 Internationalisation Options
+
 > I1 Change locale
+
 > fi_FI.UTF8
 
 Keyboard language can be set to Finnish, or any other language, with *setxbmap*.
@@ -684,7 +687,9 @@ Keyboard language can be set to Finnish, or any other language, with *setxbmap*.
 Now everything can be updated. This can be made by connecting the device to the internet, via wifi or ethernet. After the connection is established the package list should be updated and then every program should be upgraded and lastly downloaded packages should be cleaned up. This can be made with the following commands.
 
 > sudo apt-get udpdate
+
 > sudo apt-get dist-upgrade
+
 > sudo apt-get clean
 
 After this the latest firmaware should be updated. Raspbian has a tool called *rpi-update* pre-installed and this can be used for the purpose.
@@ -714,11 +719,13 @@ Fall detector repository is cloned from Github.
 After this the system can be tested with running main.py.
 
 > cd falldetector-public/fall-detector-v1/
+
 > python main.py
 
 Or for running version 2
 
 > cd falldetector-public/fall-detector-v2/
+
 > python main.py
 
 
