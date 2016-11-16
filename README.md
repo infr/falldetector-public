@@ -5,5 +5,9 @@ This is Kim Salmi's thesis for Haaga-Helia UAS. The thesis proposes an automatic
 - [thesis.md](thesis.md) - The thesis.
 - [support.md](support.md) - For brainstroming, link pasting etc.
 - [fall-detector-v1](fall-detector-v1) - Fall detector v1 source
+- [fall-detector-v2](fall-detector-v2) - Fall detector v2 source
 
-Project website: http://tunn.us/arduino/falldetector.php
+Project website:
+
+* http://tunn.us/arduino/falldetector.php
+* http://tunn.us/arduino/falldetector2.php

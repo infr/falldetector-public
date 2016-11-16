@@ -31,7 +31,6 @@ If you are reading this in paper format please consider reading it in your brows
 			* 3.3.1.3 Adaptive backgrounding
 			* 3.3.1.4 Modern methods
 			* 3.3.1.5 Challenges in backgrounding
-			* 3.3.1.6 ..
 		* 3.3.2 Action detection
 			* 3.3.2.1 Static approach
 			* 3.3.2.2 Dynamic approach
@@ -41,21 +40,21 @@ If you are reading this in paper format please consider reading it in your brows
 			* 3.3.2.6 Physiological monitoring
 		* 3.3.3 Evaluation of monitoring methods
 * 4 Constructive research
-	* 4.1 Execution
-	* 4.2 Testing
-	* 4.3 Outcome
+	* 4.1 Fall detector v1
+		* 4.1.1 Backgrounding method
+	* 4.2 Fall detector v2
+		* 4.2.1 Backgrounding method
+	* 4.3 Infrastructure
+	* 4.4 Software design
+	* 4.5 Future steps
 * 5 Discussion
-	* 5.1 Significance of the results
-	* 5.2 Conclusion / Summary
-	* 5.3 Further research suggestions
 * 6 References
-	* 6.1 Publications
-	* 6.2 Websites
-	* 6.3 Others
 * 7 Appendix
 	* 7.1 Timetable for the thesis
-	* 7.2 Interview
-	* 7.3 Project plan - Linux project (ICT4TN018 Haaga-Helia course)
+	* 7.2 Project plan - Linux project (ICT4TN018 Haaga-Helia course)
+	* 7.3 Fall detector installation
+	* 7.4 The code for fall detection v1
+	* 7.5 The code for fall detection v2
 
 - - -
 
@@ -236,7 +235,7 @@ Fig. 3 - Empty room
 Fig. 4 - Closet opened
 
 ![Closet threshold](img/closet_thresh.png)
-Fig. 5 - Closet threshold (in this example there is a Gaussian blur adapted to the image) **take new pictures without the blur**
+Fig. 5 - Closet threshold (in this example there is a Gaussian blur adapted to the image)
 
 Non-adaptive backgrounding has other challenges too, it needs re-initialization (updating of the entire background model) or otherwise changes in the background is detected as foreground. These problems make non-adaptive backgrounding only useful in highly-supervised tracking applications. (Stauffer & Grimson 1999) The re-initialization could be avoided by using the previous frame as the background model (Fig. 6), but this fails if the foreground object suddenly stops (Vacavant & Sobral 2014). This can be tested with Fig 6b.
 
@@ -503,6 +502,8 @@ The following steps would increase the system stability but are not essential be
 
 The idea of the project is to lower health care costs and provide safer home care for the aging generation. The presented system is just a raw prototype and should be further developed for commercial use. The methods presented in this paper were not systematically tested, these methods could be tested in further research. The features that are not yet implemented in the system but were presented earlier should be implemented. This paper did not include cost comparison of available systems, but a quick look at the market field suggest that this is a thing that should be researched. How much the solution could save is not yet relevant and was not be in the scope of the paper.
 
+This paper did not include a fall detection algorithms even if that was one of the main research questions. The reasons why this was not included was that the other methods turned out to be more robust. Fall detection is also better to use with the approximated ellipse.
+
 Special thanks to my supervisor [Tero Karvinen](http://terokarvinen.com), organizers of [Wellbeing Hackathon 2016](http://hyvinvointihack.fi/ratkaisut-solutions-2016/) (this solution won the hackathon), the people at [Ministry of Social Affairs and Health (Finland)](http://stm.fi) for their sparring, my brother [Max Salmi](http://salmi.pro/cv) and everyone else who has helped with this project!
 
 I really hope that this solution will some day save a life.
@@ -631,12 +632,6 @@ Roser M., 2016 – Life Expectancy. OurWorldInData.org. Data taken from the Huma
 	- Product testing
 	- Finishing the thesis
 * Thesis defense after week 38
-
-- - -
-
-## Interview
-
-*Iterviewing for information of the current market*
 
 - - -
 
