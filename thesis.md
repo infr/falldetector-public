@@ -1,8 +1,6 @@
 # Thesis - Improving safety for home care patients with a low cost computer vision solution
 
-This thesis proposes an automatic monitoring system for formal and informal home care patients and care centers.
-
-When elderly people fall it is particularly serious and often leads to injury or death. That is why automatic monitoring has an important role in home care and care centers. The proposed system will provide security and a feeling of safety by detecting when a resident has a problem. This feeling of safety can increase the persons ability to perform daily routines at home. After the detection the system will be able to alert professional personnel or family. The proposed system is affordable. This system uses computer vision to detect persons and their actions.
+The world has a problem: hospitals are filling up. That is why elderly people need to live longer at home. But they need to do so safely. This is problematic because they are afraid of falling. They need automatic monitoring to feel safe at home. This thesis proposes an automatic monitoring system for formal and informal home care patients and care centers. The proposed system will provide security and a feeling of safety by detecting when a resident suffers from a fall. This feeling of safety can increase the persons ability to perform daily routines at home. After the detection the system will be able to alert professional personnel or family. The proposed system is affordable. This system uses computer vision to detect persons and their actions. The patient does not need to remember to put the detector on, charge it or anything else, which is really convenient for the target group that suffers from dementia. This solution also does not need costly installations or costly hardware.
 
 If you are reading this in paper format please consider reading it in your browser where links work at: <https://github.com/infr/falldetector-public/>
 
@@ -13,6 +11,7 @@ If you are reading this in paper format please consider reading it in your brows
 * Supervisor: Tero Karvinen
 * Haaga-Helia University of Applied Sciences, Finland
 * Project website: <http://tunn.us/arduino/falldetector.php>
+* Keywords: opencv, computer vision, machine vision, fall detector, python, raspberry pi, home care
 
 - - -
 
@@ -477,6 +476,16 @@ Fig. 11 - Camera node
 
 This section will explain how the software works in a technical way. Fall detector v1 and v2 works technically in the same way but v1 has less features included. That is why v2 functionality will be explained. The software is written in Python using the OpenCV library. The code is tested with Python version 2.7.11 and OpenCV version 2.4.13. Code should work in Python 2.7.x and OpenCV 2.4.x. The code is licensed under GPLv3.
 
+[main.py](fall-detector-v2/main.py) - is the main loop. This main loop starts the software and keeps it running while calling different functions in the video class.
+
+[video.py](fall-detector-v2/video.py) - Video class - utilizes the video feed. It is able to capture frames from the feed, call different background subtraction features, take keyboard inputs for changing settings (these can be found in testSettings()), raise an alarm, downscale frames for rapider future use, show frames for debugging reasons and release the camera and cleanup if quitting.
+
+[bs.py](fall-detector-v2/bs.py) - Bs class - is handling the background subtraction and currently supports MOG2 and the dynamic approach presented in Fig. 7b.
+
+[person.py](fall-detector-v2/person.py) - Person and Persons class - is called by Video class. It includes two classes Person and Persons. Each time a frame is analyzed and a person is found it will try to analyze if the person has been in the previous frames and is it the same person as earlier. Other features are data of how much the person moved during last frames, has the person raised an alarm and has it been sent to the webservice, where was the person in the last frame and should the person be removed (exited the scene). Person class also contains the alarm counter which was presented earlier in Fig. 9.
+
+[webservice.py](fall-detector-v2/webservice.py) - Webservice class - is able to send alarms to a webservice via http-requests.
+
 [settings.py](fall-detector-v2/settings.py) - Settings class - includes all the settings that can be modified in the system. Some of these settings can be changed on the fly but some are static when the program runs. This file includes settings for the following things:
 * Debug - Debuggin on or off 
 * Source - Camera source
@@ -497,16 +506,6 @@ This section will explain how the software works in a technical way. Fall detect
 * movementTime - Alarm count threshold
 * location - Location of the camera node, will be sent with the alarm
 * phone - Phone number of the resident
-
-[main.py](fall-detector-v2/main.py) - is the main loop. This main loop starts the software and keeps it running while calling different functions in the video class.
-
-[video.py](fall-detector-v2/video.py) - Video class - utilizes the video feed. It is able to capture frames from the feed, call different background subtraction features, take keyboard inputs for changing settings (these can be found in testSettings()), raise an alarm, downscale frames for rapider future use, show frames for debugging reasons and release the camera and cleanup if quitting.
-
-[bs.py](fall-detector-v2/bs.py) - Bs class - is handling the background subtraction and currently supports MOG2 and the dynamic approach presented in Fig. 7b.
-
-[person.py](fall-detector-v2/person.py) - Person and Persons class - is called by Video class. It includes two classes Person and Persons. Each time a frame is analyzed and a person is found it will try to analyze if the person has been in the previous frames and is it the same person as earlier. Other features are data of how much the person moved during last frames, has the person raised an alarm and has it been sent to the webservice, where was the person in the last frame and should the person be removed (exited the scene). Person class also contains the alarm counter which was presented earlier in Fig. 9.
-
-[webservice.py](fall-detector-v2/webservice.py) - Webservice class - is able to send alarms to a webservice via http-requests.
 
 # Future steps
 
