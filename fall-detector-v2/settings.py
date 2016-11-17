@@ -9,7 +9,7 @@ class Settings(object):
 	
 	def __init__(self):
 		self.debug = 1 # boolean
-		self.source = 1 # camera source
+		self.source = 0 # camera source
 		self.bsMethod = 1 # listed in bs.py
 		self.MOG2learningRate = 0.001
 		self.MOG2shadow = 0

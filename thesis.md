@@ -1,6 +1,8 @@
 # Thesis - Improving safety for home care patients with a low cost computer vision solution
 
-This is Kim Salmi's thesis for Haaga-Helia UAS. The thesis proposes an automatic monitoring system for formal and informal home care patients and care centers. It will provide security and a feeling of safety by detecting when a resident fall. After the detection the system will be able to alert professional personnel or family. The system should be affordable and should not be significantly less accurate than other available options.
+This thesis proposes an automatic monitoring system for formal and informal home care patients and care centers.
+
+When elderly people fall it is particularly serious and often leads to injury or death. That is why automatic monitoring has an important role in home care and care centers. The proposed system will provide security and a feeling of safety by detecting when a resident has a problem. This feeling of safety can increase the persons ability to perform daily routines at home. After the detection the system will be able to alert professional personnel or family. The proposed system is affordable. This system uses computer vision to detect persons and their actions.
 
 If you are reading this in paper format please consider reading it in your browser where links work at: https://github.com/infr/falldetector-public/
 
@@ -66,8 +68,6 @@ ADL - Activities of daily living
 
 ADL/IADL - ADL and IADL combined, ability to function at home
 
-FD - automatic Fall Detecting and alerting system
-
 IADL - Instrumental activities of daily living
 
 VAAL - Video based solutions for Active and Assistive living
@@ -86,11 +86,11 @@ Year 2012 world population was 7.2 billion. In the year 2100 world population is
 
 ## About this thesis
 
-This thesis proposes an automatic monitoring system for formal and informal home care patients and care centers. It will provide security and a feeling of safety by detecting when a resident fall. After the detection the system will be able to alert professional personnel or family. The system should be affordable and should not be significantly less accurate than other available options. Further in this thesis the system will be called automatic Fall detector.
+This thesis proposes an automatic monitoring system for formal and informal home care patients and care centers. It will provide security and a feeling of safety by detecting when a resident fall. After the detection the system will be able to alert professional personnel or family. The system should be affordable and should not be significantly less accurate than other available options. Further in this thesis the system will be called automatic fall detector.
 
 There will be code examples written in Python using the OpenCV library. The code examples are tested with Python version 2.7.11 and OpenCV version 2.4.13. Code examples should work in Python 2.7.x and OpenCV 2.4.x. The examples can be found at [Github](https://github.com/infr/falldetector-public/tree/master/example%20code). The code examples can be tested with [example.py](example%20code/example.py). The code is licensed under GPLv3.
 
-This thesis consist of two parts. The first part will cover the theoretical frame. The theoretical frame will give necessary background information from the health care perspective for understanding the need for automatic monitoring in general. It will also cover the technical part for automatic video analysis. The main topics will be home care, European Unions active and assistive living programme, video analysis in general, motion detection, human detection, fall detection and alert systems.
+This thesis consist of two parts. The first part will cover the theoretical frame. The theoretical frame will give necessary background information from the health care perspective for understanding the need for automatic monitoring in general. It will also cover the technical part for automatic video analysis. The main topics will be home care, European Unions active and assistive living programme, automatic monitoring, video analysis in general, backgrounding and action detection.
 
 The goal of this project is to build a prototype that could be productized and commercialized. The code will be available publicly at Github. The second part will include the a summary of how the system was developed.
 
@@ -114,15 +114,15 @@ Research questions are:
 
 ## Home care
 
-Home care is one solution for easing the stress for the health care system. It is a supportive care provided to people with special needs at their home. Depending on the need, home care can be provided multiple times a day and in many countries it is available around the clock. (Sanerma 2009, 43) The concept has grown considerably. The practice is helping the society by minimizing hospital care by moving the action to the home of the patient. Home care can also be assumed to increase the patients quality of life and maintenance of independence. (Thome, Dykes, Hallberg 2003, 860; Sanerma 2009, 64-66)
+Home care is one solution for easing the stress for the health care system. It is a supportive care provided to people with special needs at their home. Depending on the need, home care can be provided multiple times a day and in many countries it is available around the clock. (Sanerma 2009) The concept has grown considerably. The practice is helping the society by minimizing hospital care by moving the action to the home of the patient. Home care can also be assumed to increase the patients quality of life and maintenance of independence. (Thome, Dykes & Hallberg 2003; Sanerma 2009)
 
-The home care term is used for **formal care**; *home care which is provided by professionals* and **informal care**; *home care which is provided by non-professionals*. Formal care can also be defined as home health care. Informal care can also be defined as domiciliary care, non-medical care or custodial care. Informal care is usually provided by family or friends. The definitions is dependent on the countries health care system and their common practices. (Sanerma 2009, 41-45) Further in this research the terms informal care and formal care will be used. The term home care will be used as a umbrella for both informal care and formal care.
+The home care term is used for **formal care**; *home care which is provided by professionals* and **informal care**; *home care which is provided by non-professionals*. Formal care can also be defined as home health care. Informal care can also be defined as domiciliary care, non-medical care or custodial care. Informal care is usually provided by family or friends. The definitions is dependent on the countries health care system and their common practices. (Sanerma 2009) Further in this research the terms informal care and formal care will be used. The term home care will be used as a umbrella for both informal care and formal care.
 
-Formal care can be divided in four different categories. *Practical* - Preparing food, cleaning and shopping. *Personal* - Personal hygiene and helping the patient get dressed. *Monitoring / supervision* - Monitoring patients suffering from dementia. *Care / Case management* - Coordinating the patients services. The needed formal care is determined by measuring *activities of daily living* (ADL) and *instrumental activities of daily living* (IADL). ADL contains eating, personal hygiene, putting on clothes and transferring (in the house). IADL contains preparing meals, housework, managing medications and managing finance. (Sanerma 2009, 43, 71) Patients usually rate their abilities to function at home (ADL/IADL) higher than the professional care takers would. Only the fear of falling is a bigger concern for patients than the professionals would rate it. (Morrow-Howell, Proctor & Rozario, 2001, 729-731)
+Formal care can be divided in four different categories. *Practical* - Preparing food, cleaning and shopping. *Personal* - Personal hygiene and helping the patient get dressed. *Monitoring / supervision* - Monitoring patients suffering from dementia. *Care / Case management* - Coordinating the patients services. The needed formal care is determined by measuring *activities of daily living* (ADL) and *instrumental activities of daily living* (IADL). ADL contains eating, personal hygiene, putting on clothes and transferring (in the house). IADL contains preparing meals, housework, managing medications and managing finance. (Sanerma 2009) Patients usually rate their abilities to function at home (ADL/IADL) higher than the professional care takers would. Only the fear of falling is a bigger concern for patients than the professionals would rate it. (Morrow-Howell, Proctor & Rozario, 2001)
 
-There are many technological solutions available for patients living at their home. Monitoring and security solutions can be utilized by family and professional care takers. There should always be the patients consent before bringing such equipment to their home. Patients privacy should be respected when they open their home to others. (Cardinaux, Bhowmik, Abhayaratne & Hawley 2011, 11-12; Sanerma 2009, 64-66; Stengård 2011, 18) Patients with memory disorders can have problems adapting to new things in their home. Foreign objects and strange environment usually cause anxiety. Therefore it is crucial to install such equipment there before the patients memory is starting to fail. (Kotilainen, Topo, Hurnasti 2009, 106-112; Stengård 2011, 17-18)
+There are many technological solutions available for patients living at their home. Monitoring and security solutions can be utilized by family and professional care takers. There should always be the patients consent before bringing such equipment to their home. Patients privacy should be respected when they open their home to others. (Cardinaux, Bhowmik, Abhayaratne & Hawley 2011; Sanerma 2009; Stengård 2011) Patients with memory disorders can have problems adapting to new things in their home. Foreign objects and strange environment usually cause anxiety. Therefore it is crucial to install such equipment there before the patients memory is starting to fail. (Kotilainen, Topo, Hurnasti 2009; Stengård 2011)
 
-Sanerma (2009, 64-75) and Stengård (2011, 38-42) agree that one of the big problems in home care with is that care takers do not have enough time for each patient. Automatic monitoring could free resources for the care takers.
+Sanerma (2009) and Stengård (2011) both agree that one of the big problems in home care with is that care takers do not have enough time for each patient. Automatic monitoring could free resources for the care takers.
 
 Kangasniemi and Andersson (2016) made a cautious estimation that 20% of the care takers work, in Finnish hospitals, could be automatically performed by currently available technology. They estimated that some monotonous tasks could be performed by robots or by automation and would give more time to spend on tasks that can only be performed by humans. They estimated that a this would not affect care takers employment because of the rising amount of elderly population. Implementation of the technologies needed would take 2-3 years.
 
@@ -134,7 +134,7 @@ European Union (EU) has noticed the growth of life expectancy and the problems i
 
 ## Automatic monitoring
 
-When elderly people fall it is particularly serious and often leads to injury or death. That is why automatic monitoring has an important role in home care and care centers. (Rubentein & Josephson 2002; Kroputaponchai & Suvonvorn 2013) The fear of falling leads to restricted ADL/IADL. The fear is justified, fall related injuries are among the five most causes of death for the elderly population. Even if the count of falls would be smaller than a child would have, falling is much more dangerous for older persons with e.g. slower protection reflexes. If falls would be detected the patient could be provided with in-time medical treatment. (Lin & Ling 2007; Rubentein & Josephson 2002) A long lie after the fall is a poor prognostic sign. (Rubenstein 2002). In-time medical treatment could minimize the damage and save lives. The presence of personnel brings an elderly patients the feeling of safety (Sanerma 2009, 71). Could the presence of an automatic fall detecting system also lower the fear and therefore increase ADL/IADL?
+When elderly people fall it is particularly serious and often leads to injury or death. That is why automatic monitoring has an important role in home care and care centers. (Rubentein & Josephson 2002; Kroputaponchai & Suvonvorn 2013) The fear of falling leads to restricted ADL/IADL. The fear is justified, fall related injuries are among the five most causes of death for the elderly population. Even if the count of falls would be smaller than a child would have, falling is much more dangerous for older persons with e.g. slower protection reflexes. If falls would be detected the patient could be provided with in-time medical treatment. (Lin & Ling 2007; Rubentein & Josephson 2002) A long lie after the fall is a poor prognostic sign. (Rubenstein 2002). In-time medical treatment could minimize the damage and save lives. The presence of personnel brings an elderly patients the feeling of safety (Sanerma 2009). Could the presence of an automatic fall detecting system also lower the fear and therefore increase ADL/IADL?
 
 One of the methods to automatically monitor persons and their activities is utilizing sensors. These can be *body-worn sensors* or *embedded sensors* installed to the environment. Embedded sensors generally need a large network of sensors. They could be placed on every door to detect when it does open or close. (Cardinaux et al. 2011) Or as Ropponen (2012) suggested sensors could be mounted in to the floor. These embedded systems are usually costly to maintain and the installation or relocation of them can be time-consuming. Embedded sensors are also highly sensitive to the performance of the sensor. Body-worn sensors could monitor falling, activity, vital signs, etc. and they do it quite effectively. In body-worn sensors user compliance is poor and they do not work if the patient forgets to wear them. Help buttons can be useful but are useless if the person is unconscious or is not able to move. Fall detection could also be made with floor vibration sensors, sound monitoring or video monitoring. Sound monitoring could detect when something hits the floor and also identify speech to identify a cry for help. These methods could also be combined to get the advantages of all systems. (Cardinaux et al. 2011; Lin & Ling 2007; Rougier et al. 2007)
 
@@ -445,7 +445,10 @@ The first version of the fall detector uses a simple adaptive backgrounding meth
 
 ## Fall detector v2
 
-The second version of the fall detector is an improvement to the first version.
+The second version of the fall detector is an improvement to the first version. Fig. 9 presents a debugging windows from the system. In the first image, on top left, is from a empty room with nothing detected. In the second image there is a person, who is detected. The second image shows a bounding box around the person. This bounding box has three different values. In the image value 14 is just for debugging purposes as it is the person id that keeps track of different persons if there are multiple of them in the scene. The second value 0 is the alarm counter that will start if the person is not moving over the threshold. The third value is the size of the bounding box. The size information is for debugging purposes. The minimum allowed size of bounding boxes can be set in the settings so that minimal objects wont count as persons in the scene. In the third image this person has suffered from a fall, this does not yet trigger the alarm but by lying on the floor not moving enough has started the alarm counter, which is currently 43. In the fourth picture the system has raised an alarm because the person has not moved enough to reset the counter for the alarm and the counter has reached 50, which was set as threshold in this test.
+
+![Demo](img/demo.png)
+Fig. 9 - Debugging view of fall detector v2
 
 ### Backgrounding method
 
@@ -453,17 +456,17 @@ OpenCv has it own library ready for an variation of Zivkovic (2004 & 2006) AGMM 
 
 ## Infrastructure
 
-In Fig. 9 the infrastructure of this system is presented. The components with a darker background are presented in this paper. The camera node detects a person having a problem, this process is later discussed in more detail. After the detection the camera node sends an alert, via internet, to a backend, via a RESTfull API. The camera node never transmits any video feed or photo to ensure the patients privacy.
+In Fig. 10 the infrastructure of this system is presented. The components with a darker background are presented in this paper. The camera node detects a person having a problem, this process is later discussed in more detail. After the detection the camera node sends an alert, via internet, to a backend, via a RESTfull API. The camera node never transmits any video feed or photo to ensure the patients privacy.
 
 When an alarm is raised to the backend it will inform the professional care taker or family about the problem. The professional care taker or the family can then try to call the patient and see if everything is clear. If no one answers the phone they should probably visit the facility where the patient lives.
 
 ![Infrastructure](img/infrastructure.png)
-Fig. 9 - Infrastructure
+Fig. 10 - Infrastructure
 
-In Fig. 10 the camera node is presented. The camera node consists of Raspberry Pi 3 Model B and a camera attached to it. A Raspberry Pi and a generic camera is currently costing around 50€ (Farnell element14 2016). This generic camera sends its video feed to the Raspberry Pi that is running fall detector v1 or v2 and analyzing the video to detect different types of problems. All the computation is made in the Raspberry Pi 3 Model B. Currently it detects if a person is not moving enough (over the threshold). When the detection is made it will send an alarm. 
+In Fig. 11 the camera node is presented. The camera node consists of Raspberry Pi 3 Model B and a camera attached to it. A Raspberry Pi and a generic camera is currently costing around 50€ (Farnell element14 2016). This generic camera sends its video feed to the Raspberry Pi that is running fall detector v1 or v2 and analyzing the video to detect different types of problems. All the computation is made in the Raspberry Pi 3 Model B. Currently it detects if a person is not moving enough (over the threshold). When the detection is made it will send an alarm. 
 
 ![Camera node](img/camera_node.png)
-Fig. 10 - Camera node
+Fig. 11 - Camera node
 
 ## Software design
 
@@ -477,7 +480,7 @@ This section will explain how the software works in a technical way. Fall detect
 
 [bs.py](fall-detector-v2/bs.py) is handling the background subtraction and currently supports MOG2 and the dynamic approach presented in Fig. 7b.
 
-[person.py](fall-detector-v2/person.py) is called by Video class. It includes two classes Person and Persons. Each time a frame is analyzed and a person is found it will try to analyze if the person has been in the previous frames and is it the same person as earlier. Other features are data of how much the person moved during last frames, has the person raised an alarm and has it been sent to the webservice, where was the person in the last frame and should the person be removed (exited the scene).
+[person.py](fall-detector-v2/person.py) is called by Video class. It includes two classes Person and Persons. Each time a frame is analyzed and a person is found it will try to analyze if the person has been in the previous frames and is it the same person as earlier. Other features are data of how much the person moved during last frames, has the person raised an alarm and has it been sent to the webservice, where was the person in the last frame and should the person be removed (exited the scene). Person class also contains the alarm counter which was presented earlier in Fig. 9.
 
 [webservice.py](fall-detector-v2/webservice.py) is able to send alarms to a webservice via http-requests.
 
