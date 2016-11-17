@@ -26,4 +26,4 @@ class Settings(object):
 		self.movementMinimum = 3 # minimum amount to move to not trigger alarm
 		self.movementTime = 50 # number of frames after the alarm is triggered
 		self.location = 'Viikintie 1'
-		self.phone = '0505247597'
+		self.phone = '01010101010'
