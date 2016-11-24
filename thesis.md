@@ -1,6 +1,6 @@
 # Thesis - Improving safety for home care patients with a low cost computer vision solution
 
-The world has a problem: hospitals are filling up. That is why elderly people need to live longer at home. But they need to do so safely. This is problematic because they are afraid of falling. They need automatic monitoring to feel safe at home. This thesis proposes an automatic monitoring system for formal and informal home care patients and care centers. The proposed system will provide security and a feeling of safety by detecting when a resident suffers from a fall. This feeling of safety can increase the persons ability to perform daily routines at home. After the detection the system will be able to alert professional personnel or family. The proposed system is affordable. This system uses computer vision to detect persons and their actions. The patient does not need to remember to put the detector on, charge it or anything else, which is really convenient for the target group that suffers from dementia. This solution also does not need costly installations or costly hardware.
+The world has a problem: hospitals are filling up. That is why elderly people need to live longer at home. But they need to do so safely. This is problematic because they are afraid of falling. They need automatic monitoring to feel safe at home. This thesis proposes an automatic monitoring system for formal and informal home care patients and care centers. The proposed system will provide security and a feeling of safety by detecting when a resident suffers from a fall. This feeling of safety can increase the persons ability to perform daily routines at home. After the detection the system will be able to alert professional personnel or family. The proposed system is affordable. This system uses computer vision to detect persons and their actions. The patient does not need to remember to put the detector on, charge it or anything else, which is convenient for the target group that suffers from dementia. This solution also does not need costly installations or costly hardware.
 
 If you are reading this in paper format please consider reading it in your browser where links work at: <https://github.com/infr/falldetector-public/>
 
@@ -22,7 +22,7 @@ If you are reading this in paper format please consider reading it in your brows
 	* 2.1 Background
 	* 2.2 About this thesis
 	* 2.3 Goals of the study
-* 3 Theoretical frame
+* 3 Conceptual framework
 	* 3.1 Home care
 	* 3.2 Active and Assistive living 
 	* 3.3 Automatic monitoring
@@ -40,7 +40,7 @@ If you are reading this in paper format please consider reading it in your brows
 			* 3.3.2.5 Behavior analysis
 			* 3.3.2.6 Physiological monitoring
 		* 3.3.3 Evaluation of monitoring methods
-* 4 Constructive research
+* 4 Prototype
 	* 4.1 Fall detector v1
 		* 4.1.1 Backgrounding method
 	* 4.2 Fall detector v2
@@ -92,7 +92,7 @@ Year 2012 world population was 7.2 billion. In the year 2100 world population is
 
 This thesis proposes an automatic monitoring system for formal and informal home care patients and care centers. It will provide security and a feeling of safety by detecting when a resident fall. After the detection the system will be able to alert professional personnel or family. The system should be affordable and should not be significantly less accurate than other available options. Further in this thesis the system will be called automatic fall detector.
 
-There will be code examples written in Python using the OpenCV library. The code examples are tested with Python version 2.7.11 and OpenCV version 2.4.13. Code examples should work in Python 2.7.x and OpenCV 2.4.x. The examples can be found at [Github](https://github.com/infr/falldetector-public/tree/master/example%20code). The code examples can be tested with [example.py](example%20code/example.py). The code is licensed under GPLv3.
+There will be code examples written in Python using the OpenCV library. The code examples are tested with Python version 2.7.11 and OpenCV version 2.4.13. Code examples should work in Python 2.7.x and OpenCV 2.4.x. The examples can be found at [Github infr/falldetector-public](https://github.com/infr/falldetector-public/tree/master/example%20code). The code examples can be tested with [example.py](example%20code/example.py). The code is licensed under GPLv3.
 
 This thesis consist of two parts. The first part will cover the theoretical frame. The theoretical frame will give necessary background information from the health care perspective for understanding the need for automatic monitoring in general. It will also cover the technical part for automatic video analysis. The main topics will be home care, European Unions active and assistive living programme, automatic monitoring, video analysis in general, backgrounding and action detection.
 
@@ -114,7 +114,7 @@ Research questions are:
 
 - - -
 
-# Theoretical frame
+# Conceptual framework
 
 ## Home care
 
@@ -433,11 +433,11 @@ The performance of different techniques can be evaluated on multiple levels. *Te
 
 Other evaluation targets could be the *outcome* evaluation that aims to determine the effect on users and others involved, *privacy protection* evaluation that aims to ensure the level of security and *user acceptability* evaluation that aims to determine how well users will approve the presented method. (Cardinaux et al. 2011)
 
-# Constructive research 
+# Prototype
 
 This thesis consist of two parts. This is the second part of the thesis. Two different software prototypes were developed, one that could be implemented as it is (v1) and the second prototype (v2) that will be able to monitor more features but needs further development so that it could function independently. After describing the key features of the two systems there will be an explanation of the infrastructure and how the software works.
 
-The source code is available at [Github](https://github.com/infr/falldetector-public). There are demo videos available at [tunn.us](http://tunn.us/arduino/falldetector2.php). In the appendix there are step-by-step instructions to install and test this solution on a Raspberry Pi.
+The source code is available at [Github infr/falldetector-public](https://github.com/infr/falldetector-public). There are demo videos available at [tunn.us](http://tunn.us/arduino/falldetector2.php). In the appendix there are step-by-step instructions to install and test this solution on a Raspberry Pi.
 
 ## Fall detector v1
 
