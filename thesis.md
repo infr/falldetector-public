@@ -530,6 +530,8 @@ The idea of the project is to lower health care costs and provide safer home car
 
 This paper did not include a fall detection algorithms even if that was one of the main research questions. The reasons why this was not included was that the other methods turned out to be more robust. Fall detection is also better to use with the approximated ellipse.
 
+This paper did show that it is possible to build an inexpensive prototype for detecting per- sons and their actions. This prototype was mainly built open-source software which made it cost-effective.
+
 Special thanks to my supervisor [Tero Karvinen](http://terokarvinen.com), organizers of [Wellbeing Hackathon 2016](http://hyvinvointihack.fi/ratkaisut-solutions-2016/) (this solution won the hackathon), the people at [Ministry of Social Affairs and Health (Finland)](http://stm.fi) for their sparring, my brother [Max Salmi](http://salmi.pro/cv) and everyone else who has helped with this project!
 
 I really hope that this solution will some day save a life.
