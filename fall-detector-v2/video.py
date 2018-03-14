@@ -134,7 +134,7 @@ class Video:
 		# difference between the current frame and backgroundFrame
 		self.thresh = self.bs.compareBackground(self.frame)
 		self.thresh = cv2.dilate(self.thresh, None, iterations=self.settings.dilationPixels) # dilate thresh
-		(contours, _) = cv2.findContours(self.thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) #find contours
+		_, contours, _ = cv2.findContours(self.thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) #find contours
 
 		self.persons.tick()
 
